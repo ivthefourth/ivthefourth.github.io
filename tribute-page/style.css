@@ -272,7 +272,7 @@ figcaption{
 
 footer{
 	background-color: #e62739;
-	color: #f2939c;
+	color: #fff;
 	padding: 0.5em 0.5em;
 
 }
@@ -287,11 +287,11 @@ footer li{
 }
 
 footer a{
-	color: #f2939c;
+	color: #fff;
 }
 
 footer a:hover, footer a:focus, footer a:active{
-	color: #fff;
+	color: #f2939c;
 	outline-color: #fff;
 }
 
