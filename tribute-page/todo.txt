@@ -1,0 +1,2 @@
+put online and check in ie win8 app and phone
+maybe change text-shadow to vw based proportional to text

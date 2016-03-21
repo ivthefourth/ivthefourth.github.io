@@ -1,3 +1,3 @@
-# ivthefourth.github.io
+# FreeCodeCamp
 
-this will be overwritten
+This repository contains my personal projects for freecodecamp.
