@@ -93,7 +93,15 @@ nav ul li{
 	list-style: none;
 }
 
-nav a{
+nav h2 a{
+	color: #fff;
+}
+
+nav h2 a:hover, nav h2 a:focus, nav h2 a:active{
+	color: #fff;
+}
+
+nav ul a{
 	position: relative;
 	top: 0;
 	left: 0;
@@ -105,13 +113,13 @@ nav a{
 	transition: all 0.45s ease;
 }
 
-nav a:hover, nav a:focus{
+nav ul a:hover, nav ul a:focus{
 	color: rgb(115, 58, 45);
 	text-decoration: none;
 	box-shadow: 0.1em 0.1em 0.1em rgb(115, 58, 45);
 }
 
-nav a:active{
+nav ul a:active{
 	color: rgb(115, 58, 45);
 	text-decoration: none;
 	top: 0.1em;
@@ -141,7 +149,7 @@ nav a:active{
 	nav ul{
 		display: flex;
 	}
-	nav a{
+	nav ul a{
 		border-top: 0px;
 	}
 	nav h2{
