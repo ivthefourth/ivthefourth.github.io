@@ -115,7 +115,7 @@ aside{
 	padding: 0 0.5em 0.5em 0.5em;
 }
 
-article h1, aside h2{
+article h2, aside h2{
 	display: inline-block;
 	padding-right: .5em;
 	border-right: .1em solid #e62739;
@@ -192,7 +192,7 @@ figcaption{
 }
 
 .learn-more{
-	background: url(tumblr_ny4e1h2B9k1s85u2fo1_1280_static.gif) no-repeat center center;
+	background: url(tumblr_ny4e1h2B9k1s85u2fo1_1280_static.png) no-repeat center center;
 	background-size: cover;
 	border-top: 0.5em solid #e62739;
 	clear: both;
