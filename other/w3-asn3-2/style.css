@@ -1,0 +1,263 @@
+@viewport{
+    width: device-width;
+}
+
+@-ms-viewport{
+    width: device-width;
+}
+
+html{
+	box-sizing: border-box;
+}
+
+*{
+	box-sizing: inherit;
+}
+
+body{
+	font-family: Gill Sans,Gill Sans MT,Calibri,sans-serif; 
+	color: rgb(30, 39, 32);
+	font-size: 100%;
+	margin: 0;
+	background-color: rgb(255, 247, 236);
+}
+
+
+@media all and (min-width: 37.5em){
+	body{
+		font-size: 110%;
+	}
+}
+
+@media all and (min-width: 50em){
+	body{
+		font-size: 120%;
+	}
+}
+
+@media all and (min-width: 65em){
+	body{
+		background-image: url(bkg.jpg);
+	}
+}
+
+#wrapper{
+	max-width: 65rem;
+	background-color: #fff;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+@media all and (min-width: 37.5em){
+	#wrapper{
+	display: flex;
+	flex-wrap: wrap;
+	}
+}
+
+a{
+	color: #E5551B;;
+	text-decoration: none;
+}
+
+a:hover, a:focus, a:active{
+	color: #0489B1;
+	outline: 0;
+	text-decoration: underline;
+}
+
+header{
+	padding: 1em;
+	background-color: rgb(30, 39, 32);
+	color: #fff;
+	flex: 0 0 100%;
+}
+
+nav{
+	color: #fff;
+	background-color:  #E5551B;
+}
+
+nav h2{
+	margin: 0;
+	padding: 1rem;
+}
+
+nav ul{
+	margin: 0;
+	padding: 0;
+}
+
+nav ul li{
+	padding: 0;
+	list-style: none;
+}
+
+nav h2 a{
+	color: #fff;
+}
+
+nav h2 a:hover, nav h2 a:focus, nav h2 a:active{
+	color: #fff;
+}
+
+nav ul a{
+	position: relative;
+	top: 0;
+	left: 0;
+	padding: 1em;
+	color: #fff;
+	display: inline-block;
+	width: 100%;
+	border-top: 1px dotted rgb(115, 58, 45);
+	transition: all 0.45s ease;
+}
+
+nav ul a:hover, nav ul a:focus{
+	color: rgb(115, 58, 45);
+	text-decoration: none;
+	box-shadow: 0.1em 0.1em 0.1em rgb(115, 58, 45);
+}
+
+nav ul a:active{
+	color: rgb(115, 58, 45);
+	text-decoration: none;
+	top: 0.1em;
+	left: 0.1em;
+	box-shadow: none;
+}
+
+@media all and (max-width: 37.5em){
+	nav{
+		height: 3.6em;
+		overflow: hidden;
+	}
+	nav:hover, nav:focus, nav:active{
+		height: auto;
+	}
+}
+
+@media all and (min-width: 37.5em){
+	nav{
+		width: 30%;
+		float: left;
+		flex: 0 0 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+	}
+	nav ul{
+		display: flex;
+	}
+	nav ul a{
+		border-top: 0px;
+	}
+	nav h2{
+		padding: 0 0 0 .6em;
+	}
+}
+
+@media all and (min-width: 50em){
+	nav{
+		width: 20%;
+	}
+}
+
+@media all and (min-width: 37.5em){
+	article{
+		width: 70%;
+		float: right;
+		flex: 0 0 100%;
+		display: flex;
+	}
+}
+
+@media all and (min-width: 50em){
+	article{
+		width: 60%;
+		float:left;
+	}
+}
+
+@media all and (min-width: 37.5em){
+	aside{
+		width: 70%;
+		float: right;
+		clear: right;
+		flex: 0 0 100%;
+		display: flex;
+		flex-direction: row-reverse;
+	}
+}
+
+@media all and (min-width: 50em){
+	aside{
+		width: 20%;
+	}
+}
+
+p{
+	margin: 1rem;
+	line-height: 1.4;
+}
+
+h1{
+	text-align: center;
+	padding: 0;
+	margin: 0;
+}
+
+h2{
+	margin: 1rem;
+}
+
+img, picture{
+	display: block;
+	margin: 0 auto;
+	width: 100%;
+	height: auto;
+}
+
+
+article .flex-item:nth-child(1){
+	flex:0 0 60%;
+}
+
+article .flex-item:nth-child(2){
+	flex:0 0 40%;
+	margin: 1em;
+	background-color: #0489B1;
+		display: flex;
+		align-items: center;
+}
+
+@media all and (min-width: 50em){
+	article .flex-item:nth-child(2){
+		width: 60%;
+		margin: 0 auto;
+	}
+}
+
+@media all and (min-width: 37.5em){
+	article .flex-item:nth-child(2){
+		margin: 0
+	}
+}
+
+aside .flex-item:nth-child(2){
+	flex:0 0 60%;
+	margin: 1em;
+	background-color: #0489B1;
+		display: flex;
+		align-items: center;
+}
+
+@media all and (min-width: 37.5em){
+	aside .flex-item:nth-child(2){
+		margin: 0
+	}
+}
+
+aside .flex-item:nth-child(1){
+	flex:0 0 40%;
+}

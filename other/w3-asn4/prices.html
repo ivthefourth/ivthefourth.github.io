@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Homepage</title>
+  <meta name="description" content=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+<div id="wrapper">
+  <header role="banner">
+    <h1>Canal View B&B</h1>
+  </header>
+  <nav role="navigation">
+    <h2><a href="#menu">Menu</a></h2>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="rooms.html">Rooms</a></li>
+      <li><a href="prices.html">Prices</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="http://en.turismovenezia.it/">Turismo Venezia</a></li>
+    </ul>
+  </nav>
+  <article role="main">
+    <div class="flex-item">
+    <h2>OUR PRICES</h2>
+    <table>
+      <tbody>
+      <tr class="top-header">
+        <td></td>
+        <th>Single</td>
+        <th>Double</td>
+        <th>Triple</td>
+      </tr>
+      <tr>
+        <th>Red Room</td>
+        <td class="void"></td>
+        <td data-title="Double">€ 120</td>
+        <td class="void"></td>
+      </tr>
+      <tr>
+        <th>White Room</td>
+        <td data-title="Single">€ 90</td>
+        <td class="void"></td>
+        <td class="void"></td>
+      </tr>
+      <tr>
+        <th>Golden Room</td>
+        <td class="void"></td>
+        <td data-title="Double">€ 120</td>
+        <td data-title="Triple">€ 150</td>
+      </tr>
+    </tbody>
+    </table>
+    </div>
+    <div class="flex-item">
+      <picture>
+        <source 
+          media="(min-width: 37.5em) and (max-width: 65em)"
+          srcset="
+            gondola-578.jpg 1x,
+            gondola-1155.jpg 2x,
+          ">
+        <source 
+          sizes="(min-width: 65em) 26em, (max-width: 37.5em) calc(100vw-2em)"
+          srcset="
+            boats-240.jpg 240w,
+            boats-480.jpg 480w,
+            boats-720.jpg 720w,
+            boats-960.jpg 960w,
+            boats-1200.jpg 1200w
+          ">
+        <img src="boats-480.jpg" alt="gondolas in the canal">   
+      </picture> 
+    </div>
+  </article>
+  <aside role="complementary"> 
+    <div class="flex-item">
+    <h2>Reviews</h2>
+    <p>We had a fantastic stay at Canal View B&B for our honeymoon. The staff was great, really helpful and the room was absolutely lovely. Lea Frost</p>
+    </div>
+    <div class="flex-item">
+      <img
+          sizes="(min-width: 65em) 39em, (min-width: 37.5em) 60vw, (max-width: 37.5em) calc(100vw-2em)"
+          srcset="
+          windows-with-drying-laundry-256.jpg 256w,
+          windows-with-drying-laundry-512.jpg 512w,
+          windows-with-drying-laundry-768.jpg 786w,
+          windows-with-drying-laundry-1024.jpg 1024w,
+          windows-with-drying-laundry-1536.jpg 1536w,
+          windows-with-drying-laundry-2048.jpg 2048w"
+          src="windows-with-drying-laundry-512.jpg" alt="colorful buildings in Venice"> 
+    </div>
+  </aside>
+</div>
+</body>
+</html>

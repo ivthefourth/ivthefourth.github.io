@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Contact</title>
+  <meta name="description" content=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+<div id="wrapper">
+  <header role="banner">
+    <h1>Canal View B&B</h1>
+  </header>
+  <nav role="navigation">
+    <h2>Menu</h2>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="rooms.html">Rooms</a></li>
+      <li><a href="prices.html">Prices</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="http://en.turismovenezia.it/">Turismo Venezia</a></li>
+    </ul>
+  </nav>
+  <article role="main">
+    <h2>Contact Us</h2>
+    <form action="confirmation.html" role="form">
+      <fieldset>
+        <legend>Contact Info</legend>
+        <ul>
+          <li>
+            <label for="name" id="name-lbl">Name:</label> 
+            <input type="text" name="name" id="name" aria-labelledby="name-lbl" placeholder="John Doe" />
+          </li>
+          <li>
+            <label for="email" id="email-lbl">Email:</label> 
+            <input type="email" name="email" id="email" aria-labelledby="email-lbl" required placeholder="J-Doe@example.com"></li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>Dates of Travel</legend>
+        <ul>
+          <li>
+            <label for="ar-date" id="ar-date-lbl">Arrival Date:</label>
+            <input name ="ar-date" id="ar-date" aria-labelledby="ar-date-lbl" type="date">
+          </li>
+          <li>
+            <label for="de-date" id="de-date-lbl">Departure Date:</label>
+            <input name="de-date" id="de-date" aria-labelledby="de-date-lbl" type="date">
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>Comments and Submit</legend>
+        <ul>
+          <li>
+            <label for="message" id="msg-lbl">Message:</label> 
+            <textarea name="message" id="message" aria-labelledby="msg-lbl" cols="25" rows="3"></textarea>
+          </li>
+          <li class="form-buttons">
+            <input name="Reset" type="reset" value="Cancel">
+            <input type="Submit" value="Proceed" >
+          </li>
+        </ul>
+      </fieldset>
+    </form>
+
+  </article>
+  <aside role="complementary"> <h2>Reviews</h2>
+    <p>
+      I just wanted to let you know what a wonderful time we had at your B and B. I have visited Venice many times, but yours is a wonderful place to stay, its my new favorite and I will be sure to recommend it to my fellow professors travelling in Venice.Venice may not have oysters, but your place is a pearl. Brad Clarke
+    </p>
+  </aside>
+</div>
+</body>
+</html>
