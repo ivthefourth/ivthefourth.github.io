@@ -1,0 +1,355 @@
+@viewport { width: device-width }
+@-ms-viewport { width: device-width }
+
+html { 
+	font-size: 100%;
+	box-sizing: border-box;
+}
+
+*{ box-sizing: inherit;}
+
+body{
+	margin: 0;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	color: #1E2720;
+}
+
+.test{
+	color: red;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Tahoma, Geneva, sans-serif;
+	font-weight: normal;
+	margin: 1.5rem 0 1rem 0;
+}
+
+a{
+	color: #009688;
+}
+
+a:hover, a:focus, a:active{
+	color: #00796B;
+	text-decoration: underline;
+	outline: 0;
+}
+
+a:focus{
+	background-color: #B2DFDB;	
+}
+
+::selection {
+  background: #B2DFDB;
+}
+::-moz-selection {
+  background: #B2DFDB;
+}
+
+/* Header and Top Nav*/
+
+header {
+	/*font-size: 90.90909%; for font size 110% on html element*/
+	background-color: #1E2720;
+	color: #fff;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+header a{
+	color: #fff;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+
+header a:hover, header a:focus, header a:active{
+	color: #fff;
+	text-decoration: none;
+	outline: none;
+}
+
+.logo {
+	float: left;
+	display: inline-block;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 4em;
+	height: 4em;
+	background: url("images/global/logo-icon.svg") no-repeat center center;
+	background-size: auto 3em;
+	transition: background-color 0.45s ease;
+}
+
+.logo:hover, .logo:active, .logo:focus, .menu-icon:hover, 
+.menu-icon:active, .menu-icon:focus{
+	background-color: #009688;
+	outline: 0;
+	cursor: pointer;
+}
+
+@media all and (min-width: 54em){
+	.logo{
+		background: url("images/global/logo.svg") no-repeat center center;
+		background-size: auto 2em;		
+		width: 11em;
+	}
+}
+
+.menu-icon{
+	float: left;
+	display: inline-block;
+	padding: 0.825em 0;
+	width: 4em;
+	height: 4em;
+	background-color: #1E2720;
+	border: none;
+	font-size: 100%;
+	transition: background-color 0.45s ease;
+}
+
+.menu-icon span{
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	display: block;
+	background-color: #fff;
+	width: 2em;
+	height: 0.25em;
+	margin: 0.4em 1em;
+	border-radius: 0.125em;
+}
+
+@media all and (min-width: 54em){
+	.menu-icon{
+		display: none;
+	}
+}
+
+header nav{
+	float: right;
+}
+
+header ul{
+	float: left;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+header li{
+	display: inline-block;
+}
+
+header li a {
+	padding: 1.4em 1em;
+	margin: 0;
+	display: inline-block;
+	height: 4em;
+	transition: background-color 0.45s ease;
+}
+
+header li a:hover, header li a:focus, header li a:active{
+	background-color: #009688;
+	outline: 0;	
+}
+
+@media all and (max-width: 54em){
+	.nav-hide-small{
+		display: none;
+	}
+}
+
+/* Site Content */
+
+.main{
+	padding-top: 4em;
+	font-size: 90%;
+}
+
+@media all and (min-width: 35em){
+	.main { font-size: 100%; }
+}
+
+@media all and (min-width: 45em){
+	.main p, .main ul, .main ol, .main dl { font-size: 105%; }
+}
+
+@media all and (min-width: 54em){
+	.main{ font-size: 105%; }
+}
+
+.main > article{
+	margin: 1rem;
+	max-width: 50rem;
+}
+
+@media all and (min-width: 35em){
+	.main > article { margin: 1rem 2rem 2rem 2rem; }
+}
+
+@media all and (min-width: 54em){
+	.main article{
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+article h1{ font-size: 175%; border-bottom: 0.1em solid #009688;}
+
+@media all and (min-width: 45em){
+	article h1{ font-size: 200%;}
+}
+
+article h2{ font-size: 166%; }
+
+article h3{ font-size: 133%; }
+
+article h4{ font-size: 120%; }
+
+
+/* footer and bottom nav */
+
+footer {
+	background-color: #00796B;
+	color: #B2DFDB;
+	overflow: hidden;
+}
+
+footer a {
+	color: #fff;
+	font-family: Tahoma, Geneva, sans-serif;
+	text-decoration: none;
+}
+
+footer a:hover, footer a:active, footer a:focus{
+	color: #fff;
+	outline: 0;
+	text-decoration: underline;
+} 
+
+footer a:focus{ background-color: #00796B; }
+
+footer section{
+	border-bottom: .1em dashed #009688;
+	margin: 0 1em;
+}
+
+footer section:last-child{
+	border-bottom: none;
+}
+
+@media all and (min-width: 35em){
+	footer nav{
+		margin: 0 2rem;
+	}
+}
+
+@media all and (min-width: 54em){
+	footer section{
+		margin: 0;
+	}
+}
+
+footer ul{
+	list-style: none;
+	padding: 0;
+}
+
+
+@media all and (min-width: 54em){
+	footer nav{
+		max-width: 50rem;
+		margin: 0 auto;
+	}
+}
+
+@media all and (min-width: 35em){
+	footer section{
+		display: inline-block;
+		width: 50%;
+		float: left;
+		margin: 0;
+		border-bottom: none;
+	}	
+}
+
+@media all and (min-width: 54em){
+	footer section{
+		display: inline-block;
+		width: 25%;
+		float: left;
+		margin: 0;
+		border-bottom: none;
+	}	
+}
+
+.copyright{
+	font-size: .85rem;
+	clear: both;
+	background-color: #1E2720;
+	color: #fff;
+	padding: 0.5em 1em 0.5em 1em;
+}
+
+.copyright p{
+	max-width: 50rem;
+	margin: 0.5em auto;
+	text-align: center;
+}
+
+/* cholor schemes
+
+http://www.materialpalette.com/teal/blue
+
+TEXT:
+#1E2720;
+
+*/
+
+/* FontAwesome */
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('fonts/fontawesome-webfont.eot?v=4.6.1');
+  src: url('fonts/fontawesome-webfont.eot?#iefix&v=4.6.1') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.6.1') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.6.1') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.6.1') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.6.1#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.social-link {
+  padding-left: 1.3em;
+  color: #fff;
+}
+
+.youtube:before {
+  content: "\f16a"; 
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: -1.3em; 
+  width: 1.3em; 
+}
+.twitter:before {
+  content: "\f099"; 
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: -1.3em; 
+  width: 1.3em; 
+}
+
+.soundcloud:before {
+  content: "\f1be"; 
+  font-family: FontAwesome;
+  font-size: .9em;
+  display: inline-block;
+  margin-left: -1.5em; 
+  width: 1.5em; 
+}
+
+.facebook:before {
+  content: "\f09a"; 
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: -1.2em; 
+  width: 1.2em; 
+}
