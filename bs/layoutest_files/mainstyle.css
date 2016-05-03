@@ -76,7 +76,7 @@ header a:hover, header a:focus, header a:active{
 	overflow: hidden;
 	width: 4em;
 	height: 4em;
-	background: url("../images/global/logo-icon.svg") no-repeat center center;
+	background: url("images/global/logo-icon.svg") no-repeat center center;
 	background-size: auto 3em;
 	transition: background-color 0.45s ease;
 	font-size: 75%;
@@ -97,7 +97,7 @@ header a:hover, header a:focus, header a:active{
 
 @media all and (min-width: 54em){
 	.logo{
-		background: url("../images/global/logo.svg") no-repeat center center;
+		background: url("images/global/logo.svg") no-repeat center center;
 		background-size: auto 2em;		
 		width: 11em;
 	}
