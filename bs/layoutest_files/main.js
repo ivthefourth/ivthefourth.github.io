@@ -11,7 +11,7 @@ function lockScroll(){
 
 	$('body').data('scroll-position', scrollPosition);
 	$('body').data('previous-overflow', $('body').css('overflow'));
-	$('body').css('width', $('body').css('width')).css('height', $('#big-drop-nav').css('width')).css('overflow', 'hidden');
+	$('body').css('width', $('body').css('width')).css('height', $('#big-drop-nav').css('height')).css('overflow', 'hidden');
 	window.scrollTo(scrollPosition[0], scrollPosition[1]);
 }
 
