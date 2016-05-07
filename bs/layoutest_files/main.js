@@ -62,7 +62,9 @@ function smallNav(thisVar){
 //document ready
 //****
 $(document).ready(function(){
-	$('#big-drop-nav').stopPropagation();
+	$('#big-drop-nav').bind('scroll click', function(e){
+		e.stopPropagation();
+	}
 
 	//******
 	//header navigation
