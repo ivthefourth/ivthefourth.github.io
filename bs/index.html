@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0022)http://127.0.0.1:8000/ -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <title></title>
@@ -14,23 +13,23 @@
 
 <body>
 	<header role="banner">
-			<a class="logo" href="http://127.0.0.1:8000/">Beat School</a>
+			<a id="logo" href="/">Beat School</a>
 		<nav role="navigation">
 			<ul>
-				<li><a id="guides-top" class="nav-hide-small" tabindex="0">Guides</a></li>
-				<li><a id="resources-top" class="nav-hide-small" tabindex="0">Resources</a></li>
-				<li><a id="about-top" class="nav-hide-small" tabindex="0">About</a></li>
+				<li><a href="#footer" id="guides" class="nav-hide-small dropdown" tabindex="0" style="background-color: rgb(30, 39, 32);">Guides</a><ul class=""></ul></li>
+				<li><a href="#footer" id="resources" class="nav-hide-small dropdown" tabindex="0" style="background-color: rgb(30, 39, 32);">Resources</a><ul class=""></ul></li>
+				<li><a href="#footer" id="about" class="nav-hide-small dropdown" tabindex="0" style="background-color: rgb(30, 39, 32);">About</a><ul class=""></ul></li>
 				
 				<li><a class="nav-hide-small" tabindex="0">Sign up</a></li>
 				<li><a tabindex="0">Log in</a></li>
 				
 			</ul>
-			<div id="small-nav-icon" class="menu-icon" tabindex="0"><span></span><span>Menu</span><span></span></div>
+			<a href="#footer" id="menu-icon" tabindex="0"><span></span><span>Menu</span><span></span></a>
 		</nav>
 	</header>
-	<div class="big-drop-nav hide-nav" role="navigation"></div>
+	<div id="big-drop-nav" role="navigation" aria-hidden="true"></div>
 
-	<div role="main" class="main">
+	<div role="main" id="main">
 		
 <article>
 <h1>Hardstyle Kick Tutorial: Selecting Your Source Sound</h1>
@@ -64,9 +63,9 @@
 
 	</div>
 
-	<footer role="contentinfo">
+	<footer id="footer" role="contentinfo">
 		<nav id="foot-nav" role="navigation" aria-label="main navigation">
-			<section id="beginners-nav">
+			<section class="foot-guides">
 				<h3>Beginner's Guides</h3>
 				<ul>
 					<li><a href="http://127.0.0.1:8000/beginners">Music Production</a></li>
@@ -76,7 +75,7 @@
 					<li><a href="http://127.0.0.1:8000/mastering">Mastering</a></li>
 				</ul>
 			</section>
-			<section id="resources-nav">
+			<section class="foot-resources">
 				<h3>Resources</h3>
 				<ul>
 					<li><a href="http://127.0.0.1:8000/download">Downloads</a></li>
@@ -86,19 +85,19 @@
 					<li><a href="http://127.0.0.1:8000/resources">See All</a></li>
 				</ul>
 			</section>
-			<section id="beatschool-nav">
+			<section class="foot-about">
 				<h3>Beat School</h3>
 				<ul>
 					<li><a href="http://127.0.0.1:8000/about">About</a></li>
 					<li><a href="http://127.0.0.1:8000/search">Search</a></li>
 					<li><a href="http://127.0.0.1:8000/contact">Contact</a></li>
 					
-					<li>Sign up</li>
+					<li><a>Sign up</a></li>
 					
 					<li><a href="http://127.0.0.1:8000/">Privacy</a></li>
 				</ul>
 			</section>
-			<section>
+			<section class="foot-follow">
 				<h3>Follow Us</h3>
 				<ul>
 					<li><a class="social-link youtube" href="https://www.youtube.com/user/IVTheFourth" target="_blank">YouTube</a></li>
