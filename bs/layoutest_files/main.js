@@ -4,22 +4,14 @@
 
 // lock scroll position, but retain settings for later
 function lockScroll(){
-	var scrollPosition = [
-  		self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
-  		self.pageYOffset || document.documentElement.scrollTop  || document.body.scrollTop
-	];
 
-	$('body').data('scroll-position', scrollPosition);
 	$('body').data('previous-overflow', $('body').css('overflow'));
 	$('body').css('width', $('body').css('width')).css('height', $('#big-drop-nav').css('height')).css('overflow', 'hidden');
-	window.scrollTo(scrollPosition[0], scrollPosition[1]);
 }
 
 //unlock scroll
 function unlockScroll(){
-	var scrollPosition = $('body').data('scroll-position');
 	$('body').css('overflow', $('body').data('previous-overflow')).css('height', 'auto').css('width', 'auto').css('height', 'auto');
-	window.scrollTo(scrollPosition[0], scrollPosition[1])
 }
 
 
