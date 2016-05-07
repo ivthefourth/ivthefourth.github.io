@@ -6,12 +6,12 @@
 function lockScroll(){
 
 	$('body').data('previous-overflow', $('body').css('overflow'));
-	$('body').css('width', $('body').css('width')).addClass('no-scroll').css('overflow', 'hidden');
+	$('body').addClass('no-scroll').css('overflow', 'hidden');
 }
 
 //unlock scroll
 function unlockScroll(){
-	$('body').css('overflow', $('body').data('previous-overflow')).removeClass('no-scroll').css('width', 'auto').css('height', 'auto');
+	$('body').css('overflow', $('body').data('previous-overflow')).removeClass('no-scroll');
 }
 
 
