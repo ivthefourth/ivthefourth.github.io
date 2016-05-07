@@ -11,14 +11,14 @@ function lockScroll(){
 
 	$('body').data('scroll-position', scrollPosition);
 	$('body').data('previous-overflow', $('body').css('overflow'));
-	$('body').css('width', $('body').css('width')).css('overflow', 'hidden');
+	$('body').css('width', $('body').css('width')).css('height', '100vw').css('overflow', 'hidden');
 	window.scrollTo(scrollPosition[0], scrollPosition[1]);
 }
 
 //unlock scroll
 function unlockScroll(){
 	var scrollPosition = $('body').data('scroll-position');
-	$('body').css('overflow', $('body').data('previous-overflow')).css('width', 'auto').css('height', 'auto');
+	$('body').css('overflow', $('body').data('previous-overflow')).css('height', 'auto').css('width', 'auto').css('height', 'auto');
 	window.scrollTo(scrollPosition[0], scrollPosition[1])
 }
 
