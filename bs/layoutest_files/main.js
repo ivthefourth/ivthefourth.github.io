@@ -131,13 +131,18 @@ $(document).ready(function(){
 
 	//window resize closes open navs (big and small)
 	var width = $(window).width();
+	console.log(width);
 	$(window).resize( function(){
 		if(navToggle &&  !($(window).width()==width))
 			navToggle = bigNav(navToggle);
+			width = $(window).width();
 		else if(smallNavToggle){
 			closeSmallNav();
 			smallNavToggle = false;
+			width = $(window).width();
 		}
+		else
+		width = $(window).width();
 	});	
 
 	//click off closes small nav
