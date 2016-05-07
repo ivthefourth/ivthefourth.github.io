@@ -6,12 +6,12 @@
 function lockScroll(){
 
 	$('body').data('previous-overflow', $('body').css('overflow'));
-	$('body').css('width', $('body').css('width')).css('height', $('#big-drop-nav').css('height')).css('overflow', 'hidden');
+	$('body').css('width', $('body').css('width')).css('overflow', 'hidden');
 }
 
 //unlock scroll
 function unlockScroll(){
-	$('body').css('overflow', $('body').data('previous-overflow')).css('height', 'auto').css('width', 'auto').css('height', 'auto');
+	$('body').css('overflow', $('body').data('previous-overflow')).css('width', 'auto').css('height', 'auto');
 }
 
 
