@@ -64,7 +64,7 @@ function smallNav(thisVar){
 $(document).ready(function(){
 	$('#big-drop-nav').bind('scroll click', function(e){
 		e.stopPropagation();
-	}
+	)};
 
 	//******
 	//header navigation
