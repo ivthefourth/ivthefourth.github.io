@@ -56,7 +56,7 @@ a:focus{
 header {
 	background-color: #1E2720;
 	color: #fff;
-	position: fixed;
+	position: absolute;
 	top: 0;
 	width: 100%;
 	z-index: 1;
@@ -221,7 +221,7 @@ header ul ul li a{
 /*big drop down nav */
 #big-drop-nav{
 	border-right: 0.5em solid #00796B;
-	position: fixed;
+	position: absolute;
 	width: 100%;
 	right: 0;
 	padding-top: 3em;
