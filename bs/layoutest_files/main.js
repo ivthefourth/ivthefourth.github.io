@@ -133,16 +133,17 @@ $(document).ready(function(){
 	var width = $(window).width();
 	console.log(width);
 	$(window).resize( function(){
-		if(navToggle &&  !($(window).width()==width))
+		if(navToggle &&  !($(window).width()==width)){
 			navToggle = bigNav(navToggle);
-			width = $(window).width();
+			width = $(window).width();}
 		else if(smallNavToggle){
 			closeSmallNav();
 			smallNavToggle = false;
 			width = $(window).width();
 		}
-		else
+		else{
 		width = $(window).width();
+		}
 	});	
 
 	//click off closes small nav
