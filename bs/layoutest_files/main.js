@@ -2,49 +2,34 @@
 //header nav functions
 //****
 
-// lock scroll position, but retain settings for later
-function lockScroll(){
-
-	$('body').data('previous-overflow', $('body').css('overflow'));
-	$('body').addClass('no-scroll').css('overflow', 'hidden');
-}
-
-//unlock scroll
-function unlockScroll(){
-	$('body').css('overflow', $('body').data('previous-overflow')).removeClass('no-scroll');
-}
-
-
 //big nav toggle
 function bigNav(toggle){
 	if (toggle === false){
 		$('#menu-icon').css('background-color', '#009688');
 		$('#big-drop-nav').html($('#foot-nav').html()).addClass('bg-nav-extend').attr("aria-hidden","false");
-		lockScroll();
 		toggle = true;
 	}
 	else{
 		$('#menu-icon').css('background-color', '#1E2720');
 		$('#big-drop-nav').removeClass('bg-nav-extend').html('').attr("aria-hidden","true");
-		unlockScroll();
-		toggle = false;// un-lock scroll position
+		toggle = false;
 	};
 	return toggle;
 };
 
 //small nav toggle
 function closeSmallNav(){
-			$('.dropdown.show-nav').css('background-color', '#1E2720').removeClass('show-nav').siblings().removeClass('show-sm-nav').html('')
+			$('.dropdown.show-nav').css('background-color', '#1E2720').removeClass('show-nav').siblings().removeClass('show-sm-nav').html('').attr("aria-hidden","true");
 }
 
 function smallNav(thisVar){
 	if(thisVar.hasClass('show-nav')){
-		thisVar.css('background-color', '#1E2720').removeClass('show-nav').siblings().removeClass('show-sm-nav').html('');
+		thisVar.css('background-color', '#1E2720').removeClass('show-nav').siblings().removeClass('show-sm-nav').html('').attr("aria-hidden","true");
 		return false;
 	}
 	else{
 		closeSmallNav();
-		thisVar.css('background-color', '#009688').addClass('show-nav').siblings().html($('.foot-' + thisVar.attr('id') + ' ul').html()).addClass('show-sm-nav');
+		thisVar.css('background-color', '#009688').addClass('show-nav').siblings().html($('.foot-' + thisVar.attr('id') + ' ul').html()).addClass('show-sm-nav').attr("aria-hidden","false");
 		return true;
 	}
 }
@@ -54,9 +39,6 @@ function smallNav(thisVar){
 //document ready
 //****
 $(document).ready(function(){
-	$('#big-drop-nav').bind('scroll click', function(e){
-		e.stopPropagation();
-	});
 
 	//******
 	//header navigation
@@ -125,19 +107,12 @@ $(document).ready(function(){
 	});
 
 	//window resize closes open navs (big and small)
-	var width = $(window).width();
-	console.log(width);
 	$(window).resize( function(){
-		if(navToggle &&  !($(window).width()==width)){
+		if(navToggle && ($(window).width() > 845))
 			navToggle = bigNav(navToggle);
-			width = $(window).width();}
-		else if(smallNavToggle){
+		else if(smallNavToggle && ($(window).width() < 880)){
 			closeSmallNav();
 			smallNavToggle = false;
-			width = $(window).width();
-		}
-		else{
-		width = $(window).width();
 		}
 	});	
 
@@ -147,8 +122,6 @@ $(document).ready(function(){
 			closeSmallNav();
 			smallNavToggle = false;
 		}
-	})
+	});
 
 });
-
-//on mobile zoom, make nav position absolute
