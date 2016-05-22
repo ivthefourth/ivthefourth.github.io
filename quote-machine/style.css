@@ -29,6 +29,9 @@ body{
 header{
 	width: 100vw;
 	text-align: center;
+	position: fixed;
+	top: 0;
+	font-size: 5vw;
 }
 
 .button-text{
