@@ -1,3 +1,4 @@
+/*AIzaSyA6S05idU4SdBSFc3F3lWfkwsGX7kfSa0c*/
 @viewport { width: device-width }
 @-ms-viewport { width: device-width }
 
@@ -14,17 +15,13 @@ body{
 	margin: 0;
 }
 
-/*#wrapper{
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	right: 0;
-	left: 0;
+#wrapper{
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-}*/
+	min-height: 100vh;
+}
 
 header{
 	width: 100%;
