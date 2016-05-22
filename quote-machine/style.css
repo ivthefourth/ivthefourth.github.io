@@ -24,9 +24,7 @@ body{
 	justify-content: space-between;
 	align-items: center;
 }
-article{
-	overflow: auto;
-}
+
 header{
 	width: 100%;
 	text-align: center;
