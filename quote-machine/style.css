@@ -27,11 +27,8 @@ body{
 }*/
 
 header{
-	width: 100vw;
+	width: 100%;
 	text-align: center;
-	position: fixed;
-	top: 0;
-	font-size: 5vw;
 }
 
 .button-text{
