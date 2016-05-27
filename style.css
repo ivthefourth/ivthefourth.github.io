@@ -17,7 +17,7 @@ body{
 	margin: 0;
 }
 
-#mobile-menu{
+/*#mobile-menu{
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -32,7 +32,7 @@ body{
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-#mobile-menu span{
+/*#mobile-menu span{
 	text-indent: 100%;
 	white-space: nowrap;
 	overflow: hidden;
@@ -42,6 +42,30 @@ body{
 	margin: 2vw auto;
 	height: 0.5vw;
 	border-radius: 0.25vw;
+}*/
+#mobile-menu{
+	position: fixed;
+	top: 0;
+	right: 0;
+	margin: 0.5rem;
+	padding: 5px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 0;
+	border: 2px solid rgba(255, 255, 255, 0.9);
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+#mobile-menu span{
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	display: block;
+	background-color: rgba(255, 255, 255, 0.9);
+	width: 26px;
+	margin: 10px;
+	height: 2px;
+	border-radius: 1px;
 }
 
 #paralax{
