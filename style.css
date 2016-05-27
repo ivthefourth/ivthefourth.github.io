@@ -62,8 +62,8 @@ body{
 	overflow: hidden;
 	display: block;
 	background-color: rgba(255, 255, 255, 0.9);
-	width: 26px;
-	margin: 10px;
+	width: 22px;
+	margin: 8px;
 	height: 2px;
 	border-radius: 1px;
 }
