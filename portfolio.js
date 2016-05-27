@@ -1,5 +1,4 @@
-$(window).scroll(function(){
-
+function parallax(){
 	var scrollPos = $(this).scrollTop();
 	//console.log(scrollPos);
 	$('#parallax-front').css({
@@ -11,5 +10,15 @@ $(window).scroll(function(){
 	$('#parallax-back-mid').css({
 		'transform' : 'translate(0px, '+ -scrollPos/4.5 +'px)'
 	});
+	$('#parallax').css({
+		'transform' : 'translate(0px, '+ -scrollPos/10 +'px)'
+	});
+}
 
+$(document).ready(function(){
+	parallax();
+});
+
+$(window).scroll(function(){
+	parallax();
 });
