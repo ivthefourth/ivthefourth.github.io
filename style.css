@@ -68,7 +68,7 @@ body{
 }
 
 #parallax{
-	background: url(6959521-mountains-scenery.jpg) center center;
+	background: url(back.png) center center;
 	background-size: cover;
 	position: fixed;
 	height: 100vh;
