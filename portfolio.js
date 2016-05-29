@@ -49,6 +49,14 @@ $(document).ready(function(){
 
 });
 
+
+
+
+$(window).load(function() {
+	$("#overlay").fadeOut("slow");
+});
+
+
 /*$(window).scroll(function(){
 	parallax();
 });*/

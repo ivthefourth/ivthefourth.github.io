@@ -71,6 +71,18 @@ body{
 	border-radius: 1px;
 }
 
+#overlay{
+	color: #fff;
+	text-align: center;
+	padding-top: 40vh;
+	font-size: 300%;
+	position: fixed;
+	z-index: 3;
+	width: 100vw;
+	height: 100vh;
+	background-color: #729f98;
+}
+
 #scene{
 	position: fixed;
 	top: -2.5vh;
