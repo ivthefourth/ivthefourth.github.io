@@ -21,10 +21,6 @@
 
 $(document).ready(function(){
 	//parallax();
-	
-	$('#scene').load(function() {
-		$("#overlay").fadeOut("slow");
-	});
 
 	$('#pa-one').hover(function(){
 		$('#pp-one').toggleClass('pp-show');
@@ -50,11 +46,15 @@ $(document).ready(function(){
 	var parallax = new Parallax(scene);
 
 
+
 });
 
 
 
 
+$(window).load(function() {
+	$("#overlay").fadeOut("slow");
+});
 
 
 /*$(window).scroll(function(){
