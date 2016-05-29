@@ -52,7 +52,7 @@ $(document).ready(function(){
 
 
 
-$(window).load(function() {
+$('#scene').load(function() {
 	$("#overlay").fadeOut("slow");
 });
 
