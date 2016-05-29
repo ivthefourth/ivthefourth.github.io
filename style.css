@@ -16,6 +16,9 @@ html{
 
 body{
 	margin: 0;
+	background: #729f98;
+	color: #261c17;
+	overflow: hidden;
 }
 
 /*#mobile-menu{
@@ -53,6 +56,8 @@ body{
 	border-radius: 50%;
 	border: 2px solid rgba(255, 255, 255, 0.9);
 	background-color: rgba(0, 0, 0, 0.5);
+
+	display: none;
 }
 
 #mobile-menu span{
@@ -67,59 +72,71 @@ body{
 	border-radius: 1px;
 }
 
-#parallax{
-	background: url(back.png) center center;
-	background-size: cover;
+#scene{
 	position: fixed;
-	height: 100vh;
-	width: 100vw;
-	/*background-color: red;*/
-	z-index: -4;
+	top: -2.5vh;
+	left: -3vw;
 }
-#parallax-back-mid{
-	background: url(back-mid.png) center center;
+.parallax{
 	background-size: cover;
-	position: fixed;
-	height: 100vh;
-	width: 100vw;
-	/*background-color: red;*/
-	z-index: -3;
-}
-#parallax-front-mid{
-	background: url(front-mid.png) center center;
-	background-size: cover;
-	position: fixed;
-	height: 100vh;
-	width: 100vw;
-	/*background-color: red;*/
-	z-index: -2;
-}
-#parallax-front{
-	background: url(front.png) center center;
-	background-size: cover;
-	position: fixed;
-	height: 100vh;
-	width: 100vw;
-	/*background-color: red;*/
-	z-index: -1;
+	background-position: top left;
+	background-repeat: no-repeat;
+	height: 105vh;
+	width: 106vw;
+
 }
 
+#parallax{
+	background-image: url(back.png);
+	z-index: -5;
+}
+#parallax-back-mid{
+	background-image: url(back-mid.png);
+	z-index: -4;
+}
+#parallax-front-mid{
+	background-image: url(front-mid.png);
+	z-index: -3;
+}
+#parallax-front{
+	background-image: url(front.png);
+	z-index: -2;
+}
+
+#shade{
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	z-index: -1;
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+
 #home{
+	position: relative;
+	z-index: 1;
+	color: #fff;
 	overflow: hidden;
 	height: 100vh;
 	width: 100%;
 	text-align: center;
-	background-color: rgba(0, 0, 0, 0.2);
 }
 
 #home h1{
-	margin-top: 30vh;
+	font-weight: normal;
 }
 
-#home h1 a{
-	color: #fff;
-	font-weight: normal;
-	text-decoration: none;
+nav{
+	z-index: 2;
+	position: fixed;
+	top: 0;
+	right: 0;
+	margin: 1rem 0.5rem;
+	transition: opacity 1s;
+}
+.left-nav{
+	position: fixed;
+	left: 0.5rem;
 }
 
 nav ul{
@@ -147,25 +164,58 @@ nav li a:hover{
 	border-top: 2px solid rgba(255, 255, 255, 0.9);
 }
 
-#about{
-	background-color: #fff;
-	overflow: hidden;
+.vp-box{
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	min-height: 100vh;
+}
+
+.wrap{
+	width: 66rem;
+	padding: 3rem;
+	border-radius: 2rem;
+	margin: 0 auto;
+	background-color: #ede9ce;
+	overflow: hidden;
+	box-shadow: 0 0 2rem #615743;
+	transition: opacity 1s;
+}
+
+#about{
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+}
+.about-wrap img{
+	width: 40%;
+	border-radius: 50%;
+	float: right;
+}
+.about-wrap h2, .about-wrap p{
+	float: left;
+	width: 60%
 }
 
 #portfolio{
+	position: relative;
+	z-index: 1;
 	overflow: hidden;
-	min-height: 100vh;
+}
+.port-wrap h2{
+	margin-top: 0;
 }
 
-#contact{
-	background-color: #fff;
-	overflow: hidden;
-	min-height: 100vh;
+#portfolio a{
+	display: inline-block;
+	width: 33%;
+	padding: 1rem;
+	background-color: red;
 }
 
 
-.project-foreground{
+
+/*.project-foreground{
 	width: 500px;
 	height: 300px;
 	background-color: red;
@@ -174,21 +224,39 @@ nav li a:hover{
 }
 .project:hover .project-foreground{
 	opacity: 0;
-}
+}*/
 
-.project-background{
-	background: url(photo-1444065707204-12decac917e8.jpg) center center;
-	background-size: cover;
+.portpic{
 	position: fixed;
-	top: 0;
-	height: 100vh;
+	background-size: cover;
+	background-position: top center;
 	width: 100vw;
-	/*background-color: red;*/
-	z-index: -1;
+	height: 100vh;
 	opacity: 0;
 	transition: opacity 1s;
 }
-
-.project:hover .project-background{
+.pp-show{
 	opacity: 1;
+}
+.pp-hide{
+	opacity: 0;
+}
+#pp-one{
+	background-image: url(beatschool.png);
+}
+#pp-two{
+}
+#pp-three{
+}
+#pp-four{
+}
+#pp-five{
+}
+#pp-six{
+}
+
+#contact{
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
 }

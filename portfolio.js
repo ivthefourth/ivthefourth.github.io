@@ -1,24 +1,54 @@
-function parallax(){
-	var scrollPos = $(this).scrollTop();
-	//console.log(scrollPos);
-	$('#parallax-front').css({
-		'transform' : 'translate(0px, '+ -scrollPos/1.5 +'px)'
+/*function parallax(){
+	$(window).mousemove(function( event ) {
+	  var x = event.pageX / $(window).width();
+	  var y = ( event.pageY - $(window).scrollTop() ) / $(window).height();
+
+	  	$('#parallax-front').css({
+			'transform' : 'translate('+ -x*3.5 +'%, '+ -y*3.5 +'%)'
+		});
+		$('#parallax-front-mid').css({
+			'transform' : 'translate('+ -x*2.25 +'%, '+ -y*2.25 +'%)'
+		});
+		$('#parallax-back-mid').css({
+			'transform' : 'translate('+ -x*1.25 +'%, '+ -y*1.25 +'%)'
+		});
+		$('#parallax').css({
+			'transform' : 'translate('+ -x/1.5 +'%, '+ -y/1.5 +'%)'
+		});	
+
 	});
-	$('#parallax-front-mid').css({
-		'transform' : 'translate(0px, '+ -scrollPos/2.2 +'px)'
-	});
-	$('#parallax-back-mid').css({
-		'transform' : 'translate(0px, '+ -scrollPos/4.5 +'px)'
-	});
-	$('#parallax').css({
-		'transform' : 'translate(0px, '+ -scrollPos/10 +'px)'
-	});
-}
+}*/
 
 $(document).ready(function(){
-	parallax();
+	//parallax();
+
+	$('#pa-one').hover(function(){
+		$('#pp-one').toggleClass('pp-show');
+		$('.wrap').toggleClass('pp-hide');
+		$('nav').toggleClass('pp-hide');
+	});
+
+
+	$('a[href*="#"]:not([href="#"])').click(function() {
+		if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+		  var target = $(this.hash);
+		  target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+		  if (target.length) {
+		    $('html, body').animate({
+		      scrollTop: target.offset().top
+		    }, 2000);
+		    return false;
+		  }
+		}
+	});
+
+	var scene = document.getElementById('scene');
+	var parallax = new Parallax(scene);
+
+
+
 });
 
-$(window).scroll(function(){
+/*$(window).scroll(function(){
 	parallax();
-});
+});*/
