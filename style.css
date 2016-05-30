@@ -144,14 +144,14 @@ body{
 
 #scene{
 	position: fixed;
-	top: -2.5vh;
+	top: -3vh;
 	left: -3vw;
 }
 .parallax{
 	background-size: cover;
 	background-position: top left;
 	background-repeat: no-repeat;
-	height: 105vh;
+	height: 106vh;
 	width: 106vw;
 
 }
