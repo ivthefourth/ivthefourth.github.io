@@ -1,9 +1,9 @@
 var BLOCKSIZE = 20; //number of digits for block cipher
 var BIGMOD = new BigNumber(1);
-BIGMOD = BIGMOD.shift(BLOCKSIZE).toString();
+BIGMOD = BIGMOD.shift(BLOCKSIZE).toString();//1x10^BLOCKSIZE
 BigNumber.config({ MODULO_MODE: 9 });
 
-
+//turns string into array of numbers 0-99
 function toNumberArray(string){
 	var array = [];
 	var temp;
@@ -27,6 +27,7 @@ function toNumberArray(string){
 	return array;
 };
 
+//turns array of numbers 0-99 to string
 function numbersToString(array){
 	for( i=0; i<array.length; i++){
 		if( array[i] === 0 || array [i] === 1)
@@ -42,7 +43,7 @@ function numbersToString(array){
 	return array.join('');
 };
 
-
+//generates a random integer (as string) with intLength digits
 function randInt(intLength){
 	var array = [];
 	for( i=0; i<intLength; i++)
@@ -50,6 +51,7 @@ function randInt(intLength){
 	return array.join('');
 };
 
+//same as randInt, but ensures relative primality to modulus
 function getMult(multLength){
 	var endings = [1,3,7,9]; //avoids prime factors 2 and 5
 	var array = [];
@@ -59,13 +61,12 @@ function getMult(multLength){
 	return array.join('');
 };
 
-
-function modInverse(a, b){//if b is modulus... array[1] is inverse
-	//might need to make inverse positive if negative...
+//extended euclidian algorithm [1] for inverse of (a, mod)
+function modInverse(a, b){
 	var array;
 	a = new BigNumber(a);
 	b = new BigNumber(b);
-	//http://www.csee.umbc.edu/~chang/cs203.s09/exteuclid.shtml
+	//pseudocode http://www.csee.umbc.edu/~chang/cs203.s09/exteuclid.shtml
 	
 	if( b.equals(0))
 		return [a.toString(), '1', '0'];
@@ -77,7 +78,7 @@ function modInverse(a, b){//if b is modulus... array[1] is inverse
 	return [d.toString(),s.toString(),t.toString()];
 };
 
-
+//applies cipher to numbers in array
 function cipher(array, multiple, shift, modulus){
 	var i;
 	var temp = [];
@@ -92,6 +93,7 @@ function cipher(array, multiple, shift, modulus){
 	return temp;
 };
 
+//applies decipher to numbers in array
 function decipher(array, inverse, shift, modulus){
 	var i;
 	var temp = [];
@@ -106,13 +108,14 @@ function decipher(array, inverse, shift, modulus){
 	return temp;
 };
 
-
+//string numbers must take up BLOCKSIZE digits, adds leading 0's
 function padBlock(block){
 	while( block.length < BLOCKSIZE)
 		block = '0' + block;
 	return block;
 };
 
+//splits block by two digits into an array of numbers <100
 function blockToArray(block){
 	var array = block.match(/[0-9]{2}/g);
 	var i;
@@ -122,6 +125,7 @@ function blockToArray(block){
 	return array;
 };
 
+//takes array of numbers<100 and returns block
 function arrayToBlock(array){
 	var number = new BigNumber(0);
 	var i;
@@ -132,6 +136,7 @@ function arrayToBlock(array){
 	return number.toString();
 };
 
+//makes header that is sent with encoded string
 function makeHeader(bigMult, bigShift, smallMult, smallShift){
 	bigMult = blockToArray(bigMult);
 	bigShift = blockToArray(bigShift);
@@ -139,6 +144,7 @@ function makeHeader(bigMult, bigShift, smallMult, smallShift){
 	return numbersToString(bigMult) + numbersToString(bigShift) + 
 		   numbersToString(small);
 };
+
 
 function blockCipher(array, multiple, shift, modulus){
 	var interval = BLOCKSIZE/2
