@@ -28,7 +28,7 @@ body{
 	right: 0;
 	z-index: 1;
 
-	border: 2px solid #f4f1e1;
+	border: 2px solid #ede9ce;
 	color: #f4f1e1;
 	background-color: #261c17;
 
@@ -65,7 +65,7 @@ body{
 
 #mobile-menu span{
 	display: block;
-	background-color: #f4f1e1;
+	background-color: #ede9ce;
 	width: 22px;
 	margin: 8px;
 	height: 2px;
@@ -118,7 +118,13 @@ body{
 	position: relative;
 }
 
+.content-wrap{
+	width: 100%;
+	margin: 1rem;
+}
+
 .vp-box h2{
+	font-size: 2em;
 	font-weight: normal;
 	font-family: 'Slabo 27px', serif;
 }
@@ -126,7 +132,7 @@ body{
 
 
 #home{
-	color: #f4f1e1;
+	color: #ede9ce;
 	text-align: center;
 }
 #home h1{
@@ -151,10 +157,37 @@ body{
 
 #projects{
 	background-color: #d96459;
-	color: #f4f1e1;
+	color: #ede9ce;
 }
 
 #contact{
 	background-color: #ede9ce;
 }
 
+.project{
+	position: relative;
+	margin: 2rem 1rem;
+	overflow: hidden;
+	border-radius: 0.5rem;
+	box-shadow: 0.125rem 0.125rem  0.25rem #261c17;
+	border: 2px solid #ede9ce;
+}
+
+.project-background{
+	background: url(beatschool2.jpg);
+	background-size: cover;
+	width: 100%;
+	padding-top: 56.25%;
+	box-shadow: 0.25rem 0.25rem  0.5rem #261c17 inset;
+}
+
+.project span{
+	position: absolute;
+	bottom: 0;
+	display: block;
+	width: 100%;
+	background-color: rgba(38, 28, 23, 0.85);
+	color: #f4f1e1;
+	padding: 0.25rem;
+	text-align: center;
+}
