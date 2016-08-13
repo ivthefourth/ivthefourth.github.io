@@ -152,7 +152,24 @@ body{
 	background-color: #ede9ce;
 }
 #about img{
-	height: 100px;
+    display: block;
+    width: 100%
+}
+.img-wrap{
+    width: 75%;
+    margin: 0 auto;
+	position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+.img-overlay{
+    border-radius: 0.5rem;
+    box-shadow: 0.125rem 0.125rem 0.25rem #261c17 inset;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 #projects{
@@ -174,6 +191,7 @@ body{
 }
 
 .project-background{
+	border-radius: 0.5rem;
 	background: url(beatschool2.jpg);
 	background-size: cover;
 	width: 100%;
@@ -190,4 +208,41 @@ body{
 	color: #f4f1e1;
 	padding: 0.25rem;
 	text-align: center;
+}
+
+#contact-form{
+	padding: 1rem;
+}
+
+#contact-form label{
+	font-size: 1.2em;
+	margin: 1.5rem 0 0.5rem 0;
+	font-weight: bold;
+	display: block;
+}
+
+#contact-form input, #contact-form textarea,
+#contact-form button{
+	display: block;
+	width: 100%;
+	border-radius: 2px;
+	font-family: 'Sintony', sans-serif;
+	font-size: 1rem;
+	padding: 0.5em;
+	border: none;
+	border-bottom: 2px solid #588c73;
+	background-color: #ede9ce;
+}
+#contact-form textarea{
+	resize: vertical;
+}
+#contact-form button{
+	margin-top: 1.5rem;
+	border: none;
+	background-color: #588c73;
+	color: #f4f1e1;
+	box-shadow: 0.125rem 0.125rem  0.25rem #261c17;
+}
+#contact a{
+	color: #588c73;
 }

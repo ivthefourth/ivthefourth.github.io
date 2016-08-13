@@ -31,10 +31,13 @@
 	<section id="about" class="vp-box">
 		<div class="content-wrap">
 			<h2>About Me</h2>
-			<img
-			src="me.png"
-			alt="A picture of me"
-			>
+			<div class="img-wrap">
+				<img
+				src="me.png"
+				alt="A picture of me"
+				>
+				<div class="img-overlay"></div>
+			</div>
 			<p>Hi! I'm Howard, a front end developer and electronic music producer. So far, my experience in development primarily consists of responsive design using HTML5, CSS3 and some jQuery. Because of my interest in music, I've also built some applications using the Web Audio API, Canvas, and JavaScript.</p>
 		</div>
 	</section>
@@ -88,6 +91,16 @@
 	<section id="contact" class="vp-box">
 		<div class="content-wrap">
 			<h2>Contact Me</h2>
+			<form id="contact-form">
+				<label for="email">Email</label>
+				<input id="email" type="email" required placeholder="Your Email Address">
+				<label for="message">Message</label>
+				<textarea id="message" required placeholder="What's up?"></textarea>
+				<button type="submit">Send</button>
+			</form>
+			or
+			send an email to
+			<a href="mailto:me@howardcshaw.com">me@howardcshaw.com</a>
 		</div>
 	</section>
 	<script src="../js/jquery-2.2.3.min.js"></script>
