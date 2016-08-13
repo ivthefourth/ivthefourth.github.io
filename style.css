@@ -60,8 +60,20 @@ body{
 	transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
 }
 #top-nav h2{
+	font-size: 1.35rem;
 	margin: 0;
 	font-weight: normal;
+}
+#top-nav ul{
+	margin: 1rem 0 0 0;
+	padding-left: 2rem;
+	list-style: none;
+}
+#top-nav li a{
+	color: #f4f1e1;
+	text-decoration: none;
+	display: inline-block;
+	margin: 0.5rem 0;
 }
 #mobile-menu{
 	position: absolute;
@@ -112,9 +124,7 @@ body{
 }
 
 
-#top-nav.home a{
-	color: #f4f1e1;
-}
+
 
 #home{
 	color: #f4f1e1;
@@ -128,6 +138,9 @@ body{
 
 #about{
 	background-color: #ede9ce;
+}
+#about img{
+	height: 100px;
 }
 
 #projects{
