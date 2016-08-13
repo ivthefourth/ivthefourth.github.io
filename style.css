@@ -20,25 +20,6 @@ body{
 	color: #261c17;
 }
 
-.vp-box{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh;
-	overflow: hidden;
-	position: relative;
-}
-
-.vp-box h2{
-	font-weight: normal;
-	font-family: 'Slabo 27px', serif;
-}
-
-.vp-box div{
-
-	height: 50%;
-}
-
 
 
 #top-nav{
@@ -89,7 +70,7 @@ body{
 	margin: 8px;
 	height: 2px;
 	border-radius: 1px;
-	transition: transform 0.5s ease, opacity 0.5s ease;
+	transition: transform 0.5s ease;
 }
 #top-nav.open{
 	width: calc(100vw - 1rem);
@@ -104,13 +85,13 @@ body{
 }
 
 #top-nav.open .span-top{
-	transform: translateY(10px) rotate(-45deg);
+	transform: translateY(10px) rotateZ(-45deg) rotateY(180deg);
 }
 #top-nav.open .span-middle{
-	opacity: 0;
+	transform: rotateX(90deg);
 }
 #top-nav.open .span-bottom{
-	transform: translateY(-10px) rotate(45deg);
+	transform: translateY(-10px) rotateZ(45deg) rotateY(180deg);
 }
 
 
@@ -126,14 +107,37 @@ body{
 
 
 
+.vp-box{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	overflow: hidden;
+	position: relative;
+}
+
+.vp-box h2{
+	font-weight: normal;
+	font-family: 'Slabo 27px', serif;
+}
+
+
+
 #home{
 	color: #f4f1e1;
+	text-align: center;
 }
 #home h1{
 	font-weight: normal;
 	font-family: 'Slabo 27px', serif;
+	font-size: 2em;
+	margin: 0;
 }
 #home p{
+	margin: 0;
+	/*font-size: 1.225em;   if not uppercase*/
+	text-transform: uppercase;
+	font-size: 1.038em;
 }
 
 #about{
