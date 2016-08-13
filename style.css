@@ -74,6 +74,7 @@ body{
 }
 #top-nav.open{
 	width: calc(100vw - 1rem);
+	width: 13rem;
 	opacity: 1;
 }
 
@@ -98,6 +99,7 @@ body{
 #nav-wrap{
 	width: 90vw;
 	width: calc(100vw - 1rem - 4px);
+	width: 13rem;
 	position: absolute;
 	right: 0;
 	padding: 2rem;

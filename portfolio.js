@@ -1,4 +1,5 @@
-
+//OPEN NAV ON HOVER??
+//SET NAV WIDTH USING JS??
 
 function menuSetUp(){
 	var nav = $('#top-nav');
