@@ -111,8 +111,10 @@ body{
 
 .vp-box{
 	display: flex;
-	align-items: center;
 	justify-content: center;
+/*
+	align-items: center;
+*/
 	min-height: 100vh;
 	overflow: hidden;
 	position: relative;
@@ -127,6 +129,8 @@ body{
 	font-size: 2em;
 	font-weight: normal;
 	font-family: 'Slabo 27px', serif;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 
@@ -139,7 +143,7 @@ body{
 	font-weight: normal;
 	font-family: 'Slabo 27px', serif;
 	font-size: 2em;
-	margin: 0;
+	margin: 20vh 0 0 0;
 }
 #home p{
 	margin: 0;
@@ -177,13 +181,9 @@ body{
 	color: #ede9ce;
 }
 
-#contact{
-	background-color: #ede9ce;
-}
-
 .project{
 	position: relative;
-	margin: 2rem 1rem;
+	margin: 2rem 1rem 1rem 1rem;
 	overflow: hidden;
 	border-radius: 0.5rem;
 	box-shadow: 0.125rem 0.125rem  0.25rem #261c17;
@@ -210,12 +210,17 @@ body{
 	text-align: center;
 }
 
+
+#contact{
+	background-color: #ede9ce;
+}
+
 #contact-form{
 	padding: 1rem;
 }
 
 #contact-form label{
-	font-size: 1.2em;
+	font-size: 1.2rem;
 	margin: 1.5rem 0 0.5rem 0;
 	font-weight: bold;
 	display: block;
@@ -228,13 +233,20 @@ body{
 	border-radius: 2px;
 	font-family: 'Sintony', sans-serif;
 	font-size: 1rem;
-	padding: 0.5em;
+	padding: 0.5em 0;
 	border: none;
 	border-bottom: 2px solid #588c73;
 	background-color: #ede9ce;
+	color: #261c17;
 }
 #contact-form textarea{
 	resize: vertical;
+	height: 8rem;
+}
+#contact-form input:focus, #contact-form textarea:focus{
+	background-color: #fff;
+	padding: 0.5rem;
+	outline: 0;
 }
 #contact-form button{
 	margin-top: 1.5rem;
@@ -245,4 +257,11 @@ body{
 }
 #contact a{
 	color: #588c73;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+#contact p{
+	text-align: center;
+	margin: 1rem;
 }
