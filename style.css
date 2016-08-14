@@ -10,7 +10,7 @@ html{
 	font-size: 100%;
 	box-sizing: border-box;
 	font-family: 'Sintony', sans-serif;
-	-webkit-text-size-adjust:none;
+	-webkit-text-size-adjust: 100%;
 }
 
 *{ box-sizing: inherit;}
