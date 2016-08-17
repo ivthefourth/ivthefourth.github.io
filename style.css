@@ -1,3 +1,11 @@
+/*******
+
+Consider changing contact form padding to margin
+and adding 1rem to the p element's top margin
+
+*******/
+
+
 @viewport{
     width: device-width;
 }
