@@ -124,14 +124,32 @@ body{
 /*
 	align-items: center;
 */
+	height: 100px;
 	min-height: 100vh;
 	overflow: hidden;
 	position: relative;
 }
 
+#about, #projects, #contact{
+	align-items: center;
+}
+
+@media all and (min-aspect-ratio: 9/10){
+	#home {
+		align-items: center;
+	}
+}
+
 .content-wrap{
 	width: 100%;
 	margin: 1rem;
+	max-width: 70rem;
+}
+
+@media all and (min-width: 35em){
+	.content-wrap{
+		margin: 2em;
+	}
 }
 
 .vp-box h2{
@@ -161,6 +179,25 @@ body{
 	font-size: 1.038em;
 }
 
+
+@media all and (min-aspect-ratio: 9/10){
+	#home h1{
+		margin-top: 0;
+	}
+}
+
+@media all and (min-width: 60em){
+	#home{
+		font-size: 120%;
+	}
+
+	.vp-box h2{
+		font-size: 2.4em;
+	}
+}
+
+
+
 #about{
 	background-color: #ede9ce;
 }
@@ -185,7 +222,48 @@ body{
 }
 #about p{
 	margin: 1rem;
+	line-height: 1.6;
 }
+
+
+@media all and (min-width: 35em){
+	.about-container{
+		padding: 1rem 2rem;
+	}
+	.img-wrap{
+		margin: 1rem auto;
+		width: 15rem;
+	}
+}
+@media all and (min-width: 45em){
+	.about-container{
+		display: flex;
+		align-items: center;
+	}
+	#about p{
+		float: right;
+		width: calc(66.66% - 2rem);
+	}
+	.img-wrap{
+		float: left;
+		width: calc(33.33% - 2rem);
+	}	
+}
+@media all and (min-width: 60em){
+	.about-container{
+		padding: 1rem 3rem;
+	}
+	#about p{
+		font-size: 1.2rem;
+		float: right;
+		width: calc(66.66% - 2rem);
+	}
+	.img-wrap{
+		float: left;
+		width: calc(33.33% - 2rem);
+	}
+}
+
 
 #projects{
 	background-color: #d96459;
@@ -194,11 +272,13 @@ body{
 
 .project{
 	position: relative;
-	margin: 2rem 1rem 1rem 1rem;
+	margin: 1rem;
 	overflow: hidden;
 	border-radius: 0.5rem;
 	box-shadow: 0.125rem 0.125rem  0.25rem #261c17;
 	border: 2px solid #ede9ce;
+	width: 100%;
+	display: block;
 }
 
 .project-background{
@@ -221,18 +301,48 @@ body{
 	text-align: center;
 }
 
+.projects-container{
+	margin-top: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+@media all and (min-width: 35em){
+	.projects-container{
+		padding: 0 2rem;
+	}
+}
+
+@media all and (min-width: 42em){
+	.project{
+		width: 40%;
+		width: calc(50% - 2em);
+	}
+}
+
+@media all and (min-width: 60em){
+	.project{
+		width: 25%;
+		width: calc(33.33% - 2em);
+	}	
+	.projects-container{
+		padding: 0 3rem;
+	}
+}
+
 
 #contact{
 	background-color: #ede9ce;
 }
 
 #contact-form{
-	padding: 1rem;
+	padding: 0 1rem 1rem 1rem;
 }
 
 #contact-form label{
 	font-size: 1.2rem;
-	margin: 1.5rem 0 0.5rem 0;
+	margin: 2.5rem 0 0.5rem 0;
 	font-weight: bold;
 	display: block;
 }
@@ -251,6 +361,7 @@ body{
 	color: #261c17;
 }
 #contact-form textarea{
+	line-height: 1.6;
 	resize: vertical;
 	height: 8rem;
 }
@@ -260,7 +371,7 @@ body{
 	outline: 0;
 }
 #contact-form button{
-	margin-top: 1.5rem;
+	margin: 2.5rem auto 0 auto;
 	border: none;
 	background-color: #588c73;
 	color: #f4f1e1;
@@ -274,5 +385,26 @@ body{
 
 #contact p{
 	text-align: center;
-	margin: 1rem;
+	margin: 1.5rem 1rem 1rem 1rem;
+}
+
+@media all and (min-width: 35em){
+	#contact-form{
+		padding: 0 3rem 1rem 3rem;
+	}
+	#contact-form button{
+		width: 15em;
+	}
+	#contact p{
+		margin: 1.5rem 3rem 1rem 3rem;
+	}
+}
+@media all and (min-width: 60em){
+	#contact-form{
+		padding: 0 4rem 1rem 4rem;
+	}
+	#contact p{
+		font-size: 1.1rem;
+		margin: 1.5rem 4rem 1rem 4rem;
+	}
 }
