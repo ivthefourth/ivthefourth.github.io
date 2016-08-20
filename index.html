@@ -12,20 +12,13 @@
 </head>
 <body>
 	<header id="home" class="vp-box">
+		<canvas id="canvas-hidden"></canvas>
+		<canvas id="canvas-home"></canvas>
 		<div class="content-wrap">
 			<h1>Howard Shaw</h1>
 			<p>Developer Portfolio</p>
 		</div>
 	</header>
-	<nav id="top-nav" class="home">
-		<div id="nav-wrap">
-			<h2>Menu</h2>
-			
-			<ul><li class="left-nav"><a href="#home" class="nav-link">Howard</a></li><li><a href="#about" class="nav-link">About</a></li><li><a href="#projects" class="nav-link">Projects</a></li><li><a href="#contact" class="nav-link">Contact</a></li>
-			</ul>
-		</div>
-		<a href="#" id="mobile-menu"><span class="span-top"></span><span class="span-middle"></span><span class="span-bottom"></span></a>
-	</nav>
 	<section id="about" class="vp-box">
 		<div class="content-wrap">
 			<h2>About Me</h2>
@@ -49,30 +42,36 @@
 						<div class="project-background">
 							<!--beatschool.io-->
 						</div>
+						<div class="project-overlay"></div>
 						<span>Full Stack</span>
 				</a><!--
 				--><a href="#" id="pa-two" class="project">
 						<div class="project-background">
 							<!--ear training-->
 						</div>
+						<div class="project-overlay"></div>
 						<span>Web Audio</span>
 				</a><!--
 				--><a href="#" id="pa-three" class="project">
 						<div class="project-background">
 							<!--interactive tut-->
 						</div>
+						<div class="project-overlay"></div>
 						<span>HTML5 Media</span>
 				</a><!--
 				--><a href="#" id="pa-four" class="project">
 						<div class="project-background"></div>
+						<div class="project-overlay"></div>
 						<span>Responsive Design</span>
 				</a><!--
 				--><a href="#" id="pa-five" class="project">
 						<div class="project-background"></div>
+						<div class="project-overlay"></div>
 						<span>??</span>
 				</a><!--
 				--><a href="#" id="pa-six" class="project">
 						<div class="project-background"></div>
+						<div class="project-overlay"></div>
 						<span>Code Sample</span>
 				</a>
 			</div>
@@ -94,6 +93,15 @@
 			
 		</div>
 	</section>
+	<nav id="top-nav">
+		<div id="nav-wrap">
+			<h2>Menu</h2>
+			
+			<ul><li class="left-nav"><a href="#home" class="nav-link">Howard</a></li><li><a href="#about" class="nav-link">About</a></li><li><a href="#projects" class="nav-link">Projects</a></li><li><a href="#contact" class="nav-link">Contact</a></li>
+			</ul>
+		</div>
+		<a href="#" id="mobile-menu"><span class="span-top"></span><span class="span-middle"></span><span class="span-bottom"></span></a>
+	</nav>
 	<script src="../js/jquery-2.2.3.min.js"></script>
 	<script src="portfolio.js"></script>
 </body>
