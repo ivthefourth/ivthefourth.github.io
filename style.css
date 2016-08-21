@@ -167,11 +167,16 @@ body{
 	margin-bottom: 0;
 }
 
+.vp-box:focus{
+	outline: 0;
+}
+
 
 
 #home{
 	color: #ede9ce;
 	text-align: center;
+	text-shadow: 0.1em 0.1em 0.2em #261c17;
 }
 #home h1{
 	font-weight: normal;
@@ -184,8 +189,13 @@ body{
 	/*font-size: 1.225em;   if not uppercase*/
 	text-transform: uppercase;
 	font-size: 1.038em;
+}/*
+@media all and (min-width: 60em){
+	#home:hover{
+		cursor: pointer;
+	}
 }
-
+*/
 
 @media all and (min-aspect-ratio: 9/10){
 	#home h1{
@@ -203,7 +213,7 @@ body{
 	}
 }
 
-#canvas-home, #canvas-hidden{
+#canvas-home, #canvas-hidden, #canvas-copy{
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -211,8 +221,12 @@ body{
 	height: 100%;
 }
 
-#canvas-hidden{
-	visibility: hidden;
+#canvas-hidden, #canvas-copy{
+	display: none;
+}
+
+#img-hidden{
+	display: none;
 }
 
 
