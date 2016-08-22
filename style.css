@@ -176,7 +176,7 @@ body{
 #home{
 	color: #ede9ce;
 	text-align: center;
-	text-shadow: 0.1em 0.1em 0.2em #261c17;
+	/*text-shadow: 0.1em 0.1em 0.2em #261c17;*/
 }
 #home h1{
 	font-weight: normal;

@@ -82,11 +82,13 @@
 	<section id="contact" class="vp-box" tabindex="0">
 		<div class="content-wrap">
 			<h2>Contact Me</h2>
-			<form id="contact-form">
+			<form id="contact-form" action="https://formspree.io/me@howardcshaw.com"
+      method="POST">
 				<label for="email">Email</label>
-				<input id="email" type="email" required placeholder="Your Email Address">
+				<input type="hidden" name="_subject" value="Howard Contact Form">
+				<input id="email" type="email" required placeholder="Your Email Address" name="email">
 				<label for="message">Message</label>
-				<textarea id="message" required placeholder="What's up?"></textarea>
+				<textarea id="message" required placeholder="What's up?" name="message"></textarea>
 				<button type="submit">Send</button>
 			</form>
 			<p>
