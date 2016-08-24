@@ -313,11 +313,12 @@ body{
 	width: 100%;
 	display: block;
 	z-index: 1;
+	background: #261c17;
 }
 
 .project-background{
 	border-radius: 0.5rem;
-	background: url(beatschool2.jpg);
+	background: #261c17;
 	background-size: cover;
 	width: 100%;
 	padding-top: 56.25%;
@@ -388,6 +389,20 @@ body{
 .project:hover span, .project:focus span, .project:active span{
 	transform: rotateX(90deg);
 }
+
+#pa-tribute .project-background{
+	background-image: url('tribute.jpg');
+}
+#pa-cipher .project-background{
+	background-image: url('cipher.jpg');
+}
+#pa-beatschool .project-background{
+	background-image: url('beatschool.jpg');
+}
+
+
+
+
 
 #contact{
 	background-color: #ede9ce;
