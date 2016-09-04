@@ -59,7 +59,7 @@ function menuSetup(){
 
 
 
-
+/*
 function projectSetup(){
 	var project = $('.project');
 	var hoverHandler = function(e){
@@ -94,7 +94,7 @@ function animateProject(){
 		projectTarget.css('transform-origin', originString);
 	}
 }
-
+*/
 
 function animateCanvas(){
 	var copy = $('#canvas-copy')[0];
@@ -128,7 +128,7 @@ function animateCanvas(){
 }
 
 function animate(){
-	animateProject();
+	//animateProject();
 	animateCanvas();
 	window.requestAnimationFrame(animate);
 }
@@ -274,7 +274,7 @@ function canvasSetup(){
 
 $(document).ready(function(){
 	menuSetup();
-	projectSetup();
+	//projectSetup();
 	if(window.matchMedia("(min-width: 60em)").matches){
 		$('#img-hidden').load(canvasSetup);
 		$('#img-hidden').attr('src', 'pattern1920wgrad.jpg');
