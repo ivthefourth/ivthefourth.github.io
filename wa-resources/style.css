@@ -88,13 +88,13 @@ body{
 .peak{
 	background-image: url(graphics/peak.png);
 }*/
-.lowpass:after{
+.controller-lowpass:after{
 	content: 'LP';
 }
-.highpass:after{
+.controller-highpass:after{
 	content: 'HP';
 }
-.peak:after{
+.controller-peaking:after{
 	content: 'PK';
 }
 
@@ -201,6 +201,25 @@ body{
 	transform: translateX(0);
 }
 
+#eq-loading-overlay{
+	background-color: rgba(0, 0, 0, 0.6);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 6px;
+	display: none;
+	color: #fff;
+	font-size: 200%;
+}
+
+#eq-loading-overlay.shown{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 /*
 #spectrum{
 	width: 100%;
@@ -240,7 +259,7 @@ body{
 	font-family: FontAwesome;
 }
 
-#eq-settings-btn, #close-btn{
+#eq-settings-btn, #eq-close-settings{
 	line-height: 36px;
 	font-size: 36px;
 
@@ -255,7 +274,7 @@ body{
 	content: '\f013';
 	font-family: FontAwesome;
 }
-#close-btn:after{
+#eq-close-settings:after{
 	color: #eee;
 	content: '\f00d';
 	font-family: FontAwesome;
@@ -460,7 +479,7 @@ td.null:after{
 	overflow: hidden;
 }
 
-#drag-drop{
+#track0-drag-drop{
 	background-color: #fff;
 	width: 80%;
 	height: 200px;
@@ -475,25 +494,32 @@ td.null:after{
 	text-align: center;
 }
 
-#drag-drop.error{
+#track0-drag-drop.error{
 	background-color: #fdd;
 }
-#drag-drop.is-dragover:before{
+#track0-drag-drop.is-dragover:before{
 	content: 'Drop it Like it\'s Hot'
 }
-#drag-drop.is-dragover span{
+#track0-drag-drop.is-dragover span{
 	display: none;
 }
 
-#load-custom-audio{
+#track0-load-custom-audio{
 	opacity: 0.4;
 }
-#load-custom-audio.active{
+#track0-load-custom-audio.active{
 	opacity: 1;
 }
-#load-custom-audio:hover{
+#track0-load-custom-audio:hover{
 	cursor: default;
 }
-#load-custom-audio.active:hover{
+#track0-load-custom-audio.active:hover{
 	cursor: pointer;
+}
+
+.correct-answer{
+	box-shadow: 0 0 1em 0.5em #0F0
+}
+.wrong-answer{
+	box-shadow: 0 0 1em 0.5em #F00
 }

@@ -80,7 +80,7 @@ dragDropTest = function() {
 };
 
 var CANDRAGDROP = dragDropTest();
-console.log('Can drag drop: ' + CANDRAGDROP);
+//console.log('Can drag drop: ' + CANDRAGDROP);
 
 
 var WACTX = window.AudioContext || window.webkitAudioContext;
@@ -370,6 +370,7 @@ function WaBufferSourceNode(){
 	WaNode.call(this);
 
 	this.isPlaying = false;
+	this.isStopped = true;
 	this.startedAt = 0;
 	this.startOffset = 0;
 	this.buffer = null;
@@ -384,28 +385,38 @@ WaBufferSourceNode.prototype.play = function(atTime){
 	if( !this.isPlaying ){
 		this.startedAt = atTime;
 		this.isPlaying = true;
+		this.isStopped = false;
 		this.source = audioCtx.createBufferSource();
 		this.source.buffer = this.buffer;
 		this.source.loop = true;
 		this.source.connect(this.node);
-		this.source.start(atTime, this.startOffset % this.buffer.duration);
+		this.node.gain.setValueAtTime(0, atTime);
+		this.node.gain.linearRampToValueAtTime(1, atTime + 0.02);
+		this.source.start(atTime, this.startOffset );
 	}
 }
 WaBufferSourceNode.prototype.pause = function(atTime){
 	if( this.isPlaying ){
 		this.isPlaying = false;
-		this.source.stop(atTime);
-		this.startOffset += atTime - this.startedAt;
+		this.node.gain.setValueAtTime(1, atTime);
+		this.node.gain.linearRampToValueAtTime(0, atTime + 0.02);
+		this.source.stop(atTime + 0.02);
+		this.startOffset = (this.startOffset + atTime - this.startedAt) % this.buffer.duration;
 	}
 }
 WaBufferSourceNode.prototype.stop = function(atTime){
 
-	this.isPlaying = false;
-	this.source.stop(atTime);
-	this.startOffset = 0;
+	if(!this.isStopped){
+		this.isPlaying = false;
+		this.isStopped = true;
+		this.node.gain.setValueAtTime(1, atTime);
+		this.node.gain.linearRampToValueAtTime(0, atTime + 0.02);
+		this.source.stop(atTime + 0.02);
+		this.startOffset = 0;
+	}
 	
 }
-WaBufferSourceNode.prototype.loadFromURL = function(url){//maybe add a callback fn as arg
+WaBufferSourceNode.prototype.loadFromURL = function(url, callback){//maybe add a callback fn as arg
 	if( this.isPlaying )
 		throw 'Buffer Load Error: Cannot load buffer when audio is playing';
 	var that = this;
@@ -417,12 +428,12 @@ WaBufferSourceNode.prototype.loadFromURL = function(url){//maybe add a callback 
 		audioCtx.decodeAudioData(audioData, function(data){
 			that.buffer = data;
 			that.startOffset = 0;//maybe not... maybe call stop all when wanting to load files?
-			console.log('we did it');//call callback here if i decide to use it;
+			callback();//call callback here if i decide to use it;
 		});
 	}
 	request.send();
 }
-WaBufferSourceNode.prototype.loadFromFile = function(file){//maybe add a callback fn as arg
+WaBufferSourceNode.prototype.loadFromFile = function(file, callback){//maybe add a callback fn as arg
 	if( this.isPlaying )
 		throw 'Buffer Load Error: Cannot load buffer when audio is playing';
 	var that = this;
@@ -432,7 +443,7 @@ WaBufferSourceNode.prototype.loadFromFile = function(file){//maybe add a callbac
 		audioCtx.decodeAudioData(audioData, function(data){
 			that.buffer = data;
 			that.startOffset = 0;//maybe not... maybe call stop all when wanting to load files?
-			console.log('we did it');//call callback here if i decide to use it;
+			callback();//call callback here if i decide to use it;
 		});
 	}
 	reader.readAsArrayBuffer(file);
@@ -451,7 +462,7 @@ function WaGainNode(paramObj){
 		var args = [];
 		args = args.concat(paramObj.gain.args);
 		args.unshift(this.node.gain);
-		console.log(args);
+		//console.log(args);
 		this.gain = new paramObj.gain.func();
 		paramObj.gain.func.apply(this.gain, args);
 	}
@@ -476,7 +487,7 @@ function WaFilterNode(paramObj){
 		var args = [];
 		args = args.concat(paramObj.frequency.args);
 		args.unshift(this.node.frequency);
-		console.log(args);
+		//console.log(args);
 		this.frequency = new paramObj.frequency.func();
 		paramObj.frequency.func.apply(this.frequency, args);
 	}
@@ -488,7 +499,7 @@ function WaFilterNode(paramObj){
 		var args = [];
 		args = args.concat(paramObj.detune.args);
 		args.unshift(this.node.detune);
-		console.log(args);
+		//console.log(args);
 		this.detune = new paramObj.detune.func();
 		paramObj.detune.func.apply(this.detune, args);
 	}
@@ -499,7 +510,7 @@ function WaFilterNode(paramObj){
 		var args = [];
 		args = args.concat(paramObj.Q.args);
 		args.unshift(this.node.Q);
-		console.log(args);
+		//console.log(args);
 		this.Q = new paramObj.Q.func();
 		paramObj.Q.func.apply(this.Q, args);
 	}
@@ -510,7 +521,7 @@ function WaFilterNode(paramObj){
 		var args = [];
 		args = args.concat(paramObj.gain.args);
 		args.unshift(this.node.gain);
-		console.log(args);
+		//console.log(args);
 		this.gain = new paramObj.gain.func();
 		paramObj.gain.func.apply(this.gain, args);
 	}
@@ -522,7 +533,7 @@ function WaFilterNode(paramObj){
 		args = args.concat(paramObj.type.args);
 		args.push(this.node);
 		args.push('type');
-		console.log(args);
+		//console.log(args);
 		this.type = new paramObj.type.func();
 		paramObj.type.func.apply(this.type, args);
 	}
@@ -568,7 +579,7 @@ function BipolarVerticalSlider(parameter){
 			&& step != parameter.user 
 			&& parameter.testMode !== 'reference'){
 				parameter.user = step;
-				console.log(step);
+				//console.log(step);
 			}
 		}
 	}
@@ -687,7 +698,7 @@ function UnipolarKnob(parameter){
 			&& step !== parameter.user && parameter.testMode !== 'reference'){
 				waClickY = mouseY;
 				parameter.user = step;
-				console.log(step);
+				//console.log(step);
 			}
 		}
 	}
@@ -914,8 +925,8 @@ EarTrainingParameter.prototype.setRatio = function(userOrRef, ratio){
 		else if(ratio > this.max)
 			this[userOrRef] = this.stepCount;
 		else
-			this[userOrRef] = Math.round(this.stepCount * (ratio - this.min) / 
-				              (this.max - this.min));
+			this[userOrRef] = (this.max !== this.min) ? Math.round(this.stepCount * (ratio - this.min) / 
+				              (this.max - this.min)) : 0;
 	}
 	else{ //bipolar
 		ratio = (ratio + 1) / 2;
@@ -924,8 +935,8 @@ EarTrainingParameter.prototype.setRatio = function(userOrRef, ratio){
 		else if(ratio > this.max)
 			this[userOrRef] = this.stepCount;
 		else
-			this[userOrRef] = Math.round(this.stepCount * (ratio - this.min) / 
-				              (this.max - this.min));
+			this[userOrRef] = (this.max !== this.min) ? Math.round(this.stepCount * (ratio - this.min) / 
+				              (this.max - this.min)) : 0;
 	}
 }
 EarTrainingParameter.prototype.randomize = function(){
@@ -959,9 +970,9 @@ EarTrainingParameter.prototype.updateSettings = function(steps, mode, min, max, 
 EarTrainingParameter.prototype.checkAnswer = function(){
 	if( this.testMode === 'test' && this.min < this.max){
 		if( this.user === this.reference)
-			$(this.ID).addClass('correct-answer');
+			$(this.ID).addClass('correct-answer').removeClass('wrong-answer');
 		else
-			$(this.ID).addClass('wrong-answer');
+			$(this.ID).addClass('wrong-answer').removeClass('correct-answer');
 	}
 }
 
@@ -974,39 +985,153 @@ EarTrainingParameter.prototype.checkAnswer = function(){
 ***
 */
 
+function WaAppSettings(audioFiles, presets, formObj){
+	this.audioFiles = audioFiles;
+	this.presets = presets;
+	this.formObj = formObj;
+}
+WaAppSettings.prototype.fillHtmlSelect = function(object, elementID){
+	var html = '';
+	var k;
+	function keyToText(key){
+		key = key.replace(/[A-Z]/g, function(x){return ' ' + x;});
+		key = key.charAt(0).toUpperCase() + key.slice(1);
+		return key;
+		//console.log(key);
+	};
+	for( k in object){
+		html += '<option value="';
+		html += k;
+		html += '">'
+		html += keyToText(k);
+		html += '</option>'
+	}
+	$(elementID).html(html);
+}
 
-function EarTrainingTrack(ID){
+
+
+function EarTrainingTrack(ID, app){
 	this.ID = ID;
+	this.app = app;
 	this.isActive = true;
 	this.parameters = {};
 	this.crossfader = new WaCrossfader();
 	this.sourceNode = new WaBufferSourceNode();
+	this.customAudio = null;
+
+
+	var that = this;
+	//set up event listeners 
+	$(this.ID + '-audio-file').change( function(){
+		that.validateAudio( $(this)[0].files[0] );
+	});
+
+	$(this.ID + '-load-included-audio').click(function(e){
+		e.preventDefault();
+		var newAudio = $(that.ID + '-audio-files').val();
+		that.app.updateLoader('increment');
+		that.sourceNode.loadFromURL(that.app.settings.audioFiles[newAudio], function(){
+			that.app.updateLoader('decrement');
+		});
+	});
+
+	$(this.ID + '-load-custom-audio').click(function(e){
+		e.preventDefault();
+		if( that.customAudio ){
+			that.app.updateLoader('increment');
+			that.sourceNode.loadFromFile(that.customAudio, function(){
+				that.app.updateLoader('decrement');
+			});
+		}
+	});
+
+	if( CANDRAGDROP ){
+		$(this.ID + '-drag-drop').on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+		})
+		.on('dragover dragenter', function() {
+			$(this).addClass('is-dragover');
+		})
+		.on('dragleave dragend drop', function() {
+			$(this).removeClass('is-dragover');
+		})
+		.on('drop', function(e) {
+			that.validateAudio( e.originalEvent.dataTransfer.files[0] );
+		});
+	}
+	else{
+		$(this.ID + '-dd-text').html('<b>Click</b> to select a custom <i>.wav</i> or <i>.mp3</i> audio file')
+	}
+
+	$('.menu-item').click(function(e){
+		e.preventDefault();
+		var id = $(this).attr('href');
+		$('.menu-item').removeClass('shown');
+		$(this).addClass('shown');
+		$('.settings-container').removeClass('shown');
+		$(id).addClass('shown');
+	});
 }
 EarTrainingTrack.prototype.validateAudio = function(file){
-	;
+	if(!file){
+		this.customAudio = null;
+		if( CANDRAGDROP)
+			var msg = '<b>Drag and Drop</b> or <b>Click</b> to select a custom <i>.wav</i> or <i>.mp3</i> audio file';
+		else
+			var msg = '<b>Click</b> to select a custom <i>.wav</i> or <i>.mp3</i> audio file';
+		$(this.ID + '-dd-text').html(msg);
+		$(this.ID + '-drag-drop').removeClass('error');
+		$(this.ID + '-load-custom-audio').removeClass('active');
+	}
+	else if(file.type === 'audio/wav' 
+	|| file.type === 'audio/mp3' 
+	|| file.type === 'audio/mpeg'){
+		this.audioIsValid = true;
+		$(this.ID + '-dd-text').html('<b>' + file.name + '</b>');
+		$(this.ID + '-drag-drop').removeClass('error');
+		$(this.ID + '-load-custom-audio').addClass('active');
+		this.customAudio = file;
+	}
+	else{
+		this.customAudio = null;
+		var errMsg = 'Invalid file type selected. Please choose an <b>Mp3</b> or <b>Wav</b> file.'
+		$(this.ID + '-dd-text').html(errMsg);
+		$(this.ID + '-drag-drop').addClass('error');
+		$(this.ID + '-load-custom-audio').removeClass('active');
+	}
 }
 EarTrainingTrack.prototype.randomize = function(){
 	var param;
 	for( param in this.parameters)
 		this.parameters[param].randomize();
 }
-/*EarTrainingTrack.prototype.checkAnswer = function(){
-	;//check answer on all parameters... maybe can overwrite per ap
-}*/
+EarTrainingTrack.prototype.checkAnswer = function(){
+	var param;
+	for( param in this.parameters)
+		this.parameters[param].checkAnswer();
+	//check answer on all parameters... maybe can overwrite per ap
+}
 
 
 
-function EarTrainingApp(ID){
+function EarTrainingApp(ID, settingsArgs){
 	this.ID = ID;
+	this.settings = new WaAppSettings();
+	WaAppSettings.apply(this.settings, settingsArgs);
 	this.volume = new WaGainNode();
 	this.volumeCtrl = new Parameter(ID + '-volume', 0.75, UnipolarHorizontalSlider, this.volume, 'gain');
 	this.muteVol = this.volumeCtrl.getRatio();
 	this.isPlaying = false;
 	this.crossfadeMonitor = 'user';
 	this.tracks = [];
+	this.resourcesToLoad = 0;
+	this.settingsOpen = false;
+	this.savedSettings = JSON.parse(JSON.stringify(this.settings.presets.defaultPreset));
 
 
-	//bind functions to buttons
+	//set up event listeners 
 	var that = this
 	$(this.ID + '-play').click(function(e){
 		e.preventDefault();
@@ -1042,6 +1167,26 @@ function EarTrainingApp(ID){
 		e.preventDefault();
 		that.resetGame();
 	});
+
+	$(this.ID + '-close-settings').click(function(e){
+		e.preventDefault();
+		that.hideSettings();
+		that.fillFormFromObject(that.savedSettings);
+	});
+
+	$(this.ID + '-load-preset').click(function(e){
+		e.preventDefault();
+		var val = $(that.ID + '-presets').find(':selected').val();
+		that.loadPreset(val);
+	});
+
+
+	$(this.ID + '-preset-form').submit(function(e){
+		e.preventDefault();
+		that.savePreset();
+		//console.log('chicken');
+	});
+
 }
 EarTrainingApp.prototype.resetGame = function(){
 	var i;
@@ -1129,10 +1274,175 @@ EarTrainingApp.prototype.mute = function(){
 	}
 }
 EarTrainingApp.prototype.showSettings = function(){
+	this.stop();
 	$(this.ID + '-settings').addClass('shown');
+	this.settingsOpen = true;
 }
 EarTrainingApp.prototype.hideSettings = function(){
 	$(this.ID + '-settings').removeClass('shown');
+	this.settingsOpen = false;
+}
+EarTrainingApp.prototype.updateLoader = function(updateType){
+	if( updateType === 'increment'){
+		if( this.resourcesToLoad === 0 )
+			$(this.ID + '-loading-overlay').addClass('shown');
+		this.resourcesToLoad += 1;
+	}
+	else
+		if( this.resourcesToLoad > 0)
+			this.resourcesToLoad -= 1;
+		if( this.resourcesToLoad === 0)
+			$(this.ID + '-loading-overlay').removeClass('shown');
+		
+}
+EarTrainingApp.prototype.savePreset = function(){
+	var param;
+	var form =  this.settings.formObj;
+	var newId;
+	var saved = this.savedSettings;
+	var i;
+	var trackList = this.tracks;
+	for( param in form){
+		if( form[param].stepCount){
+			newId = this.ID + '-' + param + '-steps';
+			newId = newId.toLowerCase();
+			saved[param].stepCount = parseInt($(newId).val(), 10);
+		}
+
+		if( form[param].testMode){
+			newId = this.ID + '-' + param + '-mode';
+			newId = newId.toLowerCase();
+			saved[param].testMode = $(newId).val();
+		}
+
+		if( form[param].min){
+			newId = this.ID + '-' + param + '-min';
+			newId = newId.toLowerCase();
+			saved[param].min = parseFloat($(newId).val());
+		}
+
+		if( form[param].max){
+			newId = this.ID + '-' + param + '-max';
+			newId = newId.toLowerCase();
+			saved[param].max = parseFloat($(newId).val());
+		}
+		for( i = 0; i < trackList.length; i++){
+			trackList[i].parameters[param].updateSettings(
+				saved[param].stepCount, saved[param].testMode, saved[param].min, saved[param].max);
+		}
+	}
+}
+EarTrainingApp.prototype.fillFormFromObject = function(obj){
+	//console.log(obj);
+	var param;
+	var form =  this.settings.formObj;
+	var newId;
+	for( param in form){
+		if( form[param].stepCount){
+			newId = this.ID + '-' + param + '-steps';
+			newId = newId.toLowerCase();
+			$(newId).val(obj[param].stepCount);
+		}
+
+		if( form[param].testMode){
+			newId = this.ID + '-' + param + '-mode';
+			newId = newId.toLowerCase();
+			$(newId).val(obj[param].testMode);
+		}
+
+		if( form[param].min){
+			newId = this.ID + '-' + param + '-min';
+			newId = newId.toLowerCase();
+			$(newId).val(obj[param].min);
+		}
+
+		if( form[param].max){
+			newId = this.ID + '-' + param + '-max';
+			newId = newId.toLowerCase();
+			$(newId).val(obj[param].max);
+		}
+	}
+}
+EarTrainingApp.prototype.loadPreset = function(presetName){
+	this.fillFormFromObject(this.settings.presets[presetName]);
+	this.savePreset();
+}
+EarTrainingApp.prototype.makeForm = function(){
+	var html = '<thead><tr><th>Parameter</th><th>Steps</th><th>Mode</th>' +
+				'<th>Min</th><th>Max</th></tr></thead><tbody>';
+	var param;
+	var emptyCell = '<td class="null"></td>';
+	var form =  this.settings.formObj;
+	var newId;
+	for( param in form){
+		html += '<tr><td>' + form[param].title + '</td>';
+		if( form[param].stepCount){
+			newId = this.ID + '-' + param + '-steps';
+			newId = newId.slice(1).toLowerCase();
+			html += '<td><input id="' + newId + 
+			 '" type="number" min="1" max="' + form[param].maxSteps + '" required></td>';
+			}
+		else{
+			html += emptyCell;
+		}
+
+		if( form[param].testMode){
+			newId = this.ID + '-' + param + '-mode';
+			newId = newId.slice(1).toLowerCase();
+			html += '<td><select id="' + newId + '">' +
+						'<option value="test">Test</option>' +
+						'<option value="user">User</option>' +
+						'<option value="reference">Reference</option>' +
+	 				'</select></td>';
+
+		}
+		else{
+			html += emptyCell;
+		}
+
+		if( form[param].min){
+			newId = this.ID + '-' + param + '-min';
+			newId = newId.slice(1).toLowerCase();
+			html += '<td><input id="' + newId + 
+			 '" type="number" min="0" max="1" step="0.01" required></td>';
+			
+
+		}
+		else{
+			html += emptyCell;
+		}
+
+		if( form[param].max){
+			newId = this.ID + '-' + param + '-max';
+			newId = newId.slice(1).toLowerCase();
+			html += '<td><input id="' + newId + 
+			 '" type="number" min="0" max="1" step="0.01" required></td>';
+
+		}
+		else{
+			html += emptyCell;
+		}
+		html += '</tr>'
+	}
+	html += '</tbody>';
+	$(this.ID + '-preset-table').html(html);
+
+	for( param in form){
+		if(form[param].min && form[param].max){
+			var bindMinMax = function(id){	
+				$(id + '-min')[0].oninput = function(){
+					var val = $(id + '-min').val();
+					$(id + '-max').attr('min', val);
+				};
+			}
+			newId = this.ID + '-' + param;
+			newId = newId.toLowerCase();
+			bindMinMax(newId);
+		}
+	}
+}
+EarTrainingApp.prototype.printJSONpreset = function(){
+	console.log(JSON.stringify(eq.savedSettings));
 }
 
 
@@ -1140,3 +1450,38 @@ EarTrainingApp.prototype.hideSettings = function(){
 
 
 }//end if (WACTX)... No more code vvv
+
+
+function waBindKeys(app){
+	$(document).keydown(function(e){
+		if( !(app.resourcesToLoad > 0 || app.settingsOpen) ){
+			switch(e.which){
+				case 32: //space
+					e.preventDefault();
+					app.playPause();
+					break;
+				case 83: //s
+					//e.preventDefault();
+					app.stop();
+					break;
+				case 88: //x
+					//e.preventDefault();
+					app.toggleReference();
+					break;
+				case 77:
+					//e.preventDefault();
+					app.mute();
+					break;
+				case 82: //r
+					//e.preventDefault();
+					app.resetGame();
+					break;
+				case 86: //v
+					//e.preventDefault();
+					app.checkAnswer();
+					break;
+			}
+		}
+	});
+}
+
