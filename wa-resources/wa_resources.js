@@ -599,11 +599,7 @@ function BipolarVerticalSlider(parameter){
 	$(parameter.ID).on('touchstart', function(e){
 		e.preventDefault();
 		that.setLevelRange(parameter.ID);
-		var currentTouch = e.originalEvent.touches[0];
-		var thisHandler = function(){
-			levelHandler(currentTouch);
-		}
-		thisHandler();
+		levelHandler(e.originalEvent.touches[0]);
 		$(document).on('touchmove', function(e){
 			e.preventDefault();
 			//console.log(e.originalEvent.touches[0].pageY);
@@ -683,6 +679,20 @@ function UnipolarHorizontalSlider(parameter){
 			$(this).off('mouseup mousemove');
 		});
 	});
+
+	$(parameter.ID).on('touchstart', function(e){
+		e.preventDefault();
+		that.setLevelRange(parameter.ID);
+		levelHandler(e.originalEvent.touches[0]);
+		$(document).on('touchmove', function(e){
+			e.preventDefault();
+			//console.log(e.originalEvent.touches[0].pageY);
+			levelHandler(e.originalEvent.touches[0]);
+		});
+		$(document).on('touchend touchcancel', function(){
+			$(this).off('touchend touchcancel touchmove');
+		});
+	});
 }
 UnipolarHorizontalSlider.prototype.setLevelRange = function(id){
 	//console.log(id);
@@ -726,10 +736,24 @@ function UnipolarKnob(parameter){
 	$(parameter.ID).mousedown(function(e){
 		e.preventDefault();
 		waClickY = e.clientY;
-		levelHandler(e);
+		//levelHandler(e);
 		$(document).mousemove(levelHandler);
 		$(document).mouseup(function(){
 			$(this).off('mouseup mousemove');
+		});
+	});
+
+	$(parameter.ID).on('touchstart', function(e){
+		e.preventDefault();
+		waClickY = e.originalEvent.touches[0].clientY;
+		//levelHandler(e.originalEvent.touches[0]);
+		$(document).on('touchmove', function(e){
+			e.preventDefault();
+			//console.log(e.originalEvent.touches[0].pageY);
+			levelHandler(e.originalEvent.touches[0]);
+		});
+		$(document).on('touchend touchcancel', function(){
+			$(this).off('touchend touchcancel touchmove');
 		});
 	});
 }
