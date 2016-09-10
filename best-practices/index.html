@@ -24,7 +24,7 @@
 			<li><a href="http://www.color-hex.com/">color-hex</a></li>
 			<li><a href="https://incident57.com/codekit/">codekit</a></li>
 			<li><a href="https://www.browserstack.com/">browserstack</a></li>
-			<li><a href="https://www.w3.org/2009/cheatsheet/">w3 cheet sheet</a></li>
+			<li><a href="https://www.w3.org/2009/cheatsheet/">w3c cheet sheet</a></li>
 			<li><a href="http://shouldiprefix.com/">css prefixes</a></li>
 		</ul>
 		<hr>
@@ -124,7 +124,7 @@
 		<h2>CSS</h2>
 		<ul>
 			<li>
-				<h3><a name="3css">Maximum 3 Files Per Page</a></h3>
+				<h3 id="3css">Maximum 3 Files Per Page</h3>
 				<p>Loading additional files requires more calls to the server and increases page load times. Therefore it is a good idea to load as few files as possible on each page, especially for mobile.</p>
 				<p>CSS can be written in as many files as you wish, but at deployment these should all be combined and minimized into the maximum of three files per page.
 				<ul>
@@ -181,6 +181,7 @@
 		<hr>
 		<h2>Front End Checklist</h2>
 		<ul>
+			<li>Define language in html tag: <code>lang="en"</code></li>
 			<li>Use validators to check your code</li>
 			<li>Check document outline with HTML5 Outliner</li>
 			<li>The preferred order in the head: (1) charset, (2) title, (3) description, (4) viewport, (5) CSS.</li>
@@ -219,10 +220,13 @@
 </body>
 </html>
 <!--GENERAL: 
-content first, mobile second
-progressive enhancement
+
 
 HTML:
+
+?? encode the five special characters <, >, "", & and nbsp  ??
+https://google.github.io/styleguide/htmlcssguide.xml
+https://contribute.jquery.org/style-guide/html/
 
 CSS:
 use fallback fonts that are similar in size to the desired font 
