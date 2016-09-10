@@ -1,112 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 	<meta charset="utf8">
-	<title>Howard Shaw Portfolio</title>
-	<meta name="description" content="Web developer portfolio for Howard Shaw.">
+	<title>EQ Ear Training</title>
+	<meta name="description" content="Train your ears to detect boosts and reductions of specific frequency ranges by practicing reference EQ.">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="style.css" rel="stylesheet">
-	<link href='https://fonts.googleapis.com/css?family=Sintony:400,700' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
-
 </head>
 <body>
-	<header id="home" class="vp-box" tabindex="0">
-		<canvas id="canvas-hidden"></canvas>
-		<canvas id="canvas-copy"></canvas>
-		<img id="img-hidden" >
-		<canvas id="canvas-home"></canvas>
-		<div class="content-wrap">
-			<h1>Howard Shaw</h1>
-			<p>Developer Portfolio</p>
-		</div>
-	</header>
-	<section id="about" class="vp-box" tabindex="0">
-		<div class="content-wrap">
-			<h2>About Me</h2>
-			<div class="about-container">
-				<div class="img-wrap">
-					<img
-					src="me.png"
-					alt="A picture of me"
-					>
-					<div class="img-overlay"></div>
+	<div id="eq-container">
+		<div id="top-controls">
+			<button id="eq-play"><span>play</span></button><!--
+		 --><button id="eq-stop"><span>stop</span></button><!--
+		 --><button id="eq-reference-toggle">Reference</button>
+			 <div class="top-right">
+				<button id="eq-mute"><span>Mute</span></button>
+				<div id="eq-volume" tabindex="0">
+					<div class="range"></div>
+					<div class="handle"></div>
 				</div>
-				<p>Hi! I'm Howard, a front-end developer and electronic music producer. So far, my experience in development primarily consists of responsive design using HTML5, CSS3 and some jQuery. Because of my interest in music, I've also built some applications using the Web Audio API, Canvas, and JavaScript. I've also built a website using Django for the back end. You can find this in my portfolio labeled as "Full Stack."</p>
+				<button id="eq-settings-btn"><span>settings</span></button>
+			 </div>
+		</div>
+
+		<div id="parameters">
+			<div id="filter-type" tabindex="0"></div>
+			<div id="level" tabindex="0">
+				<div class="range"></div>
+				<div class="handle"></div>
 			</div>
+			<div id="frequency" class="knob" tabindex="0"></div>
+			<span>FREQ</span>
+			<div id="bandwidth" class="knob" tabindex="0"></div>
+			<span>Q</span><!--
+	 --></div><!--
+
+	 --><div id="monitor"><canvas id="spectrum" width='876' height="492"></canvas></div>
+		<div id="bottom-controls">
+			<button id="eq-check-answer">Check Answer</button><!--
+		 --><button id="eq-reset-game">Reset</button>
 		</div>
-	</section>
-	<section id="projects" class="vp-box" tabindex="0">
-		<div class="content-wrap">
-			<h2>Projects</h2>
-			<div class="projects-container">
-				<a href="https://www.beatschool.io" id="pa-beatschool"  class="project">
-						<div class="project-background">
-							<!--beatschool.io-->
-						</div>
-						<div class="project-overlay"></div>
-						<span>Full Stack</span>
-				</a><!--
-				--><a href="#" id="pa-two" class="project">
-						<div class="project-background">
-							<!--ear training-->
-						</div>
-						<div class="project-overlay"></div>
-						<span>Web Audio</span>
-				</a><!--
-				--><a href="#" id="pa-three" class="project">
-						<div class="project-background">
-							<!--interactive tut-->
-						</div>
-						<div class="project-overlay"></div>
-						<span>HTML5 Media</span>
-				</a><!--
-				--><a href="tribute-page/" id="pa-tribute" class="project">
-						<div class="project-background"></div>
-						<div class="project-overlay"></div>
-						<span>Responsive Design</span>
-				</a><!--
-				--><a href="#" id="pa-five" class="project">
-						<div class="project-background"></div>
-						<div class="project-overlay"></div>
-						<span>??</span>
-				</a><!--
-				--><a href="cipher/" id="pa-cipher" class="project">
-						<div class="project-background"></div>
-						<div class="project-overlay"></div>
-						<span>Text Cipher</span>
-				</a>
-			</div>
+
+	 	<div id="eq-settings">
+	 		<div id="settings-menu">
+	 			<a href="#settings-parameters" class="menu-item shown">Parameters</a><!--
+	 		 --><a href="#settings-audio" class="menu-item">Audio</a><!--
+	 		 --><a href="#settings-about" class="menu-item">About</a>
+	 			<div class="top-right"><button id="eq-close-settings"><span>close</span></button></div>
+	 		</div>
+	 		<div id="settings-parameters" class="shown settings-container">
+	 			<!--<input type="text" name="DEMOmin1max50" pattern="^[1-9]$|^[1-4][0-9]$|^50$">-->
+	 			<h3>Select Preset</h3>
+	 			<select id="eq-presets">
+	 			</select>
+	 			<button id="eq-load-preset">Load Preset</button>
+
+	 			<h3>Customize Preset</h3>
+
+	 			<form id="eq-preset-form">
+	 			<table id="eq-preset-table">
+	 			</table>
+
+		 		<button id="settings-save" type="submit">Apply Changes</button>
+	 			</form>
+	 		</div>
+	 		<div id="settings-audio" class="settings-container">
+	 			<h3>Select Audio</h3>
+	 			<select id="track0-audio-files">
+	 			</select>
+	 			<button id="track0-load-included-audio">Load Audio</button>
+	 			<h3>Custom Audio</h3>
+	 			<label for="track0-audio-file" id="track0-drag-drop">
+	 				<span id="track0-dd-text"><b>Drag and Drop</b> or <b>Click</b> to select a custom <i>.wav</i> or <i>.mp3</i> audio file</span>
+	 			</label>
+	 			<div id="audio-file-wrap">
+	 				<input type="file" id="track0-audio-file" required accept="audio/mpeg,	audio/wav">
+	 			</div>
+ 				<button id="track0-load-custom-audio" type="submit">Load Custom Audio</button>
+	 			
+	 		</div>
+	 		<div id="settings-about" class="settings-container">
+	 			<h2>About</h2>
+	 		</div>
+	 	</div>
+		<div id='eq-loading-overlay'>
+			<p>Loading...</p>
 		</div>
-	</section>
-	<section id="contact" class="vp-box" tabindex="0">
-		<div class="content-wrap">
-			<h2>Contact Me</h2>
-			<form id="contact-form" action="https://formspree.io/me@howardcshaw.com"
-      method="POST">
-				<label for="email">Email</label>
-				<input type="hidden" name="_subject" value="Howard Contact Form">
-				<input id="email" type="email" required placeholder="Your Email Address" name="email">
-				<label for="message">Message</label>
-				<textarea id="message" required placeholder="What's up?" name="message"></textarea>
-				<button type="submit">Send</button>
-			</form>
-			<p>
-				or send an email to <a href="mailto:me@howardcshaw.com">me@howardcshaw.com</a>
-			</p>
-			
-		</div>
-	</section>
-	<nav id="top-nav">
-		<div id="nav-wrap">
-			<h2>Menu</h2>
-			
-			<ul><li class="left-nav"><a href="#home" class="nav-link">Howard</a></li><li><a href="#about" class="nav-link">About</a></li><li><a href="#projects" class="nav-link">Projects</a></li><li><a href="#contact" class="nav-link">Contact</a></li>
-			</ul>
-		</div>
-		<a href="#" id="mobile-menu" tabindex="1"><span class="span-top"></span><span class="span-middle"></span><span class="span-bottom"></span></a>
-	</nav>
+	</div>
 	<script src="../js/jquery-2.2.3.min.js"></script>
-	<script src="portfolio.js"></script>
+	<script src="wa_resources.js"></script>
+	<script src="eq2.js"></script>
 </body>
 </html>
