@@ -8,21 +8,11 @@ NOTE: Parallel/Double objects should have the same methods as the singular ones
 	  Parallel/Double objects should only work with other parallel/double or crossfade
 NOTE: Use getters and setters when appropriate 
 
-NOTE: USe some kinf of prefix for controllers (e.e Ctl);
 
 
-Controllers = {
-	polarity: 'unipolar' // bipolar, selection 
-}
 
-Parameter{
-	simple parameter
-	
-}
 
 Ear Training Parameter = {
-	has steps, min, max, etc.
-	adjustable ???
 	function to update canvas???
 	
 }
@@ -33,12 +23,6 @@ Double Source Nodes( contain two buffers ){
 	contains two source nodes ^^
 	if connecting to something with "isParallel" false, throw error
 	
-}
-
-
-
-SingleSourceApp{
-	app with only one "source node" or "double source node"
 }
 
 
@@ -582,6 +566,22 @@ function BipolarVerticalSlider(parameter){
 				//console.log(step);
 			}
 		}
+		/*var touchHandler = function(e){
+			var mouseY = e.clientY;
+			var levelRange = that.levelRange;
+			var top = levelRange.bottom - levelRange.height * parameter.max;
+			var bottom = levelRange.bottom - levelRange.height * parameter.min;
+			var sCount = parameter.stepCount;
+			var step = Math.floor((bottom - mouseY)/(bottom - top)*(sCount + 1));
+
+			if( top < mouseY 
+			&& mouseY < bottom 
+			&& step != parameter.user 
+			&& parameter.testMode !== 'reference'){
+				parameter.user = step;
+				//console.log(step);
+			}
+		}*/
 	}
 
 
@@ -592,6 +592,19 @@ function BipolarVerticalSlider(parameter){
 		$(document).mousemove(levelHandler);
 		$(document).mouseup(function(){
 			$(this).off('mouseup mousemove');
+		});
+	});
+
+	$(parameter.ID).on('touchstart', function(e){
+		e.preventDefault();
+		that.setLevelRange(parameter.ID);
+		var currentTouch = e.touches[0];
+		var thisHandler = function(){
+			levelHandler(currentTouch);
+		}
+		$(document).on('touchmove', thisHandler);
+		$(document).on('touchend touchcancel', function(){
+			this.off('touchend touchcancel touchmove');
 		});
 	});
 
