@@ -552,6 +552,7 @@ function BipolarVerticalSlider(parameter){
 	if( parameter instanceof EarTrainingParameter){
 		var levelHandler = function(e){
 			var mouseY = e.clientY;
+			//console.log(mouseY);
 			var levelRange = that.levelRange;
 			var top = levelRange.bottom - levelRange.height * parameter.max;
 			var bottom = levelRange.bottom - levelRange.height * parameter.min;
@@ -598,13 +599,18 @@ function BipolarVerticalSlider(parameter){
 	$(parameter.ID).on('touchstart', function(e){
 		e.preventDefault();
 		that.setLevelRange(parameter.ID);
-		var currentTouch = e.touches[0];
+		var currentTouch = e.originalEvent.touches[0];
 		var thisHandler = function(){
 			levelHandler(currentTouch);
 		}
-		$(document).on('touchmove', thisHandler);
+		thisHandler();
+		$(document).on('touchmove', function(e){
+			e.preventDefault();
+			//console.log(e.originalEvent.touches[0].pageY);
+			levelHandler(e.originalEvent.touches[0]);
+		});
 		$(document).on('touchend touchcancel', function(){
-			this.off('touchend touchcancel touchmove');
+			$(this).off('touchend touchcancel touchmove');
 		});
 	});
 
