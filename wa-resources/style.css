@@ -57,7 +57,6 @@ body{
 @media all and (min-width: 555px){
 	#monitor{
 		width: 80%;
-		height: 180px;
 	}
 
 	#parameters{
@@ -70,6 +69,9 @@ body{
 		width: 80%;
 		float: right;
 		border-left: 1px dashed #0e1315;
+		position: absolute;
+		bottom: 30px;
+		right: 0;
 	}
 }
 
@@ -178,6 +180,7 @@ body{
 	#eq-check-answer, #eq-reset-game{
 
 		margin-bottom: 12px;
+		margin-top: 0;
 	}
 }
 
