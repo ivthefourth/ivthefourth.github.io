@@ -9,11 +9,13 @@
 	max-width: 960px;
 	background-color: #6c8089;
 	overflow: hidden;
+
+	min-height: 100vh;
 }
 
 @media all and (min-width: 1000px){
 	.app-container{
-		margin: 48px auto;;
+		margin: 48px auto;
 	}
 }
 
@@ -187,6 +189,16 @@
 	font-family: FontAwesome;
 }
 
+
+@media all and (min-width: 555px){
+	.top-controls-right{
+		width: auto;
+	}
+	.top-controls-left{
+		margin-top: 0;
+		width: auto;
+	}
+}
 
 
 

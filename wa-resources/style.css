@@ -54,6 +54,27 @@ body{
 }
 
 
+@media all and (min-width: 555px){
+	#monitor{
+		width: 80%;
+		height: 180px;
+	}
+
+	#parameters{
+		width: 20%;
+		border-top: 1px dashed #0e1315;
+		border-right: none; 
+	}	
+
+	#bottom-controls{
+		width: 80%;
+		float: right;
+		border-left: 1px dashed #0e1315;
+	}
+}
+
+
+
 @media all and (min-width: 1000px){
 	#monitor{
 		display: block;
@@ -150,6 +171,14 @@ body{
 
 	margin-top: 12px;
 	margin-bottom: 0;
+}
+
+@media all and (min-width: 555px){
+
+	#eq-check-answer, #eq-reset-game{
+
+		margin-bottom: 12px;
+	}
 }
 
 /*
