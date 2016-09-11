@@ -5,3 +5,5 @@ prevent preset table from resizing
 make responsive/adaptive
 
 'settings saved' pop up when saving settings
+
+alert for no web audio !!

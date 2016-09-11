@@ -21,7 +21,7 @@ var eqAudiofiles = {
 
 var eqForm = {
 	type: {title: 'Filter Type', testMode: true, stepCount: false, 
-		min: false, max: false, defaultRatio: false },
+		min: false, max: false, defaultRatio: false, maxSteps: 2 },
 	gain: {title: 'Gain', testMode: true, stepCount: true, 
 		min: true, max: true, defaultRatio: false, maxSteps: 50 },
 	detune: {title: 'Frequency', testMode: true, stepCount: true, 

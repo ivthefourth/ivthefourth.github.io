@@ -1345,11 +1345,19 @@ EarTrainingApp.prototype.savePreset = function(){
 	var saved = this.savedSettings;
 	var i;
 	var trackList = this.tracks;
+	var formVal;
 	for( param in form){
 		if( form[param].stepCount){
 			newId = this.ID + '-' + param + '-steps';
 			newId = newId.toLowerCase();
-			saved[param].stepCount = parseInt($(newId).val(), 10);
+			formVal = parseInt($(newId).val(), 10);
+			if( 1 <= formVal && formVal <= form[param].maxSteps){
+				saved[param].stepCount = formVal;
+			}
+			else{
+				alert( form[param].title + ' "Steps" must be between 1 and ' + form[param].maxSteps);
+				return;
+			}
 		}
 
 		if( form[param].testMode){
@@ -1361,13 +1369,28 @@ EarTrainingApp.prototype.savePreset = function(){
 		if( form[param].min){
 			newId = this.ID + '-' + param + '-min';
 			newId = newId.toLowerCase();
-			saved[param].min = parseFloat($(newId).val());
+			formVal = parseFloat($(newId).val());
+			if( 0 <= formVal && formVal <= 1){
+				saved[param].min = formVal;
+			}
+			else{
+				alert( form[param].title + ' "Min" must be between 0 and 1');
+				return;
+			}
 		}
 
 		if( form[param].max){
 			newId = this.ID + '-' + param + '-max';
 			newId = newId.toLowerCase();
-			saved[param].max = parseFloat($(newId).val());
+			formVal = parseFloat($(newId).val());
+			if( 1 <= formVal && formVal <= form[param].maxSteps){
+				saved[param].max = formVal;
+			}
+			else{
+				alert( form[param].title + ' "Max" must be between it\'s "Min" and 1');
+				saved[param].max = 1;
+				return;
+			}
 		}
 		for( i = 0; i < trackList.length; i++){
 			trackList[i].parameters[param].updateSettings(
