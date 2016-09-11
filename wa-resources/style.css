@@ -41,16 +41,15 @@ body{
 	text-align: center;
 	display: block;
 	float: left;
-	width: 50%;
-	height: 492px;
+	width: 40%;
 	padding: 12px;
 	overflow: hidden;
-	border-bottom: 1px dashed #0e1315;
-	border-top: 1px dashed #0e1315;
+
+	border-right: 1px dashed #0e1315;
 }
 
 #bottom-controls{
-	width: 50%;
+	width: 60%;
 	float: left;
 }
 
@@ -110,17 +109,25 @@ body{
 }
 
 #level{
+
 	float: right;
+	margin-top: 0;
+	margin-right: 12px;
+	height: 200px;
 }
 
 #frequency{
+
 	float: left;
 	clear: left;
+	margin-top: 12px;
 }
 
 #bandwidth{
+
 	float: left;
 	clear: left;
+	margin-top: 12px;
 }
 
 
@@ -134,6 +141,15 @@ body{
 
 	float: left;
 	clear: left;
+	width: 44px;
+	text-align: center;
+	margin-bottom: 0;
+}
+
+#eq-check-answer, #eq-reset-game{
+
+	margin-top: 12px;
+	margin-bottom: 0;
 }
 
 /*
