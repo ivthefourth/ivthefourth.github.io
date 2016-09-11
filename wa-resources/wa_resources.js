@@ -1383,11 +1383,11 @@ EarTrainingApp.prototype.savePreset = function(){
 			newId = this.ID + '-' + param + '-max';
 			newId = newId.toLowerCase();
 			formVal = parseFloat($(newId).val());
-			if( 1 <= formVal && formVal <= form[param].maxSteps){
+			if( saved[param].min <= formVal && formVal <= 1){
 				saved[param].max = formVal;
 			}
 			else{
-				alert( form[param].title + ' "Max" must be between it\'s "Min" and 1');
+				alert( form[param].title + ' "Max" must be between its "Min" value and 1');
 				saved[param].max = 1;
 				return;
 			}
