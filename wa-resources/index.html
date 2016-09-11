@@ -6,26 +6,29 @@
 	<meta name="description" content="Train your ears to detect boosts and reductions of specific frequency ranges by practicing reference EQ.">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="style.css" rel="stylesheet">
+	<link href="wa_resources.css" rel="stylesheet">
 </head>
 <body>
-	<div id="eq-container">
-		<div id="top-controls">
-			<button id="eq-play"><span>play</span></button><!--
-		 --><button id="eq-stop"><span>stop</span></button><!--
-		 --><button id="eq-reference-toggle">Reference</button>
-			 <div class="top-right">
-				<button id="eq-mute"><span>Mute</span></button>
-				<div id="eq-volume" tabindex="0">
+	<div id="eq-container" class="app-container">
+		<div class="top-controls">
+			 <div class="top-controls-right">
+				<button id="eq-mute" class="control-button mute-btn"><span>Mute</span></button>
+				<div id="eq-volume" class="app-volume"tabindex="0">
 					<div class="range"></div>
 					<div class="handle"></div>
 				</div>
-				<button id="eq-settings-btn"><span>settings</span></button>
+				<button id="eq-settings-btn" class="control-button open-settings-btn"><span>settings</span></button>
 			 </div>
+			 <div class="top-controls-left">
+				<button id="eq-play" class="control-button play-btn"><span>play</span></button><!--
+			 --><button id="eq-stop" class="control-button stop-btn"><span>stop</span></button><!--
+			 --><button id="eq-reference-toggle" class="reference-toggle">Reference</button>
+			</div>
 		</div>
-
-		<div id="parameters">
+		<div id="monitor"><canvas id="spectrum" width='876' height="492"></canvas></div><!--
+	 --><div id="parameters">
 			<div id="filter-type" tabindex="0"></div>
-			<div id="level" tabindex="0">
+			<div id="level" class="bipolar-vertical-slider" tabindex="0">
 				<div class="range"></div>
 				<div class="handle"></div>
 			</div>
@@ -33,20 +36,18 @@
 			<span>FREQ</span>
 			<div id="bandwidth" class="knob" tabindex="0"></div>
 			<span>Q</span><!--
-	 --></div><!--
-
-	 --><div id="monitor"><canvas id="spectrum" width='876' height="492"></canvas></div>
-		<div id="bottom-controls">
+	 --></div>
+		<div id="bottom-controls" class="app-bottom-controls">
 			<button id="eq-check-answer">Check Answer</button><!--
 		 --><button id="eq-reset-game">Reset</button>
 		</div>
 
-	 	<div id="eq-settings">
-	 		<div id="settings-menu">
+	 	<div id="eq-settings" class="app-settings">
+	 		<div class="settings-menu">
 	 			<a href="#settings-parameters" class="menu-item shown">Parameters</a><!--
 	 		 --><a href="#settings-audio" class="menu-item">Audio</a><!--
 	 		 --><a href="#settings-about" class="menu-item">About</a>
-	 			<div class="top-right"><button id="eq-close-settings"><span>close</span></button></div>
+	 			<div class="top-controls-right"><button id="eq-close-settings" class="control-button close-settings-btn"><span>close</span></button></div>
 	 		</div>
 	 		<div id="settings-parameters" class="shown settings-container">
 	 			<!--<input type="text" name="DEMOmin1max50" pattern="^[1-9]$|^[1-4][0-9]$|^50$">-->
@@ -58,7 +59,7 @@
 	 			<h3>Customize Preset</h3>
 
 	 			<form id="eq-preset-form">
-	 			<table id="eq-preset-table">
+	 			<table id="eq-preset-table" class="preset-table">
 	 			</table>
 
 		 		<button id="settings-save" type="submit">Apply Changes</button>
@@ -83,7 +84,7 @@
 	 			<h2>About</h2>
 	 		</div>
 	 	</div>
-		<div id='eq-loading-overlay'>
+		<div id="eq-loading-overlay" class="app-loading-overlay">
 			<p>Loading...</p>
 		</div>
 	</div>
