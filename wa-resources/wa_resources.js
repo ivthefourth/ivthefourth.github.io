@@ -1440,12 +1440,14 @@ EarTrainingApp.prototype.makeForm = function(){
 	var emptyCell = '<td class="null"></td>';
 	var form =  this.settings.formObj;
 	var newId;
+	var label;
 	for( param in form){
-		html += '<tr><td>' + form[param].title + '</td>';
+		html += '<tr><td class="form-param-title">' + form[param].title + '</td>';
 		if( form[param].stepCount){
 			newId = this.ID + '-' + param + '-steps';
 			newId = newId.slice(1).toLowerCase();
-			html += '<td><input id="' + newId + 
+			label = '<label for="' + newId + '">Steps</label>';
+			html += '<td>' + label +'<input id="' + newId + 
 			 '" type="number" min="1" max="' + form[param].maxSteps + '" required></td>';
 			}
 		else{
@@ -1455,7 +1457,8 @@ EarTrainingApp.prototype.makeForm = function(){
 		if( form[param].testMode){
 			newId = this.ID + '-' + param + '-mode';
 			newId = newId.slice(1).toLowerCase();
-			html += '<td><select id="' + newId + '">' +
+			label = '<label for="' + newId + '">Mode</label>';
+			html += '<td>' + label +'<select id="' + newId + '">' +
 						'<option value="test">Test</option>' +
 						'<option value="user">User</option>' +
 						'<option value="reference">Reference</option>' +
@@ -1469,7 +1472,8 @@ EarTrainingApp.prototype.makeForm = function(){
 		if( form[param].min){
 			newId = this.ID + '-' + param + '-min';
 			newId = newId.slice(1).toLowerCase();
-			html += '<td><input id="' + newId + 
+			label = '<label for="' + newId + '">Min</label>';
+			html += '<td>' + label +'<input id="' + newId + 
 			 '" type="number" min="0" max="1" step="0.01" required></td>';
 			
 
@@ -1481,7 +1485,8 @@ EarTrainingApp.prototype.makeForm = function(){
 		if( form[param].max){
 			newId = this.ID + '-' + param + '-max';
 			newId = newId.slice(1).toLowerCase();
-			html += '<td><input id="' + newId + 
+			label = '<label for="' + newId + '">Max</label>';
+			html += '<td>' + label +'<input id="' + newId + 
 			 '" type="number" min="0" max="1" step="0.01" required></td>';
 
 		}

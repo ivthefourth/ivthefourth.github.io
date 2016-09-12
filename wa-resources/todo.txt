@@ -5,3 +5,7 @@ make responsive/adaptive
 
 'settings saved' pop up when saving settings
 alert for no web audio !!
+
+add hover/active/etc. styles and classes with JS when needed 
+
+clean up css when all others are done

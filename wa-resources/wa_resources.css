@@ -128,12 +128,11 @@
 }
 
 .mute-btn{
-	line-height: 36px;
+	line-height: 34px;
 	font-size: 36px;
 	float: left;
 	padding: 0;
-	margin: 18px;
-	margin-right: 12px;
+	margin: 18px 12px 0 18px;
 	border: none;
 	background-color: transparent;
 
@@ -181,10 +180,11 @@
 }
 
 .open-settings-btn, .close-settings-btn{
-	line-height: 36px;
+	line-height: 34px;
 	font-size: 36px;
 	padding: 0;
 	margin: 18px;
+	margin-bottom: 0px;
 	border: none;
 	background-color: transparent;
 
@@ -203,13 +203,17 @@
 }
 
 
-@media all and (min-width: 555px){
+@media all and (min-width: 560px){
 	.top-controls-right{
 		width: auto;
 	}
 	.top-controls-left{
 		margin-top: 0;
 		width: auto;
+	}
+
+	.mute-btn{
+		margin-left: 0;
 	}
 }
 
@@ -300,6 +304,16 @@
 	transition: transform 1s ease, background-color 0.6s ease-in;
 	height: 546px;
 	transform: translateY(-564px);
+
+
+	width: calc(100% - 36px);
+	height: auto;
+	margin-bottom: 18px;
+	transform: translateY(-100%);
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: calc(100% - 91px);
+
 }
 .settings-container.shown{
 	transform: translateY(0);
@@ -332,8 +346,10 @@
 
 .preset-table{
 	table-layout: fixed;
-	width: 80%;
 	margin: 0 auto;
+
+	width: 100%;
+	max-width: 681px;
 }
 .preset-table select, .preset-table input{
 	width: 100%;
@@ -341,6 +357,19 @@
 
 .preset-table input[type="number"]{
 	padding-left: 6px;
+}
+
+.preset-table thead{
+
+	display: none;
+}
+
+.preset-table tr{
+	margin-bottom: 18px;
+	display: block;
+	border: 1px dashed #aaa;
+	border-radius: 5px;
+	padding: 6px;
 }
 
 .preset-table th{
@@ -351,14 +380,79 @@
 	width: 25%;
 	font-size: 22px;
 	padding: 6px;
+
+	width: 100%;
+	display: block;
 }
 
 .preset-table td.null{
 	text-align: center;
+
+	display: none;
 }
 .preset-table td.null:after{
 	content: "--";
 	font-size: 22px;
+}
+
+.preset-table label{
+	font-size: 18px;
+	margin-bottom: 6px;
+	margin-top: 12px;
+}
+
+.form-param-title{
+	font-weight: bold;
+}
+
+@media all and (min-width: 665px){
+	.preset-table tbody{
+		display: flex;
+	}
+}
+
+@media all and (min-width: 800px){
+	.preset-table thead{
+		display: table-header-group;
+	}
+
+	.preset-table tbody{
+		display: table-row-group;
+	}
+
+	.preset-table td, .preset-table th{
+		width: 25%;
+		display: table-cell;
+	}
+
+	.preset-table td.null{
+		display: table-cell;
+	}
+
+	.preset-table tr{
+		margin-bottom: 0;
+		display: table-row;
+		border: none;
+		border-radius: 0;
+		padding: 0;
+	}
+
+	.preset-table label{
+		display: none;
+	}
+
+	.form-param-title{
+		font-weight: normal;
+	}
+}
+
+.settings-btn{
+	background-color: #1e99d2;
+	color: #fff;
+	border: 1px solid #1878a5;
+	border-radius: 5px;
+	font-family: Arial;
+	padding: 8px !important;
 }
 
 

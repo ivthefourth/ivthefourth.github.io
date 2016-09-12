@@ -26,7 +26,7 @@ var eqForm = {
 		min: true, max: true, defaultRatio: false, maxSteps: 50 },
 	detune: {title: 'Frequency', testMode: true, stepCount: true, 
 		min: true, max: true, defaultRatio: false, maxSteps: 50 },
-	Q: {title: 'BandWidth (Q)', testMode: true, stepCount: true, 
+	Q: {title: 'BW (Q)', testMode: true, stepCount: true, 
 		min: true, max: true, defaultRatio: false, maxSteps: 50 }
 }
 

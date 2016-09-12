@@ -44,17 +44,17 @@
 
 	 	<div id="eq-settings" class="app-settings">
 	 		<div class="settings-menu">
-	 			<a href="#settings-parameters" class="menu-item shown">Parameters</a><!--
-	 		 --><a href="#settings-audio" class="menu-item">Audio</a><!--
-	 		 --><a href="#settings-about" class="menu-item">About</a>
-	 			<div class="top-controls-right"><button id="eq-close-settings" class="control-button close-settings-btn"><span>close</span></button></div>
+	 			<a id="menu-parameters" href="#settings-parameters" class="menu-item shown"><span>Parameters</span></a><!--
+	 		 --><a id="menu-audio" href="#settings-audio" class="menu-item"><span>Audio</span></a><!--
+	 		 --><a id="menu-about" href="#settings-about" class="menu-item"><span>About</span></a>
+	 			<div id= "settings-controls-right" class="top-controls-right"><button id="eq-close-settings" class="control-button close-settings-btn"><span>close</span></button></div>
 	 		</div>
 	 		<div id="settings-parameters" class="shown settings-container">
 	 			<!--<input type="text" name="DEMOmin1max50" pattern="^[1-9]$|^[1-4][0-9]$|^50$">-->
 	 			<h3>Select Preset</h3>
 	 			<select id="eq-presets">
 	 			</select>
-	 			<button id="eq-load-preset">Load Preset</button>
+	 			<button id="eq-load-preset" class="settings-btn">Load Preset</button>
 
 	 			<h3>Customize Preset</h3>
 
@@ -62,14 +62,14 @@
 	 			<table id="eq-preset-table" class="preset-table">
 	 			</table>
 
-		 		<button id="settings-save" type="submit">Apply Changes</button>
+		 		<button id="settings-save" type="submit" class="settings-btn">Apply Changes</button>
 	 			</form>
 	 		</div>
 	 		<div id="settings-audio" class="settings-container">
 	 			<h3>Select Audio</h3>
 	 			<select id="track0-audio-files">
 	 			</select>
-	 			<button id="track0-load-included-audio">Load Audio</button>
+	 			<button id="track0-load-included-audio" class="settings-btn">Load Audio</button>
 	 			<h3>Custom Audio</h3>
 	 			<label for="track0-audio-file" id="track0-drag-drop">
 	 				<span id="track0-dd-text"><b>Drag and Drop</b> or <b>Click</b> to select a custom <i>.wav</i> or <i>.mp3</i> audio file</span>
@@ -77,11 +77,11 @@
 	 			<div id="audio-file-wrap">
 	 				<input type="file" id="track0-audio-file" required accept="audio/mpeg,	audio/wav">
 	 			</div>
- 				<button id="track0-load-custom-audio" type="submit">Load Custom Audio</button>
+ 				<button id="track0-load-custom-audio" type="submit" class="settings-btn">Load Custom Audio</button>
 	 			
 	 		</div>
 	 		<div id="settings-about" class="settings-container">
-	 			<h2>About</h2>
+	 			<h3>About</h3>
 	 		</div>
 	 	</div>
 		<div id="eq-loading-overlay" class="app-loading-overlay">
