@@ -67,8 +67,7 @@ body{
 
 	#bottom-controls{
 		width: 80%;
-		float: right;
-		border-left: 1px dashed #0e1315;
+		float: none;
 		position: absolute;
 		bottom: 30px;
 		right: 0;
@@ -77,12 +76,20 @@ body{
 
 
 
-@media all and (min-width: 1000px){
+@media all and (min-width: 555px) and (min-height: 636px){
+	#bottom-controls{
+		float: none;
+		position: static;
+	}
+}
+
+
+
+@media all and (min-width: 960px) and (min-height: 565px){
 	#monitor{
 		display: block;
 		float: right;
 		width: 91.25%;
-		height: 492px;
 		background-color: #0e1315;
 		overflow: hidden;
 	}
@@ -103,6 +110,7 @@ body{
 		width: 100%;
 	}
 }
+
 
 
 #filter-type{
@@ -181,6 +189,57 @@ body{
 
 		margin-bottom: 12px;
 		margin-top: 0;
+	}
+}
+
+@media all and (min-width: 555px) and (min-height: 500px), 
+all and (min-width: 960px) and (min-height: 500px){
+
+	#filter-type{
+
+		float: none;
+	}
+
+	#level{
+
+		float: none;
+		margin: 12px auto;
+	}
+
+	#frequency{
+
+		float: none;
+	}
+
+	#bandwidth{
+
+		float: none;
+	}
+
+	#parameters span{
+
+		float: none;
+		width: auto;
+	}
+}
+
+
+@media all and (min-width: 555px) and (min-height: 636px){
+	#eq-check-answer, #eq-reset-game{
+
+		margin: 18px 9px;
+	}
+
+	#level{
+		height: 240px;
+		margin: 24px auto;
+	}
+}
+
+@media all and (min-width: 960px) and (min-height: 636px){
+	#eq-check-answer, #eq-reset-game{
+
+		margin: 18px 9px;
 	}
 }
 
