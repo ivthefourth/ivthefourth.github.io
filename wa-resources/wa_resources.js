@@ -393,10 +393,12 @@ WaBufferSourceNode.prototype.stop = function(atTime){
 	if(!this.isStopped){
 		this.isPlaying = false;
 		this.isStopped = true;
-		this.node.gain.setValueAtTime(1, atTime);
-		this.node.gain.linearRampToValueAtTime(0, atTime + 0.02);
-		this.source.stop(atTime + 0.02);
 		this.startOffset = 0;
+		if( this.isPlaying ){
+			this.node.gain.setValueAtTime(1, atTime);
+			this.node.gain.linearRampToValueAtTime(0, atTime + 0.02);
+			this.source.stop(atTime + 0.02);
+		}
 	}
 	
 }

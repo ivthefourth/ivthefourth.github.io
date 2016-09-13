@@ -1,7 +1,4 @@
-
-make responsive/adaptive
--->rescale canvas on resize & load... can copy from portfolio
-
+test buffer source node stop, only call to stop source if is playing
 
 'settings saved' pop up when saving settings
 alert for no web audio !!

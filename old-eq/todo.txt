@@ -1,7 +1,0 @@
-
-make responsive/adaptive
--->rescale canvas on resize & load... can copy from portfolio
-
-
-'settings saved' pop up when saving settings
-alert for no web audio !!
