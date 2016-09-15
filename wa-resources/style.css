@@ -125,8 +125,14 @@ body{
 	padding-top: 8px;
 
 	float: left;
+	cursor: pointer;
+	transition: color 0.3s ease;
 }
-#filter-type:after{
+#filter-type:hover{
+	color: #ccc;
+}
+#filter-type:focus{
+	outline: 0;
 }
 
 .controller-lowpass:after{
@@ -262,8 +268,6 @@ all and (min-width: 960px) and (min-height: 500px){
 
 #track0-drag-drop{
 	background-color: #fff;
-	width: 80%;
-	height: 200px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -271,13 +275,13 @@ all and (min-width: 960px) and (min-height: 500px){
 	border-radius: 12px;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 15%;
 	text-align: center;
 
 	height: auto;
 	font-size: 16px;
 	width: 100%;
 	padding: 32px;
+	cursor: pointer;
 }
 
 #track0-drag-drop.error{
@@ -293,14 +297,16 @@ all and (min-width: 960px) and (min-height: 500px){
 #track0-load-custom-audio{
 	opacity: 0.4;
 }
+#track0-load-custom-audio:hover{
+	background-color: #1e99d2;
+	cursor: default;
+}
 #track0-load-custom-audio.active{
 	opacity: 1;
 }
-#track0-load-custom-audio:hover{
-	cursor: default;
-}
 #track0-load-custom-audio.active:hover{
 	cursor: pointer;
+	background-color: #1878a5;
 }
 
 

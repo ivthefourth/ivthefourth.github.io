@@ -1348,6 +1348,11 @@ EarTrainingApp.prototype.savePreset = function(){
 	var i;
 	var trackList = this.tracks;
 	var formVal;
+	var overlayID = this.ID + '-saved-overlay';
+	if( this.resourcesToLoad === 0){
+		$(overlayID).addClass('shown');
+		setTimeout(function(){$(overlayID).removeClass('shown');}, 500);
+	}
 	for( param in form){
 		if( form[param].stepCount){
 			newId = this.ID + '-' + param + '-steps';
@@ -1522,7 +1527,9 @@ EarTrainingApp.prototype.printJSONpreset = function(){
 
 
 
-}//end if (WACTX)... No more code vvv
+}//end if (WACTX)
+else
+	$('.app-no-wa-overlay').addClass('shown');
 
 
 function waBindKeys(app){
