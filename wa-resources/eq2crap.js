@@ -102,7 +102,8 @@ eq.settings.fillHtmlSelect(eqPresets, '#eq-presets');
 
 //CRAP BECAUSE CHROME BROKE THIS:
 var crap = new WaBufferSourceNode();
-crap.connect(eq.tracks[0].filter);
+crap.connect(eq.tracks[0].sourceNode.node);
+crap.connect(audioCtx.destination);
 function crapCallback(){
 	crap.play(0);
 	eq.toggleReference();
@@ -116,7 +117,7 @@ function crapCallback(){
 }
 
 eq.updateLoader('increment');
-crap.loadFromURL('silence.wav', crapCallback);
+crap.loadFromURL('quietnoise.wav', crapCallback);
 //ENDCRAP
 
 

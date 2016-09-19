@@ -48,16 +48,12 @@ WaBufferSourceNode.prototype.play = function(atTime){
 		this.source.buffer = this.buffer;
 		this.source.loop = true;
 		this.source.connect(this.node);
-		this.node.gain.setValueAtTime(0, atTime);
-		this.node.gain.linearRampToValueAtTime(1, atTime + 0.02);
 		this.source.start(atTime, this.startOffset );
 	}
 }
 WaBufferSourceNode.prototype.pause = function(atTime){
 	if( this.isPlaying ){
 		this.isPlaying = false;
-		this.node.gain.setValueAtTime(1, atTime);
-		this.node.gain.linearRampToValueAtTime(0, atTime + 0.02);
 		this.source.stop(atTime + 0.02);
 		this.startOffset = (this.startOffset + atTime - this.startedAt) % this.buffer.duration;
 	}
@@ -101,11 +97,13 @@ function mute(){
 	if( isMuted){
 		//declick the unmute
 		gain.gain.setValueAtTime(1, now);
+		//gain.gain.linearRampToValueAtTime(1, now + 30);
 		$('#mute-text').text('Sound Should Be On');
 	}
 	else{
 		//declick the mute
 		gain.gain.setValueAtTime(0, now);
+		//gain.gain.linearRampToValueAtTime(0, now + 30);
 		$('#mute-text').text('Sound Should Be Off');
 	}
 	isMuted = !isMuted;
