@@ -183,7 +183,7 @@ for( var i = 1; i < 16; i++)
 
 
 
-
+/*
 function drawSpectrum(){
 	canvasContext.clearRect(0, 0, canvasWidth, canvasHeight);
 
@@ -198,7 +198,7 @@ function drawSpectrum(){
 
 	  // values go from 0 to 256 and the canvas heigt is 100. Let's rescale
 	  // before drawing. This is the scale factor
-	  var heightScale = canvasHeight/128;
+	  //var heightScale = canvasHeight/128;
 
 	  for(var i = 0; i < bufferLength; i++) {
 	    barHeight =  canvasHeight * 1/(40)*((dataArray[i]+ 3*Math.log2(i + 1)) + 78);
@@ -213,10 +213,13 @@ function drawSpectrum(){
 	  }
 
 
-}
+}*/
 
 var doSpectrum = true;
+var filterArray = [eq.tracks[0].filter.user];
+var sampleRate = audioCtx.sampleRate;
 function drawCanvas(){
+	canvasContext.clearRect(0, 0, canvasWidth, canvasHeight);
 
 	if(eq.crossfadeMonitor === 'user'){
 		canvasContext.fillStyle = 'rgb(0, 225, 0)';
@@ -229,11 +232,13 @@ function drawCanvas(){
 	}
 
 	if( doSpectrum) 
-		drawSpectrum();
+		drawSpectrum(canvasContext, canvasWidth, canvasHeight, 
+			-78, 0, 3, bufferLength, dataArray, sampleRate);
 	else
 		canvasContext.clearRect(0, 0, canvasWidth, canvasHeight);
 
-	drawCurve();
+	drawCurve(canvasContext, canvasWidth, canvasHeight, 
+		sampleRate, -78, 0, filterArray);
 	requestAnimationFrame(drawCanvas);
 }
 
@@ -244,6 +249,7 @@ var canvasGain = eq.tracks[0].parameters.gain;
 var canvasQ = eq.tracks[0].parameters.Q;
 var canvasType = eq.tracks[0].parameters.type;
 
+/*
 function drawCurve(){
 	//canvasContext.clearRect(0, 0, width, height);
 	//var freq = ;
@@ -305,8 +311,8 @@ function drawCurve(){
 	canvasContext.stroke();
 	//canvasContext.stroke();
 	//canvasContext.stroke();
-};
-
+}
+*/
 
 var canvas;
 var canvasWidth;
@@ -322,6 +328,7 @@ $(document).ready(function(){
 	canvasContext = canvas.getContext('2d');
 	canvasContext.fillStyle = 'rgb(0,' + 225 + ',0)';
     canvasContext.lineWidth = 5;
+    canvasContext.lineJoin = 'round';
     $('#spectrum').click(function(e){
     	e.preventDefault();
     	doSpectrum = !doSpectrum;
