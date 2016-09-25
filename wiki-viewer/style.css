@@ -1,0 +1,23 @@
+
+@viewport{
+    width: device-width;
+}
+
+@-ms-viewport{
+    width: device-width;
+}
+
+html{
+	font-size: 100%;
+	box-sizing: border-box;
+	-webkit-text-size-adjust: 100%;
+}
+
+*{ box-sizing: inherit;}
+
+body{
+	margin: 0;
+	font-family: sans-serif;
+}
+
+
