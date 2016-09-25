@@ -51,10 +51,19 @@ h1 a{
 	margin-bottom: 2em;
 }
 
+.search-result{
+	margin-bottom: 2em;
+}
+
+#load-more{
+	display: block;
+	width: 100%;
+}
+
 #load-more:disabled{
 	visibility: hidden;
 }
 
-.search-result{
-	margin-bottom: 2em;
+button{
+	cursor: pointer;
 }
