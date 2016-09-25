@@ -16,11 +16,8 @@ body{
 }
 
 #wrapper{
+	position: relative;
 	background-color: #e9e9e9;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
 	min-height: 100vh;
 }
 @media all and (min-width: 42em){
@@ -116,9 +113,12 @@ p{
 	padding: 1em;
 	border-radius: 1rem;
 	background-color: #fff;
+	margin-bottom: 5rem;
 }
 
 footer{
+	position: absolute;
+	bottom: 0;
 	width: 100%;
 	text-align: center;
 	color: #fff;
