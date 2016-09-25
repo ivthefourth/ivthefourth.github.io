@@ -1,8 +1,11 @@
 function makePage(response, errMsg){
-	if( response )
+	if( response ){
 		console.log(response);
-	else
+		document.getElementById('content').innerHTML = JSON.stringify(response);
+	}
+	else{
 		console.log('boo');
+	}
 }
 
 function storePosition (pos) {
