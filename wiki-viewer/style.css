@@ -20,4 +20,36 @@ body{
 	font-family: sans-serif;
 }
 
+#wrapper{
+	max-width: 640px;
+	margin: 0 auto;
+	padding: 1em;
+}
 
+h1{
+	text-align: center;
+}
+
+#search-bar{
+	display: block;
+	width: 80%;
+	float: left;
+}
+#search-button{
+	display: block;
+	width: 20%;
+	float: left;
+}
+
+#search-wrap{
+	display: flex;
+	margin-bottom: 2em;
+}
+
+#load-more:disabled{
+	visibility: hidden;
+}
+
+.search-result{
+	margin-bottom: 2em;
+}
