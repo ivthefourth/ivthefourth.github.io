@@ -5,6 +5,7 @@ function makePage(response, errMsg){
 	}
 	else{
 		console.log('boo');
+		document.getElementById('content').innerHTML = errMsg;
 	}
 }
 
