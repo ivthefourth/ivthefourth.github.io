@@ -8,7 +8,7 @@ function toF(kelvin){
 }
 
 function showDiv(id){
-	var div = document.getElementById(id)
+	var div = document.getElementById(id);
 	div.style.display = 'block';
 	setTimeout(function(){
 		div.style.opacity = '1';
@@ -18,7 +18,7 @@ function showDiv(id){
 function makePage(response, errMsg){
 	if( response ){
 		var temperature = response.main.temp;
-		var units = 'f'
+		var units = 'f';
 		document.getElementById('location').innerHTML = 
 			response.name + ', ' + response.sys.country;
 		document.getElementById('temperature').innerHTML = 
