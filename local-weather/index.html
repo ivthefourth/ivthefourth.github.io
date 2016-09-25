@@ -8,7 +8,18 @@
 	<link href="style.css" rel="stylesheet">
 </head>
 <body>
-	<p id="content"></p>
+	<div id="wrapper">
+		<h1 id="header">Weather</h1>
+		<p id="location"></p>
+		<p id="temperature"></p>
+		<p id="weather"></p>
+		<div id="icon"></div>
+		<button id="f-c-toggle">Change temperature units</button>
+
+	</div>
+	<div id="err-wrapper">
+		<p id="err-msg"></p>
+	</div>
 	<script src="weather.js"></script>
 </body>
 </html>
