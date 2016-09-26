@@ -776,7 +776,7 @@ function ClickToggle(parameter){
 			this.classList.push('controller-' + selections[typeItem]);
 		}
 		var clickHandler = function(e){
-			e.preventDefault;
+			e.preventDefault();
 			if(parameter.testMode !== 'reference'){
 				parameter.user = ((parameter.user + 1 )%(parameter.stepCount + 1));
 				//console.log(param.user);
@@ -785,8 +785,7 @@ function ClickToggle(parameter){
 	}
 
 	//this.currentClass = this.classList[0];
-	$(parameter.ID).mousedown(clickHandler);
-	$(parameter.ID).on('touchstart', clickHandler);
+	$(parameter.ID).on('touchstart click', clickHandler);
 
 }
 ClickToggle.prototype.updateInterface = function(id, ratio){
@@ -1234,13 +1233,23 @@ function EarTrainingApp(ID, settingsArgs){
 		that.showSettings();
 	});
 
-	$(this.ID + '-check-answer').click(function(e){
+	$(this.ID + '-check-answer').on('click', function(e){
 		e.preventDefault();
 		that.checkAnswer();
+		setTimeout(function(){
+			$(that.ID + '-container').css('background-color', 'pink');
+		}, 500);
+		setTimeout(function(){
+			$(that.ID + '-container').css('background-color', 'black');
+		}, 1500);
 	});
 	$(this.ID + '-check-answer').on('touchstart', function(e){
 		e.preventDefault();
 		that.checkAnswer();
+		$(that.ID + '-container').css('background-color', 'blue');
+		setTimeout(function(){
+			$(that.ID + '-container').css('background-color', 'black');
+		}, 1000);
 	});
 
 	$(this.ID + '-reset-game').click(function(e){
