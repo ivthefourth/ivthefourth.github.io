@@ -785,7 +785,7 @@ function ClickToggle(parameter){
 	}
 
 	//this.currentClass = this.classList[0];
-	$(parameter.ID).on('touchstart click', clickHandler);
+	$(parameter.ID).on('mousedown touchstart', clickHandler);
 
 }
 ClickToggle.prototype.updateInterface = function(id, ratio){
@@ -1112,15 +1112,7 @@ function EarTrainingTrack(ID, app){
 		$(this.ID + '-dd-text').html('<b>Click</b> to select a custom <i>.wav</i> or <i>.mp3</i> audio file')
 	}
 
-	$('.menu-item').click(function(e){
-		e.preventDefault();
-		var id = $(this).attr('href');
-		$('.menu-item').removeClass('shown');
-		$(this).addClass('shown');
-		$('.settings-container').removeClass('shown');
-		$(id).addClass('shown');
-	});
-	$('.menu-item').on('touchstart', function(e){
+	$('.menu-item').on('click touchstart', function(e){
 		e.preventDefault();
 		var id = $(this).attr('href');
 		$('.menu-item').removeClass('shown');
@@ -1188,80 +1180,42 @@ function EarTrainingApp(ID, settingsArgs){
 
 	//set up event listeners 
 	var that = this
-	$(this.ID + '-play').click(function(e){
-		e.preventDefault();
-		that.playPause();
-	});
-	$(this.ID + '-play').on('touchstart', function(e){
+	$(this.ID + '-play').on('click touchstart', function(e){
 		e.preventDefault();
 		that.playPause();
 	});
 
-	$(this.ID + '-stop').click(function(e){
-		e.preventDefault();
-		that.stop();
-	});
-	$(this.ID + '-stop').on('touchstart', function(e){
+	$(this.ID + '-stop').on('click touchstart', function(e){
 		e.preventDefault();
 		that.stop();
 	});
 
-	$(this.ID + '-reference-toggle').click(function(e){
-		e.preventDefault();
-		that.toggleReference();
-	});
-	$(this.ID + '-reference-toggle').on('touchstart', function(e){
+	$(this.ID + '-reference-toggle').on('click touchstart', function(e){
 		e.preventDefault();
 		that.toggleReference();
 	});
 
-	$(this.ID + '-mute').click(function(e){
-		e.preventDefault();
-		that.mute();
-	});
-	$(this.ID + '-mute').on('touchstart', function(e){
+	$(this.ID + '-mute').on('click touchstart', function(e){
 		e.preventDefault();
 		that.mute();
 	});
 
-	$(this.ID + '-settings-btn').click(function(e){
-		e.preventDefault();
-		that.showSettings();
-	});
-	$(this.ID + '-settings-btn').on('touchstart', function(e){
+	$(this.ID + '-settings-btn').on('click touchstart', function(e){
 		e.preventDefault();
 		that.showSettings();
 	});
 
-	$(this.ID + '-check-answer').on('click', function(e){
+	$(this.ID + '-check-answer').on('click touchstart', function(e){
 		e.preventDefault();
 		that.checkAnswer();
-		setTimeout(function(){
-			$(that.ID + '-container').css('background-color', 'pink');
-		}, 500);
-		setTimeout(function(){
-			$(that.ID + '-container').css('background-color', 'black');
-		}, 1500);
-	});
-	$(this.ID + '-check-answer').on('touchstart', function(e){
-		e.preventDefault();
-		that.checkAnswer();
-		$(that.ID + '-container').css('background-color', 'blue');
-		setTimeout(function(){
-			$(that.ID + '-container').css('background-color', 'black');
-		}, 1000);
 	});
 
-	$(this.ID + '-reset-game').click(function(e){
-		e.preventDefault();
-		that.resetGame();
-	});
-	$(this.ID + '-reset-game').on('touchstart', function(e){
+	$(this.ID + '-reset-game').on('click touchstart', function(e){
 		e.preventDefault();
 		that.resetGame();
 	});
 
-	$(this.ID + '-close-settings').click(function(e){
+	$(this.ID + '-close-settings').on('click touchstart', function(e){
 		e.preventDefault();
 		that.hideSettings();
 		that.fillFormFromObject(that.savedSettings);
