@@ -786,6 +786,7 @@ function ClickToggle(parameter){
 
 	//this.currentClass = this.classList[0];
 	$(parameter.ID).mousedown(clickHandler);
+	$(parameter.ID).on('touchstart', clickHandler);
 
 }
 ClickToggle.prototype.updateInterface = function(id, ratio){
@@ -1120,6 +1121,14 @@ function EarTrainingTrack(ID, app){
 		$('.settings-container').removeClass('shown');
 		$(id).addClass('shown');
 	});
+	$('.menu-item').on('touchstart', function(e){
+		e.preventDefault();
+		var id = $(this).attr('href');
+		$('.menu-item').removeClass('shown');
+		$(this).addClass('shown');
+		$('.settings-container').removeClass('shown');
+		$(id).addClass('shown');
+	});
 }
 EarTrainingTrack.prototype.validateAudio = function(file){
 	if(!file){
@@ -1184,8 +1193,16 @@ function EarTrainingApp(ID, settingsArgs){
 		e.preventDefault();
 		that.playPause();
 	});
+	$(this.ID + '-play').on('touchstart', function(e){
+		e.preventDefault();
+		that.playPause();
+	});
 
 	$(this.ID + '-stop').click(function(e){
+		e.preventDefault();
+		that.stop();
+	});
+	$(this.ID + '-stop').on('touchstart', function(e){
 		e.preventDefault();
 		that.stop();
 	});
@@ -1194,8 +1211,16 @@ function EarTrainingApp(ID, settingsArgs){
 		e.preventDefault();
 		that.toggleReference();
 	});
+	$(this.ID + '-reference-toggle').on('touchstart', function(e){
+		e.preventDefault();
+		that.toggleReference();
+	});
 
 	$(this.ID + '-mute').click(function(e){
+		e.preventDefault();
+		that.mute();
+	});
+	$(this.ID + '-mute').on('touchstart', function(e){
 		e.preventDefault();
 		that.mute();
 	});
@@ -1204,13 +1229,25 @@ function EarTrainingApp(ID, settingsArgs){
 		e.preventDefault();
 		that.showSettings();
 	});
+	$(this.ID + '-settings-btn').on('touchstart', function(e){
+		e.preventDefault();
+		that.showSettings();
+	});
 
 	$(this.ID + '-check-answer').click(function(e){
 		e.preventDefault();
 		that.checkAnswer();
 	});
+	$(this.ID + '-check-answer').on('touchstart', function(e){
+		e.preventDefault();
+		that.checkAnswer();
+	});
 
 	$(this.ID + '-reset-game').click(function(e){
+		e.preventDefault();
+		that.resetGame();
+	});
+	$(this.ID + '-reset-game').on('touchstart', function(e){
 		e.preventDefault();
 		that.resetGame();
 	});
@@ -1591,7 +1628,7 @@ function drawSpectrum(canvasContext, canvasWidth,
 		if( startFreq === 0 )
 			x = 0;
 		else
-			x = canvasWidth * Math.log2(startFreq/20) / 10 - 1;
+			x = canvasWidth * Math.log2(startFreq/20) / 10 - 1; //20hz to 20480hz
 
 		barWidth = canvasWidth * Math.log2(stopFreq/20) / 10 - x + 1;
 		canvasContext.fillRect(x, canvasHeight - barHeight, barWidth, barHeight);

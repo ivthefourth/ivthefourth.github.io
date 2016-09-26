@@ -1,4 +1,8 @@
-clean up css when all others are done
+For buttons... set the event handlers on mousedown(or mouse up), keydown(or key up), and touchstart...
+because click is too slow
 
+WaParam automation end time is incorrect if declick is off??? fix
+
+WaWetDry node or OnOff ... can toggle any processing on or off. completely disables effect 
 
 gear/software on twitch description
