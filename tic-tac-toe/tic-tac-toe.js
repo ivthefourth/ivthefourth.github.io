@@ -126,7 +126,6 @@ Game.prototype.chooseSquare = function(index, token){
 }
 Game.prototype.strategy = function(playerChoiceIndex){
 	var x, y, squareIndex;
-	//console.log(this.currentTurnNumber);
 	switch( this.currentTurnNumber ){
 		case 1: //pick corner
 			if( Math.floor(Math.random() * 2) > 0){
@@ -277,10 +276,8 @@ Game.prototype.doComputerTurn = function(playerChoiceIndex){
 			for( i = 0; i < 8; i++){
 				if( this.lines[i][this.computerToken] === 2 &&
 					this.lines[i][this.userToken] === 0 ){
-							console.log(i);
 					for( j = 0; j < 3; j++){
 						if( !this.squares[ this.lines[i].squares[j]].token ){
-							console.log(j);
 							square = this.lines[i].squares[j];
 							break;
 						}
@@ -360,7 +357,6 @@ Game.prototype.doComputerTurn = function(playerChoiceIndex){
 			}
 			break;
 	}
-	console.log(square);
 	this.chooseSquare(square, this.computerToken);
 
 	
@@ -375,10 +371,8 @@ Game.prototype.doComputerTurn = function(playerChoiceIndex){
 		}, 500);
 		this.currentTurnNumber += 1;
 	}
-	this.printRelativeBoard();
 }
 Game.prototype.doUserTurn = function(squareIndex){
-	console.log(squareIndex);
 	if( this.userCanPlay && !this.squares[squareIndex].token ){
 		this.userCanPlay = false;
 		document.getElementById('board').className = '';
@@ -492,41 +486,6 @@ Game.prototype.flipBoard = function(direction){
 			swapIndexes(1, 2, 2, 1);
 			break;
 	}
-}
-Game.prototype.printBoard = function(){
-	console.log(
-		' ' + (this.squares[0].token || '-') +
-		' ' + (this.squares[1].token || '-') +
-		' ' + (this.squares[2].token || '-') + '\n' +
-		' ' + (this.squares[3].token || '-') +
-		' ' + (this.squares[4].token || '-') +
-		' ' + (this.squares[5].token || '-') + '\n' +
-		' ' + (this.squares[6].token || '-') +
-		' ' + (this.squares[7].token || '-') +
-		' ' + (this.squares[8].token || '-') 
-		);
-}
-Game.prototype.printRelativeBoard = function(){
-	console.log(
-		' ' + (this.squares[this.relativeBoard[0][0]].token || '-') +
-		' ' + (this.squares[this.relativeBoard[0][1]].token || '-') +
-		' ' + (this.squares[this.relativeBoard[0][2]].token || '-') + '\n' +
-		' ' + (this.squares[this.relativeBoard[1][0]].token || '-') +
-		' ' + (this.squares[this.relativeBoard[1][1]].token || '-') +
-		' ' + (this.squares[this.relativeBoard[1][2]].token || '-') + '\n' +
-		' ' + (this.squares[this.relativeBoard[2][0]].token || '-') +
-		' ' + (this.squares[this.relativeBoard[2][1]].token || '-') +
-		' ' + (this.squares[this.relativeBoard[2][2]].token || '-') + '\n\n\n' +
-		' ' + (this.relativeBoard[0][0]) +
-		' ' + (this.relativeBoard[0][1]) +
-		' ' + (this.relativeBoard[0][2]) + '\n' +
-		' ' + (this.relativeBoard[1][0]) +
-		' ' + (this.relativeBoard[1][1]) +
-		' ' + (this.relativeBoard[1][2]) + '\n' +
-		' ' + (this.relativeBoard[2][0]) +
-		' ' + (this.relativeBoard[2][1]) +
-		' ' + (this.relativeBoard[2][2]) 
-		);
 }
 
 document.getElementById('choose-x').onclick = function(){
