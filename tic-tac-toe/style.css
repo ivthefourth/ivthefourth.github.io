@@ -19,6 +19,7 @@ html{
 body{
 	margin: 0;
 	font-family: sans-serif;
+	background-color: hsla(303, 20%, 50%, 1);
 }
 
 #wrapper{
@@ -26,6 +27,8 @@ body{
 	background-color: hsla(303, 62%, 7%, 1);
 	overflow: hidden;
 	padding: 3rem;
+	min-height: 100vh;
+	margin: 0 auto;
 }
 
 #board{
@@ -146,6 +149,13 @@ h1, h2{
 	color: hsla(303, 62%, 96%, 1);
 }
 
+h1{
+	margin-bottom: 3rem;
+}
+h2{
+	margin-bottom: 0;
+}
+
 #choose-token, #game-end-screen{
 	position: absolute;
 	top: 0;
@@ -189,5 +199,30 @@ h1, h2{
 
 #play-again{
 	cursor: pointer;
+	margin-top: 2rem;
+	font-size: 1.25rem;
+	width: auto;
+	padding: 1rem 2rem;
+	color: hsla(303, 62%, 96%, 1);
+	background-color: hsla(303, 62%, 50%, 1);
+	border: 1px solid hsla(303, 62%, 35%, 1);
+}
+#play-again:hover, #play-again:focus, #play-again:active{
+	outline: 0;
+	background-color: hsla(303, 62%, 35%, 1);
 }
 
+@media all and (max-height: 700px) and (orientation: landscape){
+	#wrapper{
+		padding: 1.5rem;
+	}
+	h1{
+		width: 40%;
+		float: left;
+		text-align: left;
+	}
+	#board{
+		width: 60%;
+		float: right;
+	}
+}
