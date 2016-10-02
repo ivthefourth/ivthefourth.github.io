@@ -50,7 +50,7 @@ body{
 	float: left;
 	transition: background-color 1s ease, box-shadow 0.3s ease;
 }
-#board .square.has-x:hover, #board.user-can-play .square.has-o:hover{
+#board .square.has-x:hover, #board .square.has-o:hover{
 	box-shadow: none !important;
 }
 #board .square.winning-square{
