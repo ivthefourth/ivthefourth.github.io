@@ -437,7 +437,7 @@ Game.prototype.showGameOver = function(){
 			game.squares[i].resetForNewGame();
 			document.getElementById('square-' + i).className = 'square';
 		}
-	}, 1100);
+	}, 1600);
 }
 Game.prototype.startNewGame = function(){
 	this.canPlayAgain = false;
