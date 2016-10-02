@@ -427,7 +427,7 @@ Game.prototype.showGameOver = function(){
 	setTimeout(function(){
 		document.getElementById('game-end-screen').className = 'shown';
 		game.canPlayAgain = true;
-	}, 1000);
+	}, 1500);
 	setTimeout(function(){
 		//call reset on all lines and squares
 		for( var i = 0; i < 8; i++){
