@@ -81,12 +81,8 @@ function Game(id){
 	this.lines.push( new Line( [0, 4, 8] ));
 	this.lines.push( new Line( [2, 4, 6] ));
 
-	this.addLinesToSquares();
-
 	//put lines in squares
-	//for lines:
-	//	for square in line: square.lines.push(line);
-	;
+	this.addLinesToSquares();
 }
 Game.prototype.addLinesToSquares = function(){
 	//8 = lines.length, 3 = lines.squares.length
@@ -258,20 +254,6 @@ Game.prototype.doComputerTurn = function(playerChoiceIndex){
 			//if no lines, pick a random square
 			break;
 		case 2: //hard
-			//if turn number is 1, play in center... or corner
-			//center wins if they pick a middle
-			//corner wins if they pick anywhere but center or opp corner.. can win if they pick center
-			//if turn number is 2, see what playerChoice is and play in center if possible otherwise corner
-			//if turn number is 3, play in any available corner
-			//if turn is >3 check for any lines that the comp could win on and chose the square
-			//if none of these, check for any lines that the user could win on and block them
-			//if none of these, check for any squares that have two lines with no O's and one X
-			//if none of these, pick random... or the square with the most lines with no O
-			//find square with most lines with one x and no O, if tie, find which of those has most empty lines.. if tie, which has most lines, if tie just pick one
-			//MAYBE ONLY DO THE TEST ABOVE AND NOT ALL THE OTHERS
-			//NOO ^^ this won't work if player picks opoiste corners
-
-
 			//seeing if computer can win this turn
 			for( i = 0; i < 8; i++){
 				if( this.lines[i][this.computerToken] === 2 &&
