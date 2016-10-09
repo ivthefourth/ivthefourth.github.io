@@ -23,7 +23,7 @@ function menuSetup(){
 	var openNav = function(){
 		var navHeight = $('#nav-wrap').outerHeight();
 		nav.addClass('open').height(navHeight);
-		$('.nav-link').attr('tabindex', '2');
+		$('.nav-link').attr('tabindex', '0');
 	}
 
 	$('#mobile-menu').click(function(e){
@@ -214,7 +214,7 @@ function canvasSetup(){
 		switch(e.which){
 			case 2:
 				//midMouse = true;
-				var newsize = (homeCtx.lineWidth + 10) % 100
+				var newsize = (homeCtx.lineWidth + 10) % 100;
 				//console.log(newsize);
 				homeCtx.lineWidth = newsize ? newsize : 100 ;
 				break;

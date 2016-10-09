@@ -1,9 +1,9 @@
 For buttons... set the event handlers on mousedown(or mouse up), keydown(or key up), and touchstart...
-because click is too slow
+because click is too slow... I did this??
 
 Prevent saved settings from showing when there is bad input!!! i.e. when the alert shows
 
-WaParam automation end time is incorrect if declick is off??? fix
+WaParam automation end time is incorrect if declick is off??? fix... (don't add 0.02 seconds to now)
 
 WaWetDry node or OnOff ... can toggle any processing on or off. completely disables effect 
 

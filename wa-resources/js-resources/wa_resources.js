@@ -226,6 +226,9 @@ WaLinearFrequency.prototype.law = function(input){
 
 
 
+
+
+
 /*
 ***
 ***  WEB AUDIO NODE WRAPPERS
@@ -532,6 +535,7 @@ WaFilterNode.prototype.constructor = WaFilterNode;
 WaFilterNode.prototype.getComputedFrequency = function(){
 	return this.frequency.value * Math.pow(2, this.detune.value / 1200);
 }
+
 
 
 
@@ -1021,9 +1025,10 @@ EarTrainingParameter.prototype.checkAnswer = function(){
 
 
 
+
 /*
 ***
-***  Ear Training Tracks and Apps
+***  Larger Objects, e.g., aps
 ***
 */
 
@@ -1522,10 +1527,11 @@ EarTrainingApp.prototype.printJSONpreset = function(){
 
 
 
+
+
 }//end if (WACTX)
 else
 	$('.app-no-wa-overlay').addClass('shown');
-
 
 
 
@@ -1567,15 +1573,6 @@ function waBindKeys(app){
 		}
 	});
 }
-
-
-
-/*
-***
-***  Visualization Functions
-***
-*/
-
 
 
 function drawSpectrum(canvasContext, canvasWidth, 
@@ -1717,6 +1714,3 @@ function drawCurve(canvasContext, canvasWidth, canvasHeight, Fs, minDB, maxDB, f
 
 	canvasContext.stroke();
 }
-
-
-
