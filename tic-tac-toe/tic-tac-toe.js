@@ -58,6 +58,7 @@ function Game(id){
 	var i;
 	var type;
 	var that = this;
+	var el;
 	for( i = 0; i < 9; i++){
 		if( i === 4)
 			type = 'center';
@@ -66,14 +67,20 @@ function Game(id){
 		else
 			type = 'side';
 		this.squares.push(new Square('square-' + i, type, i));
-		document.getElementById('square-' + i).onclick = function(){
+		el = document.getElementById('square-' + i);
+		el.onclick = function(){
 			that.doUserTurn(parseInt(this.id.charAt(7)));
 		}
-		document.getElementById('square-' + i).onkeydown = function(e){
+		el.onkeydown = function(e){
 			if( e.keyCode === 32 || e.keyCode === 13){
 				that.doUserTurn(parseInt(this.id.charAt(7)));
 			}
 		}
+		el.addEventListener('touchstart',
+			function(e){
+				e.preventDefault();
+				that.doUserTurn(parseInt(this.id.charAt(7)));
+			});
 	}
 
 	//make lines
@@ -503,6 +510,12 @@ document.getElementById('choose-x').onkeydown = function(e){
 		hideChoices();
 	}
 }
+document.getElementById('choose-x').addEventListener('touchstart',
+	function(e){
+		e.preventDefault();
+		game.setUserToken('x');
+		hideChoices('x');
+	});
 document.getElementById('choose-o').onclick = function(){
 	game.setUserToken('o');
 	hideChoices();
@@ -513,6 +526,12 @@ document.getElementById('choose-o').onkeydown = function(e){
 		hideChoices();
 	}
 }
+document.getElementById('choose-o').addEventListener('touchstart',
+	function(e){
+		e.preventDefault();
+		game.setUserToken('o');
+		hideChoices('o');
+	});
 document.getElementById('play-again').onclick = function(){
 	game.startNewGame();
 }
