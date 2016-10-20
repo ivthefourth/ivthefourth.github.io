@@ -20,13 +20,10 @@ Line.prototype.isCompleted = function(){
 }
 
 //each square of the game _, X, or O
-function Square(htmlId, type, relativeIndex){
+function Square(htmlId, type){
 	this.htmlId = htmlId;
 	this.token = null;
 	this.type = type;
-
-	//position on relativeBoard (internally can be flipped)
-	this.relativeIndex = relativeIndex;
 
 	//lines that contain this square (by index)
 	this.lines = [];
@@ -42,7 +39,7 @@ function Game(id){
 	this.userCanPlay = false;// click handlers on board, should make sure this is true
 	this.difficulty = 2; //0 easy (random), 1 medium(defensive only, not smart), 2 hard(user can't win, tries to win if going first)... see if any square shares two lines with one computer thing
 	this.winner = 'draw';
-	this.squares = []; // 0-8 in array %2 >> corner, == 4 center
+	this.squares = []; // 0-8 in array %2 >> corner, == 4 >> center
 	this.lines = [];
 	this.firstChoice = null;
 	//relativeBoard is the board flipped to a certain orientation
@@ -66,7 +63,7 @@ function Game(id){
 			type = 'corner';
 		else
 			type = 'side';
-		this.squares.push(new Square('square-' + i, type, i));
+		this.squares.push(new Square('square-' + i, type));
 		el = document.getElementById('square-' + i);
 		el.onclick = function(){
 			that.doUserTurn(parseInt(this.id.charAt(7)));
@@ -352,7 +349,6 @@ Game.prototype.doComputerTurn = function(playerChoiceIndex){
 			break;
 	}
 
-	canFocus( document.getElementById('square-' + square), false);
 	this.chooseSquare(square, this.computerToken);
 
 	
@@ -360,8 +356,8 @@ Game.prototype.doComputerTurn = function(playerChoiceIndex){
 		this.showGameOver();
 	}
 	else{
-		
 		setTimeout(function(){
+			canFocus( document.getElementById('square-' + square), false);
 			game.userCanPlay = true;
 			document.getElementById('board').className = 'player-is-' + game.userToken;
 		}, 500);
@@ -383,7 +379,7 @@ Game.prototype.doUserTurn = function(squareIndex){
 		else{
 			this.currentTurnNumber += 1;
 			var that = this;
-			setTimeout(function(){that.doComputerTurn(squareIndex);}, 500);//maybe slight timeout
+			setTimeout(function(){that.doComputerTurn(squareIndex);}, 500);
 		}
 	}
 }
