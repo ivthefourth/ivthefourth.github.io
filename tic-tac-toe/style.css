@@ -53,7 +53,8 @@ body{
 	float: left;
 	transition: background-color 1s ease, box-shadow 0.3s ease;
 }
-#board .square.has-x:hover, #board .square.has-o:hover{
+#board .square.has-x:hover, #board .square.has-o:hover,
+#board .square.has-x:focus, #board .square.has-o:focus{
 	box-shadow: none !important;
 }
 #board .square.winning-square{
@@ -79,11 +80,15 @@ body{
 	border-bottom-color: hsla(303, 62%, 7%, 1);
 }
 
-#board.player-is-x .square:hover{
+#board.player-is-x .square:hover, #board.player-is-x .square:focus{
 	box-shadow: 0 0 100px -15px hsla(331, 100%, 47%, 1) inset;
 }
-#board.player-is-o .square:hover{
+#board.player-is-o .square:hover, #board.player-is-o .square:focus{
 	box-shadow: 0 0 100px -15px hsla(180, 100%, 47%, 1) inset;
+}
+
+.square:focus{
+	outline: 0;
 }
 
 .x, .o{
@@ -189,12 +194,17 @@ h2{
 #choose-o .o:before{
 	border-color: hsla(303, 62%, 96%, 1);
 }
-#choose-x:hover .x:after, #choose-x:hover .x:before{
+#choose-x:hover .x:after, #choose-x:hover .x:before,
+#choose-x:focus .x:after, #choose-x:focus .x:before{
 	background-color: hsla(331, 100%, 47%, 1);
 }
 
-#choose-o:hover .o:before{
+#choose-o:hover .o:before, #choose-o:focus .o:before{
 	border-color: hsla(180, 100%, 47%, 1);
+}
+
+#choose-x:focus, #choose-o:focus{
+	outline: 0;
 }
 
 #play-again{

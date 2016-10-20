@@ -69,6 +69,11 @@ function Game(id){
 		document.getElementById('square-' + i).onclick = function(){
 			that.doUserTurn(parseInt(this.id.charAt(7)));
 		}
+		document.getElementById('square-' + i).onkeydown = function(e){
+			if( e.keyCode === 32 || e.keyCode === 13){
+				that.doUserTurn(parseInt(this.id.charAt(7)));
+			}
+		}
 	}
 
 	//make lines
@@ -339,6 +344,8 @@ Game.prototype.doComputerTurn = function(playerChoiceIndex){
 			}
 			break;
 	}
+
+	canFocus( document.getElementById('square-' + square), false);
 	this.chooseSquare(square, this.computerToken);
 
 	
@@ -359,6 +366,7 @@ Game.prototype.doUserTurn = function(squareIndex){
 		this.userCanPlay = false;
 		document.getElementById('board').className = '';
 		this.chooseSquare(squareIndex, this.userToken);
+		canFocus( document.getElementById('square-' + squareIndex), false);
 
 		
 		//if won/game over
@@ -383,6 +391,8 @@ Game.prototype.checkForGameOver = function(player){
 	return this.currentTurnNumber === 9;
 }
 Game.prototype.showGameOver = function(){
+	canFocusBoard(false);
+	canFocus(document.getElementById('play-again'), true);
 	document.getElementById('board').className = 'game-over';
 	if( this.winner === 'draw'){
 		document.getElementById('game-over-text').innerHTML = "You Tie!";
@@ -416,6 +426,8 @@ Game.prototype.showGameOver = function(){
 	}, 1600);
 }
 Game.prototype.startNewGame = function(){
+	canFocusBoard(true);
+	canFocus(document.getElementById('play-again'), false);
 	this.canPlayAgain = false;
 	this.winner = 'draw';
 	this.currentTurnNumber = 1;
@@ -470,22 +482,49 @@ Game.prototype.flipBoard = function(direction){
 	}
 }
 
-document.getElementById('choose-x').onclick = function(){
-	game.setUserToken('x');
+
+
+function hideChoices(){
 	document.getElementById('choose-token').className = 'hidden';
 	setTimeout(function(){
 		document.getElementById('choose-token').setAttribute('style', 'display: none');
 	}, 500);
+	canFocus(document.getElementById('choose-x'), false);
+	canFocus(document.getElementById('choose-o'), false);
+	canFocusBoard(true);
+}
+document.getElementById('choose-x').onclick = function(){
+	game.setUserToken('x');
+	hideChoices();
+}
+document.getElementById('choose-x').onkeydown = function(e){
+	if(e.keyCode === 32 || e.keyCode === 13){
+		game.setUserToken('x');
+		hideChoices();
+	}
 }
 document.getElementById('choose-o').onclick = function(){
 	game.setUserToken('o');
-	document.getElementById('choose-token').className = 'hidden';
-	setTimeout(function(){
-		document.getElementById('choose-token').setAttribute('style', 'display: none');
-	}, 500);
+	hideChoices();
+}
+document.getElementById('choose-o').onkeydown = function(e){
+	if(e.keyCode === 32 || e.keyCode === 13){
+		game.setUserToken('o');
+		hideChoices();
+	}
 }
 document.getElementById('play-again').onclick = function(){
 	game.startNewGame();
+}
+
+function canFocus(object, focus){
+	object.setAttribute('tabindex', focus ? '0' : '-1');
+}
+
+function canFocusBoard(focus){
+	for( var i = 0; i < 9; i++){
+		canFocus(document.getElementById('square-' + i), focus);
+	}
 }
 
 var game = new Game();

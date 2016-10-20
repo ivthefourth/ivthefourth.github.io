@@ -1,17 +1,15 @@
 var mouseX, mouseY, x1, y1;
-var projectTarget = null;
 var projectTop, projectLeft, projectWidth, projectHeight;
 var drawCanvas = true;
 var homeCtx, hiddenCtx, copyCtx, pattern;
 var canvasWidth, canvasHeight;
-var leftMouse = false, midMouse = false, rightMouse = 0, hue = 0;
+var leftMouse = false, rightMouse = 0, hue = 0;
 var canvasTimeout;
 
 
 
 //need to test canvas on HDD and maybe make changes to make it look nice
-//LOAD IMAGES BASED ON SCREEN SIZE
-//fix flexbox for ie??
+//maybe load larger img for xl screens
 
 function menuSetup(){
 	var nav = $('#top-nav');
@@ -43,9 +41,6 @@ function menuSetup(){
 		var id = $(this).attr('href');
 		var scrollTo = $(id).offset().top;
 		var distance = Math.abs(scrollTo - $(document).scrollTop()) / $('#home').height();
-		//console.log(distance);
-
-		//console.log(scrollTo);
 		closeNav();
 	    $('html, body').animate({
 	      scrollTop: scrollTo
@@ -54,47 +49,7 @@ function menuSetup(){
 	    window.setTimeout(fn, distance * 500);
 	});
 
-	//$('#top-nav').focusin(openNav).focusout(closeNav)
 }
-
-
-
-/*
-function projectSetup(){
-	var project = $('.project');
-	var hoverHandler = function(e){
-		//var doc = $(document);
-		mouseX = e.pageX;// - doc.scrollLeft();
-		mouseY = e.pageY;// - doc.scrollTop();
-		//console.log(mouseX, mouseY);
-	}
-	project.mouseenter(function(){
-		var that = $(this);
-		projectTarget = that.children('.project-background');
-		projectTop = that.offset().top;
-		projectLeft = that.offset().left;
-		projectHeight = that.height();
-		projectWidth = that.width();
-		//console.log(projectTop, projectLeft, projectHeight, projectWidth)
-	});
-	project.mouseleave(function(){
-		projectTarget = null;
-	});
-	project.mousemove( hoverHandler );
-}
-
-
-
-
-function animateProject(){
-	if( projectTarget ){
-		var originString = 100 * (mouseX - projectLeft) / projectWidth + '% ';
-		originString += 100 * (mouseY - projectTop) / projectHeight + '%';
-		//console.log(originString);
-		projectTarget.css('transform-origin', originString);
-	}
-}
-*/
 
 function animateCanvas(){
 	var copy = $('#canvas-copy')[0];
@@ -118,17 +73,14 @@ function animateCanvas(){
 		x1 = mouseX;
 		y1 = mouseY;
 		homeCtx.stroke();
-		//console.log(x, y);
 	}
 
 	if( leftMouse ){
-		//copyCtx.clearRect(0,0,canvasWidth,canvasHeight);
 		copyCtx.drawImage(canvas, 0, 0, canvasWidth, canvasHeight);	
 	}
 }
 
 function animate(){
-	//animateProject();
 	animateCanvas();
 	window.requestAnimationFrame(animate);
 }
@@ -195,10 +147,8 @@ function canvasSetup(){
 
 
 	var hoverHandler = function(e){
-		//var doc = $(document);
-		mouseX = e.pageX;// - doc.scrollLeft();
-		mouseY = e.pageY;// - doc.scrollTop();
-		//console.log(mouseX, mouseY);
+		mouseX = e.pageX;
+		mouseY = e.pageY;
 	}
 
 	var home = $('#home');
@@ -213,9 +163,7 @@ function canvasSetup(){
 		e.preventDefault();
 		switch(e.which){
 			case 2:
-				//midMouse = true;
 				var newsize = (homeCtx.lineWidth + 10) % 100;
-				//console.log(newsize);
 				homeCtx.lineWidth = newsize ? newsize : 100 ;
 				break;
 			case 3:
@@ -239,9 +187,7 @@ function canvasSetup(){
 				break;
 			default:
 				leftMouse = true;
-				//left/other
 		}
-		//console.log(leftMouse, midMouse, rightMouse);
 	});
 	$(document).mouseup(function(e){
 		e.preventDefault();
@@ -254,28 +200,22 @@ function canvasSetup(){
 				break;
 			default:
 				leftMouse = false;
-				//left/other
 		}
-		//console.log(leftMouse, midMouse, rightMouse);
 	});
 	home.mousemove( hoverHandler );
 	home.contextmenu(function(e){ e.preventDefault; return false;});
-
-
 
 	animate();
 
 	$('#img-hidden').off('load');
 	$('#img-hidden').load(makePattern);
 
-	//$('#img-hidden').attr('src', 'beatschool2.jpg');
 
 }
 
 var isIE;
 $(document).ready(function(){
 	menuSetup();
-	//projectSetup();
 	if(window.matchMedia("(min-width: 60em)").matches){
 		$('#img-hidden').load(canvasSetup);
 		$('#img-hidden').attr('src', 'pattern1920wgrad.jpg');

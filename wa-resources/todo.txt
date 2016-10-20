@@ -1,10 +1,8 @@
-For buttons... set the event handlers on mousedown(or mouse up), keydown(or key up), and touchstart...
-because click is too slow... I did this??
-
-Prevent saved settings from showing when there is bad input!!! i.e. when the alert shows
-
-WaParam automation end time is incorrect if declick is off??? fix... (don't add 0.02 seconds to now)
-
+Ability to turn EQ curve off as well... save batery etc.
 WaWetDry node or OnOff ... can toggle any processing on or off. completely disables effect 
 
-gear/software on twitch description
+Loudness matching program with Python
+http://dsp.stackexchange.com/questions/25281/is-there-an-audio-processing-library-api-that-contains-all-standard-features-of
+https://pypi.python.org/pypi/pyloudness
+https://www.quora.com/What-is-the-best-audio-signal-processing-library-for-Python
+https://www.google.com/search?q=ebu+r128+integrated+python&oq=ebu+r128+integrated+python&gs_l=serp.3..33i21k1.754.7417.0.7545.10.10.0.0.0.0.278.926.2j4j1.7.0....0...1c.1.64.serp..3.7.925...0j35i39k1j0i22i30k1j33i160k1.LXXBmlIlsZM
