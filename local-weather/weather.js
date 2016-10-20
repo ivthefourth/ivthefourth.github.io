@@ -43,7 +43,6 @@ function makePage(response, errMsg){
 		document.getElementById('f-c-toggle').addEventListener(
 			'click', tempToggle, false);
 
-		//document.getElementById('content').innerHTML = JSON.stringify(response);
 		showDiv('wrapper');
 	}
 	else{
