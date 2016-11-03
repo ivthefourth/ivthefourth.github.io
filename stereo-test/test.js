@@ -12,10 +12,16 @@ right.connect(merge, 0, 1);
 merge.connect(audioCtx.destination);
 var leftArr = new Float32Array(1024);
 var rightArr = new Float32Array(1024);
+//CRAPvvv
+emptySrc = new WaBufferSourceNode();
+emptySrc.buffer = audioCtx.createBuffer(2, 22050, 44100);
+emptySrc.connect(split);
+emptySrc.play()
+//CRAP^^^
 
 
 source.loadFromURL('stereo.wav', function(){
-	source.play(0);
+	source.play();
 });
 
 document.getElementById('btn').onclick = function(){

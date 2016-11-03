@@ -111,3 +111,53 @@ function searchBar(e){
 document.getElementById('search-bar').addEventListener('keydown', searchBar, false);
 document.getElementById('search-button').addEventListener('click', newSearch, false);
 document.getElementById('load-more').addEventListener('click', loadMoreResults, false);
+
+//
+//  fun title
+//
+
+var hue = 0;
+
+//if animate > 1, animate... hover and focus each add 1, 
+//and exiting either subtracts 1
+var animate = 0;
+
+function animateLinkLetter(){
+	if( animate > 0){
+		//do animation
+		hue = (hue + 1) % 360;
+		linkLetter.style.color = 'hsl(' + hue + ', 100%, 50%)';
+		requestAnimationFrame(animateLinkLetter);
+	}
+	else{
+		//set color to black
+		linkLetter.style.color = 'hsl(' + hue + ', 100%, 0%)';
+	}
+}
+
+function startAnimation(){
+	if(animate === 0){
+		animate += 1;
+		animateLinkLetter();
+		console.log('cat pee');
+	}
+	else{
+		animate += 1;
+	}
+	
+}
+
+function stopAnimation(){
+	animate -= 1;
+	if(animate === 0){
+		console.log('cat poop');
+	}
+}
+
+var mainTitle = document.getElementById('main-title');
+mainTitle.addEventListener('mouseenter', startAnimation);
+mainTitle.addEventListener('mouseleave', stopAnimation);
+
+var linkLetter = document.getElementById('link-letter');
+linkLetter.addEventListener('focus', startAnimation);
+linkLetter.addEventListener('blur', stopAnimation);

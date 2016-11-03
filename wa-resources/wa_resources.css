@@ -15,10 +15,19 @@
 	min-height: 100vh;
 }
 
+.ear-training-mixer{
+	max-width: none;
+}
+
 @media all and (min-width: 960px){
 	.app-container{
 		margin: 48px auto;
 		margin: 0 auto;
+	}
+	.ear-training-mixer{
+		resize: horizontal;
+		min-width: 960px;
+		width: 960px;
 	}
 }
 @media all and (min-width: 960px) and (min-height: 636px){
@@ -31,6 +40,7 @@
 		margin: 48px auto;
 	}
 }
+
 
 .top-controls, .settings-menu{
 	/*height: 72px;*/
@@ -267,6 +277,30 @@
 
 
 
+
+
+/*        MIXER TRACKS AND MASTER      */
+
+.master-peak-container{
+	width: 100px;
+	background-color: rebeccapurple;
+}
+
+.master-peak-container canvas{
+	width: 80px;
+	background-color: white;
+	display: block;
+}
+
+
+
+
+
+
+
+
+
+
 /*        SETTINGS       */
 
 .app-settings{
@@ -316,6 +350,14 @@
 	outline: 0;
 }
 
+.mixer-bottom-controls button{
+	width: 125px;
+}
+@media all and (min-width: 360px){
+	.mixer-bottom-controls button{
+		width: 154px;
+	}
+} 
 
 
 .menu-item{

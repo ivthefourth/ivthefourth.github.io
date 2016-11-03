@@ -36,3 +36,15 @@ function waBindKeys(app){
 		}
 	});
 }
+
+function waMakeTracks(html, trackCount, destinationID){
+	var i = 0;
+	tracksHtml = '';
+	setTrackNumber = function(){
+		return i;
+	}
+	for(i = 0; i < trackCount; i++){
+		tracksHtml += html.replace(/####/, setTrackNumber);
+	}
+	$('#' + destinationID).html = tracksHtml;
+}

@@ -364,6 +364,8 @@ WaBufferSourceNode.prototype = Object.create(WaNode.prototype);
 WaBufferSourceNode.prototype.constructor = WaBufferSourceNode;
 WaBufferSourceNode.prototype.play = function(atTime){
 	if( !this.isPlaying ){
+		if( atTime == null)
+			atTime = audioCtx.currentTime;
 		this.startedAt = atTime;
 		this.isPlaying = true;
 		this.isStopped = false;
@@ -378,6 +380,8 @@ WaBufferSourceNode.prototype.play = function(atTime){
 }
 WaBufferSourceNode.prototype.pause = function(atTime){
 	if( this.isPlaying ){
+		if( atTime == null)
+			atTime = audioCtx.currentTime;
 		this.isPlaying = false;
 		this.node.gain.setValueAtTime(1, atTime);
 		this.node.gain.linearRampToValueAtTime(0, atTime + 0.02);
@@ -389,6 +393,8 @@ WaBufferSourceNode.prototype.stop = function(atTime){
 
 	if(!this.isStopped){
 		if( this.isPlaying ){
+			if( atTime == null)
+				atTime = audioCtx.currentTime;
 			this.isPlaying = false;
 			this.node.gain.setValueAtTime(1, atTime);
 			this.node.gain.linearRampToValueAtTime(0, atTime + 0.02);
@@ -1566,6 +1572,18 @@ function waBindKeys(app){
 			}
 		}
 	});
+}
+
+function waMakeTracks(html, trackCount, destinationID){
+	var i = 0;
+	tracksHtml = '';
+	setTrackNumber = function(){
+		return i;
+	}
+	for(i = 0; i < trackCount; i++){
+		tracksHtml += html.replace(/####/, setTrackNumber);
+	}
+	$('#' + destinationID).html = tracksHtml;
 }
 
 

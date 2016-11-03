@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf8">
+	<title>Voice Test</title>
+	<meta name="description" content="Match your voice to a reference frequency.">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+	<canvas id="reference" width="1000" height="400"></canvas>
+	<div>
+		<label for="frequency">Frequency (Hz)</label><input id="frequency" type="number" value="200" min="0" max="1000">
+		<label for="volume">Volume </label><input id="volume" type="range" value="50" min="0" max="100">
+		<label for="sensitivty">Mic Sensitivity </label><input id="sensitivity" type="range" value="50" min="0" max="100">
+		<button id="play-tone">Play Tone</button>
+	</div>
+	<script src="voice-test.js"></script>
+</body>
+</html>
