@@ -23,7 +23,6 @@ function loadMoreResults(){
 
 
 	var success = function(result){
-		console.log(result);
 		if( result.query.search.length === 0){
 			document.getElementById('results').innerHTML += '<p>No More Results</p>';
 		}
@@ -53,10 +52,8 @@ function newSearch(){
 	if( query !== activeSearch && query !== ''){
 		document.getElementById('load-more').disabled = true;
 		activeSearch = query;
-		console.log(query);
 
 		var success = function(result){
-			console.log(result);
 			if( result.query.search.length === 0){
 				document.getElementById('results').innerHTML = '<p>No Results Match Your Search</p>'
 			}
@@ -139,7 +136,6 @@ function startAnimation(){
 	if(animate === 0){
 		animate += 1;
 		animateLinkLetter();
-		console.log('cat pee');
 	}
 	else{
 		animate += 1;
@@ -150,7 +146,6 @@ function startAnimation(){
 function stopAnimation(){
 	animate -= 1;
 	if(animate === 0){
-		console.log('cat poop');
 	}
 }
 
