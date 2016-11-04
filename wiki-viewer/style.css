@@ -18,6 +18,7 @@ html{
 body{
 	margin: 0;
 	font-family: sans-serif;
+	overflow-y: scroll;
 }
 
 #background{
@@ -78,11 +79,15 @@ h1 a:focus{
 
 #search-wrap{
 	display: flex;
-	margin-bottom: 2em;
+	margin-bottom: 1em;
+}
+
+#results{
+	margin-bottom: 1em;
 }
 
 .search-result{
-	margin-bottom: 2em;
+	overflow: hidden;
 }
 
 .search-result h2{
@@ -106,6 +111,7 @@ h1 a:focus{
 #load-more{
 	display: block;
 	width: 100%;
+	margin-bottom: 1em;
 }
 
 #load-more:disabled{
