@@ -403,6 +403,12 @@ body{
 #pa-tic-tac-toe .project-background{
 	background-image: url('tic-tac-toe.jpg');
 }
+#pa-wiki .project-background{
+	background-image: url('wiki.jpg');
+}
+#pa-eq .project-background{
+	background-image: url('eq.jpg');
+}
 
 
 
