@@ -172,7 +172,7 @@ function drawSpectrum(canvasContext, canvasWidth,
 			x = canvasHeight - canvasHeight * Math.log2(startFreq/minFreq) / Math.log2(maxFreq / minFreq) - 1; //20hz to 20480hz (20*2^10)
 
 		barWidth = canvasHeight - canvasHeight * Math.log2(stopFreq/minFreq) / Math.log2(maxFreq / minFreq) - x + 1;
-		if(true || Math.floor(startFreq) > Math.floor(minFreq) && Math.ceil(startFreq) < Math.ceil(maxFreq)){
+		if(Math.floor(startFreq) > Math.floor(minFreq) && Math.ceil(startFreq) < Math.ceil(maxFreq)){
 			canvasCtx.fillStyle = 'rgba(0, 255, 0, ' + colorStrength + ')';
 			canvasContext.fillRect(canvasWidth * 0.1, x, canvasWidth * 0.8, barWidth);
 		}

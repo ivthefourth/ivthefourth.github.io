@@ -1,4 +1,8 @@
 Ability to turn EQ curve off as well... save batery etc.
+consider checking answer based on user's parameter values instead of reference b/c ref spoils answer
+add some way to reveal answer
+
+
 WaWetDry node or OnOff ... can toggle any processing on or off. completely disables effect 
 
 Loudness matching program with Python

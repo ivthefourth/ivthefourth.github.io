@@ -1,6 +1,7 @@
 
 
 .app-container{
+    z-index: 1;
 	box-shadow: 0 0 48px #444;
 	position: relative;
 	border-radius: 6px;
