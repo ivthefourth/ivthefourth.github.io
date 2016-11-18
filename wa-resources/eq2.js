@@ -77,18 +77,21 @@ new EarTrainingParameter('#filter-type', 0, ClickToggle, eq.tracks[0].filter, 't
 
 eq.tracks[0].checkAnswer = function(){
 	var parameters = this.parameters;
-	if( parameters.type.reference !== 0){//if reference is not peaking
+	var param;
+	for( param in parameters){
+		$(parameters[param].ID).removeClass('wrong-answer correct-answer');
+	}
+	if( parameters.type.user !== 0){//if reference is not peaking
 		parameters.type.checkAnswer();
 		parameters.Q.checkAnswer();
 		parameters.detune.checkAnswer();
 		//don't check for level b/c lp & hp have no level
 	}
-	else if(parameters.gain.getRatio('reference') === 0){
+	else if(parameters.gain.getRatio('user') === 0){
 		parameters.gain.checkAnswer();
 		parameters.type.checkAnswer();
 	}
 	else{
-		var param
 		for( param in parameters){
 			parameters[param].checkAnswer();	
 		}
@@ -101,119 +104,24 @@ eq.settings.fillHtmlSelect(eqAudiofiles, '#track0-audio-files');
 eq.settings.fillHtmlSelect(eqPresets, '#eq-presets');
 
 //CRAP BECAUSE CHROME BROKE THIS:
-var crap = new WaBufferSourceNode();
-crap.connect(eq.tracks[0].filter);
-function crapCallback(){
-	crap.play(0);
-	eq.toggleReference();
-	eq.toggleReference();
-	eq.mute();
-	eq.mute();
-	eq.updateLoader('decrement');
-	eq.tracks[0].filter.user.frequency.value = 32;
-	eq.tracks[0].filter.reference.frequency.value = 32;
-	eq.resetGame();
-}
 
-eq.updateLoader('increment');
-crap.loadFromURL('silence.wav', crapCallback);
+var emptyBuffer = audioCtx.createBuffer(2, 22050, 44100);
+var sourceNode = audioCtx.createBufferSource();
+sourceNode.loop = true; 
+sourceNode.buffer = emptyBuffer;
+sourceNode.connect(eq.tracks[0].filter.user.node);
+sourceNode.connect(eq.tracks[0].filter.reference.node);
+sourceNode.start(audioCtx.currentTime);
+eq.toggleReference();
+eq.toggleReference();
+eq.mute();
+eq.mute();
+eq.tracks[0].filter.user.frequency.value = 32;
+eq.tracks[0].filter.reference.frequency.value = 32;
+eq.resetGame();
 //ENDCRAP
 
 
-/*
-function addTrack(num){
-
-	eq.tracks.push( new EarTrainingTrack('#track' + num, eq) );
-	eq.tracks[num].filter = new WaParallelNode(WaFilterNode, 
-		{type: { 
-			func: WaSelectionParam, args: [['peaking', 'lowpass', 'highpass']]}, 
-			gain: { func: WaDecibelGain, args: ['bipolar',12]}
-		});
-
-	eq.tracks[num].sourceNode.connect(eq.tracks[num].filter);
-	eq.tracks[num].filter.connect(eq.tracks[num].crossfader);
-	eq.tracks[num].crossfader.connect(eq.volume);
-	eq.volume.connect(audioCtx.destination);
-
-	//change later to load from default audio url
-	eq.tracks[num].sourceNode.loadFromURL('ffmb.mp3');
-
-
-
-	eq.tracks[num].parameters.gain = 
-	new EarTrainingParameter('#level', 0, BipolarVerticalSlider, eq.tracks[num].filter, 'gain');
-
-	eq.tracks[num].parameters.detune = 
-	new EarTrainingParameter('#frequency', 0.5, UnipolarKnob, eq.tracks[num].filter, 'detune');
-
-	eq.tracks[num].parameters.Q = 
-	new EarTrainingParameter('#bandwidth', 0.5, UnipolarKnob, eq.tracks[num].filter, 'Q');
-
-	eq.tracks[num].parameters.type = 
-	new EarTrainingParameter('#filter-type', 0, ClickToggle, eq.tracks[num].filter, 'type');
-	if (num % 2 === 1 )
-		eq.tracks[num].sourceNode.node.gain.value = -1;
-
-
-	eq.tracks[num].checkAnswer = function(){
-		parameters = this.parameters;
-		if( parameters.type.reference !== 0){//if reference is not peaking
-			parameters.type.checkAnswer();
-			parameters.Q.checkAnswer();
-			parameters.detune.checkAnswer();
-			//don't check for level b/c lp & hp have no level
-		}
-		else if(parameters.gain.getRatio('reference') === 0){
-			parameters.gain.checkAnswer();
-			parameters.type.checkAnswer();
-		}
-		else{
-			for( var param in parameters){
-				param = parameters[param];
-				param.checkAnswer();	
-			}
-		}
-	}
-
-}
-
-for( var i = 1; i < 16; i++)
-	addTrack(i);
-*/
-
-
-
-/*
-function drawSpectrum(){
-	canvasContext.clearRect(0, 0, canvasWidth, canvasHeight);
-
-	//var dataArray = eq.audio.dataArray;
-	//var bufferLength = eq.audio.bufferLength;
-
-
-
-	var barWidth; //= width / bufferLength;
-	  var barHeight;
-	  var x = 0;
-
-	  // values go from 0 to 256 and the canvas heigt is 100. Let's rescale
-	  // before drawing. This is the scale factor
-	  //var heightScale = canvasHeight/128;
-
-	  for(var i = 0; i < bufferLength; i++) {
-	    barHeight =  canvasHeight * 1/(40)*((dataArray[i]+ 3*Math.log2(i + 1)) + 78);
-	    x = canvasWidth * Math.log2(i+1)/10;//if 1024 then 10 should be 9
-	    barWidth = canvasWidth * Math.log2(i+2)/10 - x +1;
-
-
-	    canvasContext.fillRect(x, canvasHeight-barHeight/2, barWidth, barHeight/2);
-
-	    // 2 is the number of pixels between bars
-	    //x += barWidth;
-	  }
-
-
-}*/
 
 var doSpectrum = true;
 var filterArray = [eq.tracks[0].filter.user];
@@ -248,71 +156,6 @@ var canvasDetune = eq.tracks[0].parameters.detune;
 var canvasGain = eq.tracks[0].parameters.gain;
 var canvasQ = eq.tracks[0].parameters.Q;
 var canvasType = eq.tracks[0].parameters.type;
-
-/*
-function drawCurve(){
-	//canvasContext.clearRect(0, 0, width, height);
-	//var freq = ;
-	var freqPos = canvasWidth *( 0.065 + (0.946 - 0.065) * canvasDetune.getRatio('user'));
-
-	canvasContext.beginPath();
-
-	if(canvasType.getRatio('user') === 0){
-		//var level = eq.tracks[0].parameters.gain;
-		//console.log(level.user);
-		var levelPos = canvasMidHeight - canvasHeight * 0.35*canvasGain.getRatio('user'); // 0.5 - 0.9 * level.user/(2 * level.stepCount));
-
-		//var q = eq.tracks[0].parameters.Q;
-		var qWidth = 0.04 * canvasWidth * Math.pow(25, canvasQ.getRatio('user'));
-		canvasContext.moveTo(0, canvasMidHeight);
-		canvasContext.lineTo(freqPos - qWidth, canvasMidHeight);
-
-		var x1 = freqPos - qWidth;
-		canvasContext.bezierCurveTo(x1 + 0.6*(freqPos - x1), canvasMidHeight, x1 + 0.8*(freqPos - x1), levelPos, freqPos, levelPos);
-		x1 = freqPos + qWidth;
-		canvasContext.bezierCurveTo(freqPos + 0.2*(x1 - freqPos), levelPos, freqPos + 0.4*(x1 - freqPos), canvasMidHeight, freqPos + qWidth, canvasMidHeight);
-
-		canvasContext.lineTo(canvasWidth, canvasMidHeight);
-	}
-	else if (canvasType.getRatio('user') === 1){
-		var qWidth = 0.1 * canvasWidth;
-		//var q = eq.tracks[0].parameters.Q;
-		var levelPos = canvasHeight * (0.5 - 0.1 * ( 1 - canvasQ.getRatio('user')));
-
-		canvasContext.moveTo(0, canvasMidHeight);
-		canvasContext.lineTo(freqPos - qWidth, canvasMidHeight);
-
-		var x1 = freqPos - qWidth;
-		canvasContext.bezierCurveTo(x1 + 0.6*(freqPos - x1), canvasMidHeight, x1 + 0.8*(freqPos - x1), levelPos, freqPos, levelPos);
-		x1 = freqPos + qWidth;
-		canvasContext.bezierCurveTo(freqPos + 0.2*(x1 - freqPos), levelPos, freqPos + 0.4*(x1 - freqPos), canvasMidHeight, freqPos + canvasWidth/2, 1.5* canvasHeight);
-
-	}
-	else{
-		var qWidth = 0.1 * canvasWidth;
-		//var q = eq.tracks[0].parameters.Q;
-		var levelPos = canvasHeight * (0.5 - 0.1 * ( 1 - canvasQ.getRatio('user')));
-
-		canvasContext.moveTo(freqPos - canvasWidth/2, 1.5*canvasHeight);
-
-		var x1 = freqPos - qWidth;
-		canvasContext.bezierCurveTo(x1 + 0.6*(freqPos - x1), canvasMidHeight, x1 + 0.8*(freqPos - x1), levelPos, freqPos, levelPos);
-		x1 = freqPos + qWidth;
-		canvasContext.bezierCurveTo(freqPos + 0.2*(x1 - freqPos), levelPos, freqPos + 0.4*(x1 - freqPos), canvasMidHeight, freqPos + qWidth, canvasMidHeight);
-		canvasContext.lineTo(canvasWidth, canvasMidHeight);
-
-	
-	}
-
-
-
-
-
-	canvasContext.stroke();
-	//canvasContext.stroke();
-	//canvasContext.stroke();
-}
-*/
 
 var canvas;
 var canvasWidth;

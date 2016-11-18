@@ -12,8 +12,8 @@ split.connect(right, 1);
 left.connect(merge, 0, 0);
 right.connect(merge, 0, 1);
 merge.connect(audioCtx.destination);
-var leftArr = new Float32Array(1024);
-var rightArr = new Float32Array(1024);
+var leftArr = new Float32Array(left.frequencyBinCount);
+var rightArr = new Float32Array(right.frequencyBinCount);
 //CRAPvvv
 emptySrc = new WaBufferSourceNode();
 emptySrc.buffer = audioCtx.createBuffer(2, 22050, 44100);
