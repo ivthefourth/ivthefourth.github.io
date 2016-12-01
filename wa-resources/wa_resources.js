@@ -1232,7 +1232,6 @@ function EarTrainingApp(ID, settingsArgs){
 	$(this.ID + '-preset-form').submit(function(e){
 		e.preventDefault();
 		that.savePreset();
-		//console.log('chicken');
 	});
 
 }

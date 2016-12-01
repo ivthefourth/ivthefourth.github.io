@@ -46,7 +46,6 @@ function makePage(response, errMsg){
 		showDiv('wrapper');
 	}
 	else{
-		console.log('boo');
 		document.getElementById('err-msg').innerHTML = errMsg;
 		showDiv('err-wrapper');
 	}
