@@ -135,7 +135,8 @@ EarTrainingTrack.prototype.checkAnswer = function(){
 
 
 
-function EarTrainingApp(ID, settingsArgs){
+function EarTrainingApp(ID, settingsArgs, defaultPreset){
+	this.revealAnswer = false;
 	this.ID = ID;
 	this.settings = new WaAppSettings();
 	WaAppSettings.apply(this.settings, settingsArgs);
@@ -147,7 +148,7 @@ function EarTrainingApp(ID, settingsArgs){
 	this.tracks = [];
 	this.resourcesToLoad = 0;
 	this.settingsOpen = false;
-	this.savedSettings = JSON.parse(JSON.stringify(this.settings.presets.defaultPreset));
+	this.savedSettings = JSON.parse(JSON.stringify(this.settings.presets[defaultPreset]));
 
 
 	//set up event listeners 
@@ -164,7 +165,12 @@ function EarTrainingApp(ID, settingsArgs){
 
 	$(this.ID + '-reference-toggle').on('click touchstart', function(e){
 		e.preventDefault();
-		that.toggleReference();
+		if(that.revealAnswer){
+			that.showAnswer();
+		}
+		else{
+			that.toggleReference();
+		}
 	});
 
 	$(this.ID + '-mute').on('click touchstart', function(e){
@@ -177,9 +183,30 @@ function EarTrainingApp(ID, settingsArgs){
 		that.showSettings();
 	});
 
-	$(this.ID + '-check-answer').on('click touchstart', function(e){
+	$(this.ID + '-check-answer').on('mousedown touchstart', function(e){
 		e.preventDefault();
 		that.checkAnswer();
+		var openMenu = setTimeout(function(){ $(that.ID + '-reveal-answer-popup').addClass('shown'); }, 800);
+		$(document).on('mouseup touchend', function(e){
+			clearTimeout(openMenu);
+			$(this).off('mouseup touchend');
+		});
+	});
+
+	$(this.ID + '-close-reveal-answer').click(function(){ 
+		$(that.ID + '-reveal-answer-popup').removeClass('shown');
+	});
+	$(this.ID + '-reveal-answer').click(function(){
+		that.revealAnswer = !that.revealAnswer;
+		$(this).html((that.revealAnswer ? 'Hide Answer' : 'Reveal Answer'));
+		if(that.revealAnswer && that.crossfadeMonitor === 'reference'){
+			that.toggleReference();
+			that.showAnswer();
+		}
+		else if( that.crossfadeMonitor === 'reference' || that.revealAnswer){
+			that.showAnswer();
+		}
+		$(that.ID + '-reveal-answer-popup').removeClass('shown');
 	});
 
 	$(this.ID + '-reset-game').on('click touchstart', function(e){
@@ -203,12 +230,19 @@ function EarTrainingApp(ID, settingsArgs){
 	$(this.ID + '-preset-form').submit(function(e){
 		e.preventDefault();
 		that.savePreset();
+		//console.log('chicken');
 	});
 
 }
 EarTrainingApp.prototype.resetGame = function(){
 	var i;
 	var trackList = this.tracks;
+	if(this.revealAnswer){
+		$(this.ID + '-reveal-answer').html('Reveal Answer');
+		if(this.crossfadeMonitor === 'reference') 
+			this.showAnswer();
+	}
+	this.revealAnswer = false;
 	for( i = 0; i < trackList.length; i++){
 		if( trackList[i].isActive)
 			trackList[i].randomize();
@@ -377,6 +411,7 @@ EarTrainingApp.prototype.savePreset = function(){
 		$(overlayID).addClass('shown');
 		setTimeout(function(){$(overlayID).removeClass('shown');}, 500);
 	}
+	this.resetGame();
 }
 EarTrainingApp.prototype.fillFormFromObject = function(obj){
 	//console.log(obj);
@@ -494,4 +529,36 @@ EarTrainingApp.prototype.makeForm = function(){
 }
 EarTrainingApp.prototype.printJSONpreset = function(){
 	console.log(JSON.stringify(eq.savedSettings));
+}
+EarTrainingApp.prototype.showAnswer = function(){
+	var i, param, parameters;
+	var trackList = this.tracks;
+	if( this.crossfadeMonitor === 'user' ){
+		//change class
+		$(this.ID + '-reference-toggle').addClass('active');
+		for( i = 0; i < trackList.length; i++){
+			if( trackList[i].isActive){
+				trackList[i].crossfader.listenToReference();
+				parameters = trackList[i].parameters;
+				for( param in parameters){
+					parameters[param].revealAnswer();
+				}
+			}
+		}
+		this.crossfadeMonitor = 'reference';
+	}
+	else{
+		//change class
+		$(this.ID + '-reference-toggle').removeClass('active');
+		for( i = 0; i < trackList.length; i++){
+			if( trackList[i].isActive){
+				trackList[i].crossfader.listenToUser();
+				parameters = trackList[i].parameters;
+				for( param in parameters){
+					parameters[param].hideAnswer();
+				}
+			}
+		}
+		this.crossfadeMonitor = 'user';
+	}
 }

@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>EQ Ear Training</title>
-	<meta name="description" content="Train your ears to detect boosts and reductions of specific frequency ranges by practicing reference EQ.">
+	<title>Parametric EQ Ear Training</title>
+	<meta name="description" content="Train your ears to detect and correct the differences caused by parametric EQ.">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<link href="style.css" rel="stylesheet">
 	<link href="wa_resources.css" rel="stylesheet">
 </head>
 <body>
+<div id="app-wrapper">
 	<div id="eq-container" class="app-container">
 		<div class="top-controls">
 			 <div class="top-controls-right">
@@ -34,7 +35,7 @@
 				<div class="handle"></div>
 			</div>
 			<div id="frequency" class="knob" tabindex="0"></div>
-			<span>FREQ</span>
+			<span id="freq-value">FREQ</span>
 			<div id="bandwidth" class="knob" tabindex="0"></div>
 			<span>Q</span><!--
 	 --></div>
@@ -82,9 +83,23 @@
 	 			
 	 		</div>
 	 		<div id="settings-about" class="settings-container">
-	 			<h3>About</h3>
+	 			<h3>Ear Training: Parametric EQ</h3>
+	 			<ul class="link-list">
+	 				<li><a href="../../tutorial/eq/">Watch Tutorial</a></li>
+	 				<li><a href="../../">Back to Main Website</a></li>
+	 			</ul>
+
+	 			<div class="spectrum-control-buttons">
+		 			<button id="toggle-spectrum" class="settings-btn">Turn Off Spectrum</button>
+		 			<button id="toggle-spectrum-controls" class="settings-btn">Turn Off Spectrum Controls</button>
+	 			</div>
+
 	 		</div>
 	 	</div>
+		<div id="eq-reveal-answer-popup" class="app-loading-overlay app-bottom-controls">
+			<button id="eq-reveal-answer" >Reveal Answer</button>
+			<button id="eq-close-reveal-answer" >Cancel</button>
+		</div>
 		<div id="eq-loading-overlay" class="app-loading-overlay">
 			<p>Loading...</p>
 		</div>
@@ -95,6 +110,7 @@
 			<p>Your browser does not support the Web Audio API, which is required to run this application. Please try opening this page in a different browser. I recommend <a href="https://www.google.com/chrome/browser/desktop/index.html">Google Chrome</a> or <a href="https://www.mozilla.org/en-US/firefox/new/">FireFox</a>.</p>
 		</div>
 	</div>
+</div>
 	<script src="../js/jquery-2.2.3.min.js"></script>
 	<script src="wa_resources.js"></script>
 	<script src="eq2.js"></script>

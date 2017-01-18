@@ -22,6 +22,14 @@ body{
 	font-family: sans-serif;
 }
 
+body>header, footer{
+	display: none;
+}
+@media (min-height: 740px) and (min-width: 960px){
+	body>header, footer{
+		display: block;
+	}
+}
 	
 
 #monitor{
@@ -47,6 +55,16 @@ body{
 	overflow: hidden;
 
 	border-right: 1px dashed #0e1315;
+}
+
+#parameters #freq-value{
+	overflow: visible;
+	font-size: 55%;
+}
+@media all and (min-width: 620px), all and (min-height: 560px){
+	#parameters #freq-value{
+		font-size: 66%;
+	}
 }
 
 #bottom-controls{
@@ -409,5 +427,29 @@ all and (min-width: 960px) and (min-height: 500px){
 		height: 190px;
 		padding: 13% 15%;
 		font-size: 24px;
+	}
+}
+
+.link-list{
+	font-size: 0.8em;
+}
+.link-list li{
+	margin-top: 1em;
+}
+
+.spectrum-control-buttons{
+	text-align: center;
+}
+.spectrum-control-buttons button{
+	width: 100%;
+	margin: 0.5rem 0;
+}
+@media all and (min-width: 666px){
+	.spectrum-control-buttons{
+		text-align: left;
+	}
+	.spectrum-control-buttons button{
+		width: auto;
+		margin: 0.5rem 0.5rem 0.5rem 0;
 	}
 }

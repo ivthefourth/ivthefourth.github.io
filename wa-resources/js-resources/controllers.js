@@ -25,7 +25,8 @@ function BipolarVerticalSlider(parameter){
 			if( top < mouseY 
 			&& mouseY < bottom 
 			&& step != parameter.user 
-			&& parameter.testMode !== 'reference'){
+			&& parameter.testMode !== 'reference'
+			&& parameter.isActive){
 				parameter.user = step;
 				//console.log(step);
 			}
@@ -77,7 +78,7 @@ function BipolarVerticalSlider(parameter){
 BipolarVerticalSlider.prototype.setLevelRange = function(id){
 	//console.log(id);
 	var levelRange = {};
-	levelRange.height = $(id).height()
+	levelRange.height = $(id).height();
 	levelRange.top = $(id).offset().top - $(document).scrollTop();
 	levelRange.bottom = levelRange.top + levelRange.height;
 	levelRange.center = (levelRange.top + levelRange.bottom)/2;
@@ -125,7 +126,8 @@ function UnipolarHorizontalSlider(parameter){
 
 			if( maxLeft < mouseX 
 			&& mouseX < maxRight 
-			&& step != parameter.user ){
+			&& step != parameter.user 
+			&& parameter.isActive){
 				parameter.user = step;
 				//console.log(mouseX + ', ' + currentMouseY);
 			}
@@ -187,7 +189,8 @@ function UnipolarKnob(parameter){
 			//maybe change vvv
 			var step = parameter.user + Math.floor(((waClickY - mouseY)/20) + 0.5);
 			if( 0 <= step && step <= parameter.stepCount 
-			&& step !== parameter.user && parameter.testMode !== 'reference'){
+			&& step !== parameter.user && parameter.testMode !== 'reference'
+			&& parameter.isActive){
 				waClickY = mouseY;
 				parameter.user = step;
 				//console.log(step);
@@ -236,7 +239,8 @@ function ClickToggle(parameter){
 		}
 		var clickHandler = function(e){
 			e.preventDefault();
-			if(parameter.testMode !== 'reference'){
+			if(parameter.testMode !== 'reference'
+			&& parameter.isActive){
 				parameter.user = ((parameter.user + 1 )%(parameter.stepCount + 1));
 				//console.log(param.user);
 			};

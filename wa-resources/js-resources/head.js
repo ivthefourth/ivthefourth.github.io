@@ -57,6 +57,8 @@ AudioNode.disconnect(AudioNode) disconnects ALL connections in firefox;
 
 */
 
+var STATICFILEURL = 'https://s3.amazonaws.com/earinstructor/apps/';
+
 dragDropTest = function() {
 	var div = document.createElement('div');
 	return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) 

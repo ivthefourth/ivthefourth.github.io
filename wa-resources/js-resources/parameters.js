@@ -5,6 +5,7 @@
 */
 
 function Parameter(ID, defaultRatio, controllerType, node, paramString){
+	this.isActive = true;
 	this.ID = ID;
 	this.defaultRatio = defaultRatio;
 	this.node = node;
@@ -86,7 +87,8 @@ Parameter.prototype.setRatio = function(ratio){
 
 
 
-function EarTrainingParameter(ID, defaultRatio, controllerType, node, paramString){
+function EarTrainingParameter(ID, defaultRatio, controllerType, node, paramString, callback){
+	this.isActive = true;
 	this.ID = ID;
 	this.defaultRatio = defaultRatio;
 	this.testMode = 'test'; // test, user, reference
@@ -94,6 +96,7 @@ function EarTrainingParameter(ID, defaultRatio, controllerType, node, paramStrin
 	this.paramString = paramString;
 	this.controller = new controllerType(this);
 	this.polarity = this.controller.polarity;
+	this.callback = callback; 
 	if( this.polarity !== node.user[paramString].polarity)
 		throw "Polarity Error: Controller polarity must match parameter polarity.";
 
@@ -132,6 +135,8 @@ Object.defineProperties(EarTrainingParameter.prototype,{
 			var ratio = this.getRatio('user');
 			this.node.user[this.paramString].setValueFromRatio(ratio);
 			this.controller.updateInterface(this.ID, ratio);
+			if( this.callback )
+				this.callback();
 		}
 	},
 
@@ -214,6 +219,14 @@ EarTrainingParameter.prototype.updateSettings = function(steps, mode, min, max, 
 	if(this.testMode === 'user')
 		this.setRatio('user', this.defaultRatio);
 
+	if( this.testMode === 'reference'){
+		$(this.ID).addClass('inactive');
+	}
+	else{
+		$(this.ID).removeClass('inactive');
+		this.isActive = true;
+	}
+
 	this.randomize();
 }
 EarTrainingParameter.prototype.checkAnswer = function(){
@@ -223,4 +236,12 @@ EarTrainingParameter.prototype.checkAnswer = function(){
 		else
 			$(this.ID).addClass('wrong-answer').removeClass('correct-answer');
 	}
+}
+EarTrainingParameter.prototype.revealAnswer = function(){
+	this.controller.updateInterface(this.ID, this.getRatio('reference'));
+	this.isActive = false;
+}
+EarTrainingParameter.prototype.hideAnswer = function(){
+	this.controller.updateInterface(this.ID, this.getRatio('user'));
+	this.isActive = true;
 }
