@@ -102,7 +102,7 @@ textarea{
 	background-color: #01395a;
 	overflow: hidden;
 	transition: transform 1s ease;
-	transform: translateX(100%);
+	transform: translateX(-100%);
 }
 #about.open{
 	transform: translateX(0%);
