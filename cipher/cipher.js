@@ -253,6 +253,16 @@ $(document).ready(function(){
 
     $('#copy').click(function(e){
         e.preventDefault();
-        $('#output')[0].select();
+        $('#output').focus();
+    });
+
+    $('#about-link').click(function(e){
+        e.preventDefault();
+        $('#about').addClass('open');
+    });
+
+    $('#close').click(function(e){
+        e.preventDefault();
+        $('#about').removeClass('open');
     });
 });

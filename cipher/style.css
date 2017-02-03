@@ -104,7 +104,7 @@ textarea{
 	transition: transform 1s ease;
 	transform: translateX(-100%);
 }
-#about:target{
+#about.open{
 	transform: translateX(0);
 }
 #about div{
