@@ -1,8 +1,7 @@
 
-
-//I've attempted to change my original code to be functional by 
-//not changing the array arguments sent to functions within those functions.
-//Note: consider rewriting using array.map() at some point in future 
+//I've attempted to change my original code to be functional by
+//not changing the array arguments sent to functions within those fun
+//Note: consider rewriting using array.map() at some point in future
 
 var BLOCKSIZE = 20; //number of digits for block cipher
 
@@ -121,7 +120,7 @@ function decipher(array, inverse, shift, modulus){
 function padBlock(block){
     var array = block.split('');
     while(array.length < BLOCKSIZE)
-        array.push('0');
+        array.unshift('0');
     return array.join('');
 }
 
@@ -151,7 +150,7 @@ function makeHeader(bigMult, bigShift, smallMult, smallShift){
     var bMult = blockToArray(bigMult);
     var bShift = blockToArray(bigShift);
     var small = [parseInt(smallMult, 10), parseInt(smallShift, 10)];
-    return numbersToString(bMult) + numbersToString(bShift) + 
+    return numbersToString(bMult) + numbersToString(bShift) +
            numbersToString(small);
 }
 
