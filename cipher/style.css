@@ -105,7 +105,7 @@ textarea{
 	transform: translateX(-100%);
 }
 #about.open{
-	transform: translateX(0);
+	transform: translateX(0%);
 }
 #about div{
 	padding: 2rem 1rem;
