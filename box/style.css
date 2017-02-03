@@ -1,0 +1,49 @@
+body{
+  height: 100vh;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+}
+
+#box{
+  width: 700px;
+  background-color: #222;
+  height: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.side{
+  opacity: 0.5;
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  left: 200px;
+  top: 200px;
+  -webkit-transform-origin: center center 150px;
+}
+
+#side1{
+  background-color: red;
+  transform: rotateX(45deg) rotateZ(45deg);
+}
+#side2{
+  background-color: blue;
+  transform: rotateX(315deg) rotateY(45deg);
+}
+#side3{
+  background-color: green;
+  transform: rotateX(315deg) rotateY(315deg);
+}
+#side4{
+  background-color: white;
+  transform: rotateX(315deg) rotateZ(45deg);
+}
+#side5{
+  background-color: yellow;
+  transform: rotateX(45deg) rotateY(315deg);
+}
+#side6{
+  background-color: purple;
+  transform: rotateX(45deg) rotateY(45deg);
+}

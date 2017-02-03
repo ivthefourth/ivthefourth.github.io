@@ -23,6 +23,7 @@ body{
 	text-align: center;
 	font-family: 'VT323' ;
 	letter-spacing: 0.15em;
+	z-index: 1;
 }
 
 .thanks{
@@ -99,12 +100,12 @@ textarea{
 	left: 0;
 	bottom: 0;
 	background-color: #01395a;
-	width: 0;
 	overflow: hidden;
-	transition: width 1s ease;
+	transition: transform 1s ease;
+	transform: translateX(-100%);
 }
 #about:target{
-	width: 100%;
+	transform: translateX(0);
 }
 #about div{
 	padding: 2rem 1rem;

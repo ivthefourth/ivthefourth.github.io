@@ -1,3 +1,9 @@
+
+
+//I've attempted to change my original code to be functional by 
+//not changing the array arguments sent to functions within those functions.
+//Note: consider rewriting using array.map() at some point in future 
+
 var BLOCKSIZE = 20; //number of digits for block cipher
 
 //BigNumber: https://mikemcl.github.io/bignumber.js/
@@ -31,18 +37,19 @@ function toNumberArray(string){
 
 //turns array of numbers 0-99 to string
 function numbersToString(array){
+    var temp = [];
     for(i = 0; i < array.length; i++){
         if( array[i] === 0 || array [i] === 1)
-            array[i] = array[i] + 9;
+            temp[i] = array[i] + 9;
         else if( 2 <= array[i] && array[i] <= 96)
-            array[i] = array[i] + 30;
+            temp[i] = array[i] + 30;
         else if( 97 <= array[i] && array[i] <= 99)
-            array[i] = array[i] + 64;
+            temp[i] = array[i] + 64;
         else
             throw 'numbersToString integer size exceeded (>99)';
-        array[i] = String.fromCharCode( array[i]);
+        temp[i] = String.fromCharCode( temp[i]);
     }
-    return array.join('');
+    return temp.join('');
 }
 
 //generates a random integer (as string) with intLength digits
@@ -53,7 +60,7 @@ function randInt(intLength){
     return array.join('');
 }
 
-//same as randInt, but ensures relative primality to modulus
+//same as randInt, but ensures relative primality to modulus (1x10^BLOCKSIZE)
 function getMult(multLength){
     var endings = [1,3,7,9]; //avoids prime factors 2 and 5
     var array = [];
@@ -112,9 +119,10 @@ function decipher(array, inverse, shift, modulus){
 
 //string numbers must take up BLOCKSIZE digits, adds leading 0's
 function padBlock(block){
-    while(block.length < BLOCKSIZE)
-        block = '0' + block;
-    return block;
+    var array = block.split('');
+    while(array.length < BLOCKSIZE)
+        array.push('0');
+    return array.join('');
 }
 
 //splits block by two digits into an array of numbers <100
@@ -140,10 +148,10 @@ function arrayToBlock(array){
 
 //makes header that is sent with encoded string
 function makeHeader(bigMult, bigShift, smallMult, smallShift){
-    bigMult = blockToArray(bigMult);
-    bigShift = blockToArray(bigShift);
-    small = [parseInt(smallMult, 10), parseInt(smallShift, 10)];
-    return numbersToString(bigMult) + numbersToString(bigShift) + 
+    var bMult = blockToArray(bigMult);
+    var bShift = blockToArray(bigShift);
+    var small = [parseInt(smallMult, 10), parseInt(smallShift, 10)];
+    return numbersToString(bMult) + numbersToString(bShift) + 
            numbersToString(small);
 }
 
@@ -245,6 +253,6 @@ $(document).ready(function(){
 
     $('#copy').click(function(e){
         e.preventDefault();
-        $('#output').select();
+        $('#output')[0].select();
     });
 });
