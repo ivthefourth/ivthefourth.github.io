@@ -46,7 +46,7 @@ var eqForm = {
 
 
 
-var eq = new EarTrainingApp('#eq', [eqAudiofiles, eqPresets, eqForm]);
+var eq = new EarTrainingApp('#eq', [eqAudiofiles, eqPresets, eqForm], 'defaultPreset');
 
 eq.tracks.push( new EarTrainingTrack('#track0', eq) );
 eq.tracks[0].filter = new WaParallelNode(WaFilterNode, 
