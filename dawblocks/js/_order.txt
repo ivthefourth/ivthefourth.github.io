@@ -1,2 +1,8 @@
-00-header.js
-01-visualizers.js
+header.js
+errors.js
+source-nodes.js
+effect-nodes.js
+parameters.js
+modulators.js
+controllers.js
+visualizers.js

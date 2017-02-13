@@ -79,9 +79,9 @@ function modInverse(a, b){
     if( b.equals(0) )
         return [a.toString(), '1', '0'];
     array = modInverse(b.toString(), a.modulo(b).toString());
-    d = new BigNumber( array[0] );
-    s = new BigNumber( array[2] );
-    t = new BigNumber( array[1] );
+    var d = new BigNumber( array[0] );
+    var s = new BigNumber( array[2] );
+    var t = new BigNumber( array[1] );
     t = t.minus(a.dividedToIntegerBy(b).times(s));
     return [d.toString(),s.toString(),t.toString()];
 }
