@@ -10,14 +10,11 @@ html {
 *{ box-sizing: inherit;}
 
 body{
-	font-family: sans-serif;
+	font-family: 'Roboto', sans-serif;
 	margin: 0;
 	background-color: #607D8B;
 }
 
-body.font-loaded{
-	font-family: 'Roboto', sans-serif;
-}
 
 #wrapper{
 	position: relative;

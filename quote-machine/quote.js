@@ -273,13 +273,3 @@ newQuoteBtn.onclick =  function newQuote(e){
 	}
 };
 
-
-//	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-
-var roboto = new FontFace('Roboto', 'url(https://fonts.gstatic.com/s/roboto/v15/CWB0XYA8bzo0kSThX0UTuA.woff2) format("woff2")', {});
-
-roboto.load().then(function applyFont(f){
-	document.fonts.add(f);
-	var body = document.getElementsByTagName('body')[0];
-	body.classList.add('font-loaded');
-})
