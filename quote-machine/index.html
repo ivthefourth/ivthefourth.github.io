@@ -5,15 +5,195 @@
 	<meta name="description" content="Read a random comment from YouTube by clicking a button.">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<link href="css/style.css" rel="stylesheet">
+	<style type="text/css">
+		@viewport { width: device-width }
+		@-ms-viewport { width: device-width }
+
+		html { 
+			font-size: 100%;
+			box-sizing: border-box;
+		}
+
+		*{ box-sizing: inherit;}
+
+		body{
+			font-family: sans-serif;
+			margin: 0;
+			background-color: #607D8B;
+		}
+
+		body.font-loaded{
+			font-family: 'Roboto', sans-serif;
+		}
+
+		#wrapper{
+			position: relative;
+			background-color: #e9e9e9;
+			min-height: 100vh;
+		}
+		@media all and (min-width: 42em){
+			#wrapper{
+				max-width: 46rem;
+				margin: 0 auto;
+				border: 1rem solid #212121;
+				box-shadow: 0.5rem 0.5rem 1rem #455A64;
+			}
+			footer{
+				padding-bottom: 0 !important;
+			}
+		}
+		@media all and (min-width: 42em) and (min-height: 34em){
+			#wrapper{
+				max-width: none;
+				width: 30rem;
+			}
+		}
+		@media all and (min-width: 42em) and (min-height: 40em){
+			#wrapper{
+				max-width: none;
+				width: 30rem;
+				min-height: 40em;
+				margin-top: calc(50vh - 20em);
+				border-radius: 1rem;
+			}
+		}
+
+		header{
+			width: 100%;
+			text-align: center;
+		}
+
+		.button-text{
+			display: inline-block;
+			width: 0;
+			height: 0;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+
+		@media all and (min-width: 18em){
+			.button-text{
+				display: inline;
+				width: auto;
+				white-space: normal;
+			}
+		}
+
+		.button{
+			display: inline-block;
+			width: 50%;
+			padding: 1rem;
+			color: #fff;
+			text-decoration: none;
+		}
+
+		h1{
+			color: #fff;
+			background-color: #e62117;
+			margin-top: 0;
+			margin-bottom: 0;
+			font-weight: normal;
+			padding: 1rem;
+			font-size: 115%;
+		}
+
+		#new-quote{
+			background-color: #4CAF50;
+		}
+
+		#tweet{
+			background-color: #2196F3;
+		}
+
+		#tweet:hover, #tweet:focus, #tweet:active{
+			outline: 0;
+			background-color: #1976D2;
+		}
+
+		#new-quote:hover, #new-quote:focus, #new-quote:active{
+			outline: 0;
+			background-color: #388E3C;
+		}
+
+
+		@keyframes spin { 100% { transform: rotate(360deg); }}
+		.animate-loader{
+		    animation:spin 2s linear infinite;
+		}
+
+		@media all and (min-width: 18em){
+			i{
+				margin-right: 0.5em;
+			}
+		}
+
+		article{
+			overflow: hidden;
+			margin-bottom: auto;
+		}
+
+		p{
+			font-size: 115%;
+			margin: 1em;
+			padding: 1em;
+			border-radius: 1rem;
+			background-color: #fff;
+			margin-bottom: 5rem;
+		}
+
+		p.loading{
+			color: #797979;
+		}
+
+		p.error{
+			color: #f00;
+		}
+
+		#quote span {
+		    display: inline-block;
+		    width: 100%;
+		    text-align: center;
+		    margin: 0 auto;
+		}
+		#quote a {
+		    display: inline-block;
+		    font-size: 85%;
+		    text-decoration: none;
+		    padding: 1rem 1rem 0 1rem;
+		    color: #e62117;
+		}
+		#quote a:hover, #quote a:focus, #quote a:active{
+			text-decoration: underline;
+			outline: none;
+		}
+
+		footer{
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			text-align: center;
+			color: #fff;
+			background-color: #212121;
+			padding: 1rem;
+		}
+
+		footer a{
+			color: #fff;
+			text-decoration: none;
+		}
+
+		footer a:hover, footer a:focus, footer a:active{
+			text-decoration: underline;
+			outline: 0;
+		}
+	</style>
 	<link href="../css/font-awesome.min.css" rel="stylesheet">
-	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 </head>
 <body>
 	<div id="wrapper">
 		<header>
 			<h1>YouTube Comment Generator</h1>
-			<a href="#" class="button" id="new-quote"><i class="fa fa-refresh animate-loader"></i><span class="button-text">New</span></a><a href="https://twitter.com/intent/tweet" class="button" id="tweet" target="_blank"><i class="fa fa-twitter"></i><span class="button-text">Tweet</span></a>
+			<a href="#" class="button" id="new-quote"><i id="load-icon" class="fa fa-refresh animate-loader"></i><span class="button-text">New</span></a><a href="https://twitter.com/intent/tweet" class="button" id="tweet" target="_blank"><i class="fa fa-twitter"></i><span class="button-text">Tweet</span></a>
 		</header>
 		<article>
 			<p id="quote" class='loading'>Loading...</p>
@@ -22,7 +202,6 @@
 			<small><a href="/">Howard Shaw</a></small>
 		</footer>
 	</div>
-	<script src="../js/jquery-2.2.3.min.js"></script>
 	<script src="quote.js"></script>
 	<script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
 </body>

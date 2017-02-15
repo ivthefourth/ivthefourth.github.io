@@ -11,6 +11,11 @@ var collectedData = {
 	youtubeApiLoaded: false,
 };
 
+var tweetBtn = document.getElementById('tweet');
+var newQuoteBtn = document.getElementById('new-quote');
+var loadIcon = document.getElementById('load-icon');
+var commentP = document.getElementById('quote');
+
 function makeUrl(){
 	var text = location.origin + location.pathname +
 		     '?cid=' + collectedData.currentComment +
@@ -27,24 +32,24 @@ function randInt(max) {
 
 
 function setTweet(){
-	$('#tweet').attr('href', ('https://twitter.com/intent/tweet?url=' + makeUrl()));
+	tweetBtn.setAttribute('href', ('https://twitter.com/intent/tweet?url=' + makeUrl()));
 
 }
 
 function commentError(){
 	collectedData.currentlyLoading = false;
-	$('#quote').html('<i class="fa fa-exclamation-triangle"></i> ' + 'Failed to retrieve comment. Please try again.')
-			   .addClass('error')
-			   .removeClass('loading');
-	$('#new-quote i').removeClass('animate-loader');
+	commentP.innerHTML = '<i class="fa fa-exclamation-triangle"></i> ' + 'Failed to retrieve comment. Please try again.';
+	commentP.classList.add('error')
+	commentP.classList.remove('loading');
+	loadIcon.classList.remove('animate-loader');
 	setTweet('Why are you trying to tweet this? You know that was an error message and not a comment, right?');
 }
 
 function noConnectionError(canTryAgain){
-	$('#quote').html('<i class="fa fa-exclamation-triangle"></i> ' + 'Cannot find internet connection.')
-			   .addClass('error')
-			   .removeClass('loading');
-	$('#new-quote i').removeClass('animate-loader');
+	commentP.innerHTML = '<i class="fa fa-exclamation-triangle"></i> ' + 'Cannot find internet connection.';
+	commentP.classList.add('error');
+	commentP.classList.remove('loading');
+	loadIcon.classList.remove('animate-loader');
 	collectedData.currentlyLoading = !canTryAgain;	
 	setTweet('Why are you trying to tweet this? You know that was an error message and not a comment, right?');
 }
@@ -54,9 +59,9 @@ function displayComment(commentText){
 	var html = commentText + ' <span><a href="https://www.youtube.com/watch?v=' + 
 			   collectedData.currentVideo + '&lc=' + 
 			   collectedData.currentComment + '" rel="nofollow" target="_blank">View on YouTube</a></span>';
-	$('#quote').html(html)
-			   .removeClass('loading');
-	$('#new-quote i').removeClass('animate-loader');
+	commentP.innerHTML = html;
+	commentP.classList.remove('loading');
+	loadIcon.classList.remove('animate-loader');
 	setTweet();
 }
 
@@ -182,9 +187,9 @@ function removeIndex(destination, index){
 
 function getQuote(){
 	collectedData.currentlyLoading = true;
-	$('#new-quote i').addClass('animate-loader');
-	$('#quote').addClass('loading').removeClass('error');
-	//$('#quote').text('Please wait. Your comment is loading.')
+	loadIcon.classList.add('animate-loader');
+	commentP.classList.add('loading')
+	commentP.classList.remove('error');
 	getVideosByPopular();
 	
 }
@@ -200,9 +205,9 @@ function getCategories(setText){
 		}
 		else{
 			if( setText ){
-				$('#quote').text('Read random comments from YouTube. Click the "New" button to get started!')
-						   .removeClass('loading');
-				$('#new-quote i').removeClass('animate-loader');
+				commentP.textContent = 'Read random comments from YouTube. Click the "New" button to get started!';
+				commentP.classList.remove('loading');
+				loadIcon.classList.remove('animate-loader');
 			}
 			collectedData.currentlyLoading = false;
 			collectedData.categories.loaded = true;
@@ -217,14 +222,7 @@ function getCategories(setText){
 }
 
 
-function onReady(){
-	$('#new-quote').click( function(e){
-		e.preventDefault();
-		if ( !collectedData.currentlyLoading ){
-			getQuote();
-		}
-	});
-}
+
 function onClientLoad() {
 	collectedData.clientLoaded = true;
     gapi.client.load('youtube', 'v3', onYouTubeApiLoad);
@@ -267,4 +265,21 @@ function getCommentFromSearch(){
 		}
 	});
 }
-$(document).ready(onReady);
+
+newQuoteBtn.onclick =  function newQuote(e){
+	e.preventDefault();
+	if ( !collectedData.currentlyLoading ){
+		getQuote();
+	}
+};
+
+
+//	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+var roboto = new FontFace('Roboto', 'url(https://fonts.gstatic.com/s/roboto/v15/CWB0XYA8bzo0kSThX0UTuA.woff2) format("woff2")', {});
+
+roboto.load().then(function applyFont(f){
+	document.fonts.add(f);
+	var body = document.getElementsByTagName('body')[0];
+	body.classList.add('font-loaded');
+})

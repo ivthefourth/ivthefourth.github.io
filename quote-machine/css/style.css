@@ -10,9 +10,13 @@ html {
 *{ box-sizing: inherit;}
 
 body{
-	font-family: 'Roboto', sans-serif;
+	font-family: sans-serif;
 	margin: 0;
 	background-color: #607D8B;
+}
+
+body.font-loaded{
+	font-family: 'Roboto', sans-serif;
 }
 
 #wrapper{
