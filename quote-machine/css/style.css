@@ -156,6 +156,9 @@ p.error{
 	text-decoration: underline;
 	outline: none;
 }
+#quote.loading a {
+    opacity: 0.66;
+}
 
 footer{
 	position: absolute;
