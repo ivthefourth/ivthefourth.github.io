@@ -241,7 +241,6 @@ function onYouTubeApiLoad() {
 function getCommentFromSearch(){
 	var arr = location.search.slice(5).split('&vid=');
 	var commentId = collectedData.currentComment = arr[0];
-	var vidId = collectedData.currentVideo = arr[1];
 	var request = gapi.client.youtube.commentThreads.list({
 		part: 'snippet',
 		id: commentId,
@@ -253,8 +252,11 @@ function getCommentFromSearch(){
 		}
 		else{
 			var text;
-			if( response.items.length > 0)
+			if( response.items.length > 0){
+				console.log(response);
 				text = response.items[0].snippet.topLevelComment.snippet.textDisplay;
+				collectedData.currentVideo = response.items[0].snippet.videoId;
+			}
 
 			if (text){
 				displayComment(text);
