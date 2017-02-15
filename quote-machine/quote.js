@@ -1,95 +1,270 @@
-categoryList = [0]
+var collectedData = {
+	categories: {
+		list: [],
+		loaded: false,
+	},
+	currentCategory: null,
+	currentVideo: null,
+	currentComment: null,
+	currentlyLoading: true,
+	clientLoaded: false,
+	youtubeApiLoaded: false,
+};
 
-function getRandomInt(max) {
-	/*This returns a random number from 0 to (max-1), because it
-	  is intended for use with arrays where max is array.length.*/
+function makeUrl(){
+	var text = location.origin + location.pathname +
+		     '?cid=' + collectedData.currentComment +
+		     '&vid=' + collectedData.currentVideo;
+	return encodeURIComponent(text);
+}
+
+
+/*This returns a random number from 0 to (max-1), because it
+  is intended for use with arrays where max is array.length.*/
+function randInt(max) {
     return Math.floor( Math.random() * (max));
 }
 
-function displayComment(comments){
-	var commentIndex = getRandomInt(comments.items.length);
-	if (comments.items[commentIndex].snippet.topLevelComment.snippet.textDisplay){
-		$('#quote').text(comments.items[commentIndex].snippet.topLevelComment.snippet.textDisplay);
-			$('#tweet').attr('href', ('https://twitter.com/intent/tweet?text=' + encodeURIComponent('Random YT Comment: ' + comments.items[commentIndex].snippet.topLevelComment.snippet.textDisplay.slice(0, 120))));
+
+function setTweet(){
+	$('#tweet').attr('href', ('https://twitter.com/intent/tweet?url=' + makeUrl()));
+
+}
+
+function commentError(){
+	collectedData.currentlyLoading = false;
+	$('#quote').html('<i class="fa fa-exclamation-triangle"></i> ' + 'Failed to retrieve comment. Please try again.')
+			   .addClass('error')
+			   .removeClass('loading');
+	$('#new-quote i').removeClass('animate-loader');
+	setTweet('Why are you trying to tweet this? You know that was an error message and not a comment, right?');
+}
+
+function noConnectionError(canTryAgain){
+	$('#quote').html('<i class="fa fa-exclamation-triangle"></i> ' + 'Cannot find internet connection.')
+			   .addClass('error')
+			   .removeClass('loading');
+	$('#new-quote i').removeClass('animate-loader');
+	collectedData.currentlyLoading = !canTryAgain;	
+	setTweet('Why are you trying to tweet this? You know that was an error message and not a comment, right?');
+}
+
+function displayComment(commentText){
+	collectedData.currentlyLoading = false;
+	var html = commentText + ' <span><a href="https://www.youtube.com/watch?v=' + 
+			   collectedData.currentVideo + '&lc=' + 
+			   collectedData.currentComment + '" rel="nofollow" target="_blank">View on YouTube</a></span>';
+	$('#quote').html(html)
+			   .removeClass('loading');
+	$('#new-quote i').removeClass('animate-loader');
+	setTweet();
+}
+
+function getComment(){
+	var categoryId = collectedData.currentCategory;
+	var vidId = collectedData.currentVideo;
+	var commentArr = collectedData.categories[categoryId][vidId].list;
+	if (commentArr.length < 1){
+		getCommentThread(collectedData.categories[categoryId][vidId].next);
 	}
 	else{
-		$('#quote').text('Failed to retrieve comment. Please try again.');
-			$('#tweet').attr('href', ('https://twitter.com/intent/tweet?text=' + encodeURIComponent('Why are you trying to tweet this? You know that was an error message and not a comment, right?')));
+		var index = randInt(commentArr.length);
+		var text = commentArr[index].snippet.topLevelComment.snippet.textDisplay;
+		collectedData.currentComment = commentArr[index].id;
+		if (text){
+			displayComment(text);
+		}
+		else{
+			commentError();
+		}
+		commentArr.splice(index, 1);
 	}
 }
 
-function getComment(videos){
-	var vidIndex = getRandomInt(videos.items.length);
-	var request = gapi.client.youtube.commentThreads.list({
-		part: 'snippet',
-		maxResults: 50,
-		videoId: videos.items[vidIndex].id,
-		textFormat: 'plaintext',
-	});
-	request.execute( function(response){
-		if (response.items && response.items.length >= 1){
-			displayComment(response);
+function getCommentThread(next){
+	if( next === undefined){
+		var categoryId = collectedData.currentCategory;
+		var index = randInt(collectedData.categories[categoryId].list.length);
+		var vidId = collectedData.currentVideo = collectedData.categories[categoryId].list[index].id;
+	}
+	else{
+		var vidId = collectedData.currentVideo;
+		var categoryId = collectedData.currentCategory;
+	}
+
+	if( collectedData.categories[categoryId][vidId].loaded && next === undefined){
+		getComment();
+	}
+	else if( next === 'none'){
+		collectedData.categories[categoryId][vidId].loaded = false;
+		collectedData.categories[categoryId][vidId].next = undefined;
+		getVideosByPopular();
+	}
+	else{
+		var reqObj = {
+			part: 'snippet',
+			maxResults: 100,
+			videoId: vidId,
+			textFormat: 'plaintext',
+		};
+
+		if( next !== undefined ){
+			reqObj.pageToken = next;	
 		}
-		else{
-			$('#quote').text('Failed to retrieve comment. Please try again.');
-			$('#tweet').attr('href', ('https://twitter.com/intent/tweet?text=' + encodeURIComponent('Why are you trying to tweet this? You know that was an error message and not a comment, right?')));
-		}
-	});
+		var request = gapi.client.youtube.commentThreads.list(reqObj);
+		request.execute( function(response){
+			if( response.code == -1 ){
+				noConnectionError(true);
+			}
+			else{
+				if (response.items && response.items.length >= 1){
+					for (var i = 0; i < response.items.length; i++){
+						collectedData.categories[categoryId][vidId].list.push(response.items[i]);
+					}
+					collectedData.categories[categoryId][vidId].loaded = true;
+					collectedData.categories[categoryId][vidId].next = response.nextPageToken || 'none';
+					getComment();
+				}
+				else if ( collectedData.categories[categoryId][vidId].loaded ){
+					collectedData.categories[categoryId][vidId].loaded = false;
+					collectedData.categories[categoryId][vidId].next = undefined;
+					commentError();
+				}
+				else{
+					removeIndex(collectedData.categories[categoryId], index);
+					getVideosByPopular();
+				}
+			}
+		});
+	}
 }
 
-function getVideoByPopular(){
-	var categoryIndex = getRandomInt(categoryList.length);
-	var request = gapi.client.youtube.videos.list({
-	    part: 'id',
-	    chart: 'mostPopular',
-	    videoCategoryId: categoryList[categoryIndex].id,
-	    maxResults: 50,
+function getVideosByPopular(){
+	var index = randInt(collectedData.categories.list.length);
+	var categoryId = collectedData.currentCategory = collectedData.categories.list[index].id;
+	if( collectedData.categories[categoryId].loaded ){
+		getCommentThread();
+	}
+	else{
+		var request = gapi.client.youtube.videos.list({
+		    part: 'id',
+		    chart: 'mostPopular',
+		    videoCategoryId: categoryId,
+		    maxResults: 50,
 
-	});
-	request.execute( function(response){
-		if (response.items && response.items.length >= 1){
-			getComment(response);
-		}
-		else{
-			getVideoByPopular();
-		}
-	});
+		});
+		request.execute( function(response){
+			if( response.code == -1 ){
+				noConnectionError(true);
+			}
+			else{
+				if (response.items && response.items.length >= 1){
+					for (var i = 0; i < response.items.length; i++){
+						collectedData.categories[categoryId].list.push(response.items[i]);
+						collectedData.categories[categoryId][response.items[i].id] = {list: [], loaded: false};
+					}
+					collectedData.categories[categoryId].loaded = true;
+					getCommentThread();
+				}
+				else{
+					removeIndex(collectedData.categories, index);
+					getVideosByPopular();
+				}
+			}
+		});
+	}
+}
+function removeIndex(destination, index){
+	var arr = destination.list.splice(index, 1);
+	delete destination[arr[0].id];
 }
 
-/*function getVideoByID(){
-	maybe I will make this later, but the results are pretty good as is
-};*/
 
-function getQuote(e){
-	e.preventDefault();
-	$('#quote').text('Please wait. Your comment is loading.')
-	getVideoByPopular();
+function getQuote(){
+	collectedData.currentlyLoading = true;
+	$('#new-quote i').addClass('animate-loader');
+	$('#quote').addClass('loading').removeClass('error');
+	//$('#quote').text('Please wait. Your comment is loading.')
+	getVideosByPopular();
+	
 }
 
-function getCategories(){
+function getCategories(setText){
 	var request = gapi.client.youtube.videoCategories.list({
 		part: 'snippet',
 		regionCode: 'US',
 	});
 	request.execute( function(response){
-		for (var i=0; i<response.items.length ; i++){
-			if (response.items[i].snippet.assignable === true){
-				categoryList.push(response.items[i]);
+		if( response.code == -1 ){
+			noConnectionError(false);
+		}
+		else{
+			if( setText ){
+				$('#quote').text('Read random comments from YouTube. Click the "New" button to get started!')
+						   .removeClass('loading');
+				$('#new-quote i').removeClass('animate-loader');
+			}
+			collectedData.currentlyLoading = false;
+			collectedData.categories.loaded = true;
+			for (var i=0; i<response.items.length ; i++){
+				if (response.items[i].snippet.assignable === true){
+					collectedData.categories.list.push(response.items[i]);
+					collectedData.categories[response.items[i].id] = {list: [], loaded: false};
+				}
 			}
 		}
-	})
+	});
 }
+
 
 function onReady(){
 	$('#new-quote').click( function(e){
-		getQuote(e);
+		e.preventDefault();
+		if ( !collectedData.currentlyLoading ){
+			getQuote();
+		}
 	});
 }
 function onClientLoad() {
+	collectedData.clientLoaded = true;
     gapi.client.load('youtube', 'v3', onYouTubeApiLoad);
 }
 function onYouTubeApiLoad() {
+	collectedData.youtubeApiLoaded = true;
     gapi.client.setApiKey('AIzaSyA6S05idU4SdBSFc3F3lWfkwsGX7kfSa0c');
-    getCategories();
+    if(location.search){
+    	getCommentFromSearch();
+    	getCategories(false);
+    }
+    else{
+    	getCategories(true);
+    }
+}
+function getCommentFromSearch(){
+	var arr = location.search.slice(5).split('&vid=');
+	var commentId = collectedData.currentComment = arr[0];
+	var vidId = collectedData.currentVideo = arr[1];
+	var request = gapi.client.youtube.commentThreads.list({
+		part: 'snippet',
+		id: commentId,
+		textFormat: 'plaintext',
+	});
+	request.execute( function(response){
+		if( response.code == -1 ){
+			noConnectionError(true);
+		}
+		else{
+			var text;
+			if( response.items.length > 0)
+				text = response.items[0].snippet.topLevelComment.snippet.textDisplay;
+
+			if (text){
+				displayComment(text);
+			}
+			else{
+				commentError();
+			}
+		}
+	});
 }
 $(document).ready(onReady);

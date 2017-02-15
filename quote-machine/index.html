@@ -4,6 +4,7 @@
 	<title>YouTube Comment Generator</title>
 	<meta name="description" content="Read a random comment from YouTube by clicking a button.">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
 	<link href="css/style.css" rel="stylesheet">
 	<link href="../css/font-awesome.min.css" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
@@ -12,10 +13,10 @@
 	<div id="wrapper">
 		<header>
 			<h1>YouTube Comment Generator</h1>
-			<a href="#" class="button" id="new-quote"><i class="fa fa-refresh"></i><span class="button-text">New</span></a><a href="https://twitter.com/intent/tweet" class="button" id="tweet" target="_blank"><i class="fa fa-twitter"></i><span class="button-text">Tweet</span></a>
+			<a href="#" class="button" id="new-quote"><i class="fa fa-refresh animate-loader"></i><span class="button-text">New</span></a><a href="https://twitter.com/intent/tweet" class="button" id="tweet" target="_blank"><i class="fa fa-twitter"></i><span class="button-text">Tweet</span></a>
 		</header>
 		<article>
-			<p id="quote">Read random comments from YouTube. Click the "New" button to get started!</p>
+			<p id="quote" class='loading'>Loading...</p>
 		</article>
 		<footer>
 			<small><a href="/">Howard Shaw</a></small>

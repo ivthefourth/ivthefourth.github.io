@@ -22,20 +22,28 @@ body{
 }
 @media all and (min-width: 42em){
 	#wrapper{
-		width: 30rem;
+		max-width: 46rem;
 		margin: 0 auto;
 		border: 1rem solid #212121;
-		border-radius: 1rem;
 		box-shadow: 0.5rem 0.5rem 1rem #455A64;
 	}
 	footer{
 		padding-bottom: 0 !important;
 	}
 }
+@media all and (min-width: 42em) and (min-height: 34em){
+	#wrapper{
+		max-width: none;
+		width: 30rem;
+	}
+}
 @media all and (min-width: 42em) and (min-height: 40em){
 	#wrapper{
+		max-width: none;
+		width: 30rem;
 		min-height: 40em;
 		margin-top: calc(50vh - 20em);
+		border-radius: 1rem;
 	}
 }
 
@@ -97,6 +105,11 @@ h1{
 }
 
 
+@keyframes spin { 100% { transform: rotate(360deg); }}
+.animate-loader{
+    animation:spin 2s linear infinite;
+}
+
 @media all and (min-width: 18em){
 	i{
 		margin-right: 0.5em;
@@ -104,6 +117,7 @@ h1{
 }
 
 article{
+	overflow: hidden;
 	margin-bottom: auto;
 }
 
@@ -114,6 +128,32 @@ p{
 	border-radius: 1rem;
 	background-color: #fff;
 	margin-bottom: 5rem;
+}
+
+p.loading{
+	color: #797979;
+}
+
+p.error{
+	color: #f00;
+}
+
+#quote span {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+#quote a {
+    display: inline-block;
+    font-size: 85%;
+    text-decoration: none;
+    padding: 1rem 1rem 0 1rem;
+    color: #e62117;
+}
+#quote a:hover, #quote a:focus, #quote a:active{
+	text-decoration: underline;
+	outline: none;
 }
 
 footer{
