@@ -17,10 +17,10 @@ var loadIcon = document.getElementById('load-icon');
 var commentP = document.getElementById('quote');
 
 function makeUrl(){
-	var text = location.origin + location.pathname +
+	var url = location.origin + location.pathname +
 		     '?cid=' + collectedData.currentComment +
 		     '&vid=' + collectedData.currentVideo;
-	return encodeURIComponent(text);
+	return url;
 }
 
 
@@ -31,8 +31,8 @@ function randInt(max) {
 }
 
 
-function setTweet(){
-	tweetBtn.setAttribute('href', ('https://twitter.com/intent/tweet?url=' + makeUrl()));
+function setTweet(text){
+	tweetBtn.setAttribute('href', ('https://twitter.com/intent/tweet?text=' + encodeURIComponent(text)));
 
 }
 
@@ -62,7 +62,7 @@ function displayComment(commentText){
 	commentP.innerHTML = html;
 	commentP.classList.remove('loading');
 	loadIcon.classList.remove('animate-loader');
-	setTweet();
+	setTweet(makeUrl());
 }
 
 function getComment(){
