@@ -1,7 +1,6 @@
 
-//I've attempted to change my original code to be functional by
-//not changing the array arguments sent to functions within those fun
-//Note: consider rewriting using array.map() at some point in future
+//Note: I didn't use array.map() because I wasn't aware of its existence 
+//      when first writing this. 
 
 var BLOCKSIZE = 20; //number of digits for block cipher
 
@@ -59,7 +58,7 @@ function randInt(intLength){
     return array.join('');
 }
 
-//same as randInt, but ensures relative primality to modulus (1x10^BLOCKSIZE)
+//same as randInt, but ensures relative primality to modulus (1x10^n where n is integer)
 function getMult(multLength){
     var endings = [1,3,7,9]; //avoids prime factors 2 and 5
     var array = [];
