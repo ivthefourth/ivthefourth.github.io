@@ -23,6 +23,7 @@ function loadMoreResults(){
 
 
 	var success = function(result){
+		document.getElementById('err-msg').style.display = 'none';
 		if( result.query.search.length === 0){
 			document.getElementById('results').innerHTML += '<p>No More Results</p>';
 		}
@@ -39,8 +40,8 @@ function loadMoreResults(){
 		}
 	}
 	var error = function(){
-		document.getElementById('results').innerHTML = 
-			'There was an error while attempting your search';
+		document.getElementById('err-msg').style.display = 'block';
+		document.getElementById('load-more').disabled = false;
 	}
 	searchWiki(activeSearch, nextOffset, success, error);
 	
@@ -51,9 +52,9 @@ function newSearch(){
 	var query = document.getElementById('search-bar').value;
 	if( query !== activeSearch && query !== ''){
 		document.getElementById('load-more').disabled = true;
-		activeSearch = query;
 
 		var success = function(result){
+			activeSearch = query;
 			if( result.query.search.length === 0){
 				document.getElementById('results').innerHTML = '<p>No Results Match Your Search</p>'
 			}
@@ -108,7 +109,6 @@ function searchBar(e){
 document.getElementById('search-bar').addEventListener('keydown', searchBar, false);
 document.getElementById('search-button').addEventListener('click', newSearch, false);
 document.getElementById('load-more').addEventListener('click', loadMoreResults, false);
-
 //
 //  fun title
 //

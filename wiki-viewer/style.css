@@ -118,6 +118,10 @@ h1 a:focus{
 	visibility: hidden;
 }
 
+#err-msg{
+	margin-bottom: 1em;
+}
+
 button{
 	cursor: pointer;
 	background-color: #36c;

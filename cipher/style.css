@@ -95,7 +95,6 @@ textarea{
 }
 
 #about{
-	border-radius: 2rem;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -140,6 +139,9 @@ textarea{
 	background-size: cover;
 	}
 
+	#about{
+		border-radius: 2rem;
+	}
 	#wrapper{
 		margin: 3rem auto;
 		border-radius: 2rem;

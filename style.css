@@ -259,6 +259,22 @@ body{
 	line-height: 1.6;
 }
 
+#about span{
+	display: inline-block;
+	width: 50%;
+}
+#about a{
+	padding: 0.5em 0;
+	display: inline-block;
+	color: #588c73;
+	text-decoration: none;
+	font-weight: bold;
+}
+#about a:hover, #about a:focus, #about a:active{
+	text-decoration: underline;
+	outline: 0;
+}
+
 
 @media all and (min-width: 35em){
 	.about-container{
@@ -302,6 +318,10 @@ body{
 #projects{
 	background-color: #d96459;
 	color: #ede9ce;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .project{
@@ -317,12 +337,11 @@ body{
 	background: #261c17;
 }
 
-.project-background{
+.project-image{
+	display: block;
 	border-radius: 0.5rem;
 	background: #261c17;
-	background-size: cover;
 	width: 100%;
-	padding-top: 56.25%;
 	transition: transform 0.75s ease, transform-origin 0.2s ease-out;
 }
 
@@ -382,36 +401,14 @@ body{
 	outline: 0;
 }
 
-.project:hover .project-background, .project:focus .project-background,
-.project:active .project-background{
+.project:hover .project-image, .project:focus .project-image,
+.project:active .project-image{
 	transform: scale(1.2);
 }
 
 .project:hover span, .project:focus span, .project:active span{
 	transform: rotateX(90deg);
 }
-
-#pa-tribute .project-background{
-	background-image: url('tribute.jpg');
-}
-#pa-cipher .project-background{
-	background-image: url('cipher.jpg');
-}
-#pa-beatschool .project-background{
-	background-image: url('beatschool.jpg');
-}
-#pa-tic-tac-toe .project-background{
-	background-image: url('tic-tac-toe.jpg');
-}
-#pa-wiki .project-background{
-	background-image: url('wiki.jpg');
-}
-#pa-eq .project-background{
-	background-image: url('eq.jpg');
-}
-
-
-
 
 
 #contact{
