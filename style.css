@@ -339,7 +339,6 @@ body{
 
 .project-image{
 	display: block;
-	border-radius: 0.5rem;
 	background: #261c17;
 	width: 100%;
 	transition: transform 0.75s ease, transform-origin 0.2s ease-out;
@@ -389,7 +388,7 @@ body{
 
 @media all and (min-width: 60em){
 	.project{
-		width: 25%;
+		width: 28%;
 		width: calc(33.33% - 2em);
 	}	
 	.projects-container{
