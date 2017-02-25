@@ -1,2 +1,0 @@
-// For automation nodes and envelope nodes, use DC offset wave with automated volume to modulate param 
-// also have automation method that is attached to the parameter and will update controller... so not in this file
