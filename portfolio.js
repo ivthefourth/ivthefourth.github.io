@@ -218,7 +218,7 @@ $(document).ready(function(){
 	menuSetup();
 	if(window.matchMedia("(min-width: 60em)").matches){
 		$('#img-hidden').load(canvasSetup);
-		$('#img-hidden').attr('src', 'pattern1920wgrad.jpg');
+		$('#img-hidden').attr('src', 'images/pattern1920wgrad.jpg');
 	}
 
 	isIE = !!detectIE();
