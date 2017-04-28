@@ -1,0 +1,53 @@
+
+
+@viewport{
+    width: device-width;
+}
+
+@-ms-viewport{
+    width: device-width;
+}
+
+html{
+	font-size: 100%;
+	box-sizing: border-box;
+	-webkit-text-size-adjust: 100%;
+}
+
+*{ box-sizing: inherit;}
+
+body{
+	font-family: sans-serif;
+	margin: 0;
+	background-color: hsla(899, 20%, 50%, 1);
+}
+
+#calculator{
+	height: 100vh;
+	background-color: #202020;
+	display: flex;
+	flex-wrap:wrap;
+}
+
+.row{
+	display:flex;
+	width:100%;
+}
+
+#result{
+	line-height: 0rem;
+	font-size: 4rem;
+	padding: 5rem 1rem 1rem 1rem;
+	width: 100%;
+	color: #fff;
+	text-align: right;
+	margin: 0;
+}
+
+button{
+	width: 25%;
+}
+
+button.double-wide{
+	width: 50%;
+}
