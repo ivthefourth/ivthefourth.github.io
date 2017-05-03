@@ -17,7 +17,7 @@ html{
 *{ box-sizing: inherit;}
 
 body{
-	font-family: sans-serif;
+	font-family: 'Quicksand', sans-serif;
 	margin: 0;
 	background-color: hsla(899, 20%, 50%, 1);
 }
@@ -33,21 +33,42 @@ body{
 	display:flex;
 	width:100%;
 }
+.row:nth-child(n+3){
+	border-top: 1px solid;
+}
+
+.display{
+	padding: 5rem 1rem 1rem 1rem;
+}
+
+.display>div{
+	position: relative;
+	width: 100%;
+}
 
 #result{
-	line-height: 0rem;
-	font-size: 4rem;
-	padding: 5rem 1rem 1rem 1rem;
 	width: 100%;
+	position: absolute;
+	bottom: 0;
+	font-size: 4rem;
 	color: #fff;
 	text-align: right;
 	margin: 0;
 }
 
 button{
+	border: none;
+	border-left: 1px solid;
+	font-family: 'Quicksand', sans-serif;
+	font-size: 2em;
+	line-height: 0.5;
 	width: 25%;
 }
 
 button.double-wide{
 	width: 50%;
+}
+
+button:first-child{
+	border-left: none;
 }
