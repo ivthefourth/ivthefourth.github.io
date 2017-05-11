@@ -6,11 +6,11 @@ This repository contains my current portfolio and a mess of personal projects, e
 * Portfolio
  * https://ivthefourth.github.io/
 * EQ Ear Training App
- * [Code](https://github.com/ivthefourth/ivthefourth.github.io/tree/master/wa-resources)
- * [Demo](https://ivthefourth.github.io/wa-resources/)
+ * [Code](https://github.com/ivthefourth/portfolio/tree/master/wa-resources)
+ * [Demo](https://ivthefourth.github.io/portfolio/wa-resources/)
 * Text Cipher
- * [Code](https://github.com/ivthefourth/ivthefourth.github.io/tree/master/cipher)
- * [Demo](https://ivthefourth.github.io/cipher/)
+ * [Code](https://github.com/ivthefourth/portfolio/tree/master/cipher)
+ * [Demo](https://ivthefourth.github.io/portfolio/cipher/)
 * YouTube Comment "Generator"
- * [Code](https://github.com/ivthefourth/ivthefourth.github.io/tree/master/quote-machine)
- * [Demo](http://ivthefourth.github.io/quote-machine/)
+ * [Code](https://github.com/ivthefourth/portfolio/tree/master/quote-machine)
+ * [Demo](http://ivthefourth.github.io/portfolio/quote-machine/)
