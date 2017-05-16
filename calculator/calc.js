@@ -93,7 +93,7 @@
 	/*****************
 	   Touch Events
 	******************/
-	console.warn('still need to do touch events')
+	console.warn('still need to do touch events');
 
 
 
@@ -123,6 +123,9 @@
 			case 'percent':
 				usePercent();
 				break;
+			case 'equals':
+				useEquals();
+				break;
 			default:
 				throw new Error('Bad value for data-btn-type.');
 		}
@@ -130,6 +133,7 @@
 
 	function useNumber(num){
 		if (state.newInput){
+			state.displayType = 'input';
 			state.input = [num];
 			state.inputLength = 1;
 			if (num !== '0'){
@@ -166,30 +170,50 @@
 			state.isNegative = !state.isNegative;
 			updateInputValue();
 		}
-		console.log('negative');
+		else{
+			var val = -state.displayValue;
+			inputEvaluated();
+			updateResultValue(val);
+		}
 	}
 
 	function usePercent(){
-		console.log('percent');
+		var val = state.displayValue / 100;
+		inputEvaluated();
+		updateResultValue(val);
 	}
 
 	function useClear(){
-		if (state.clearType === 'display'){
-			state.input = [0], 
-			state.inputLength = 1,  
-			state.displayValue = 0, 
-			state.displayType = 'input',
-			state.isDecimal = false,  
-			state.isNegative = false,
-			state.newInput = true,
-			updateInputValue();
-			setClear('all');   
+		if (state.clearType === 'all'){ 
+			state.operatorActive= false; 
+			state.currentValue= null;
+			state.currentOperator= null;
+			state.storedValue= null;
+			state.storedOperator= null;
 		}
-		console.log('clear');
+		state.input = [0];
+		state.inputLength = 1;
+		state.displayValue = 0;
+		state.displayType = 'input';
+		state.isDecimal = false;
+		state.isNegative = false;
+		state.newInput = true;
+		updateInputValue();
+		setClear('all');
 	}
 
 	function useOperator(num){
 		console.log(num);
+	}
+
+	function useEquals(){
+		console.log('equalzzz');
+	}
+
+	function updateResultValue(val){
+		state.displayValue = val;
+		//process numper, remove trailing 0s after decimal, restrict to 9 sig figs, etc
+		updateDisplayValue(val);
 	}
 
 	function updateInputValue(){
@@ -224,6 +248,15 @@
 		}
 		return newVal.join('');
 
+	}
+
+	function inputEvaluated(){
+		state.input = [0];
+		state.inputLength = 1;
+		state.displayType = 'result';
+		state.isDecimal = false;
+		state.isNegative = false; 
+		state.newInput = true;
 	}
 
 	function setClear(type){
