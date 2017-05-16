@@ -15,19 +15,25 @@
 		isNegative: false,      //User input is negative 
 		newInput: true,         //pushing number button starts new input 
 		clearType: 'all',       //Clear display or everything?
+		chainEquals: false,     //Repeat previous operation
 
 		operatorActive: false,  //When an operator is selected (using negative will put 0 as input)
 
-		currentValue: null, 
-		currentOperator: null,
+		currentValue: null,     //stored from displayValue after a single operation
+		currentOperator: null,  
 
-		storedValue: null,
+		storedValue: null,      //stored from currentValue when respecting order of operations
 		storedOperator: null,
 	}
 
 	var buttons = document.getElementsByTagName('button');
 	var display = document.getElementById('result');
 	var clear = getButtonFromData(buttons, 'btnType', 'clear');
+	var operators = {};
+	operators.add = getButtonFromData(buttons, 'btnValue', 'add');
+	operators.subtract = getButtonFromData(buttons, 'btnValue', 'subtract');
+	operators.multiply = getButtonFromData(buttons, 'btnValue', 'multiply');
+	operators.divide = getButtonFromData(buttons, 'btnValue', 'divide');
 	//var calculator = document.getElementById('calculator');
 
 	//adds event listeners to node list (nodes arg), events arg is array
@@ -140,6 +146,9 @@
 				state.newInput = false;
 				setClear('display');
 			}
+			if (state.currentOperator !== null){
+				deactivateOperator();
+			}
 			updateInputValue();
 		}
 		else if (state.inputLength < 9){
@@ -156,6 +165,9 @@
 			state.newInput = false;
 			state.isDecimal = true;
 			setClear('display');
+			if (state.currentOperator !== null){
+				deactivateOperator();
+			}
 			updateInputValue();
 		}
 		else if (state.inputLength < 9 && !state.isDecimal){
@@ -170,7 +182,12 @@
 			state.isNegative = !state.isNegative;
 			updateInputValue();
 		}
-		else{
+		else if (state.operatorActive || state.displayValue === 'Error'){
+			state.displayType = 'input';
+			state.isNegative = !state.isNegative;
+			updateInputValue();
+		}
+		else {
 			var val = -state.displayValue;
 			inputEvaluated();
 			updateResultValue(val);
@@ -178,18 +195,31 @@
 	}
 
 	function usePercent(){
-		var val = state.displayValue / 100;
+		if ((state.displayType === 'input' || state.operatorActive) && (
+			state.currentOperator === 'add' || state.currentOperator === 'subtract')
+			){
+			var val = state.displayValue * state.currentValue / 100;
+		}
+		else{	
+			val = state.displayValue / 100;
+		}
 		inputEvaluated();
 		updateResultValue(val);
 	}
 
 	function useClear(){
 		if (state.clearType === 'all'){ 
-			state.operatorActive= false; 
+			if (state.currentOperator !== null){
+				deactivateOperator();
+			}
 			state.currentValue= null;
 			state.currentOperator= null;
 			state.storedValue= null;
 			state.storedOperator= null;
+			state.chainEquals = false;
+		}
+		else if (state.currentOperator !== null && state.chainEquals === false){
+			activateOperator();
 		}
 		state.input = [0];
 		state.inputLength = 1;
@@ -202,17 +232,143 @@
 		setClear('all');
 	}
 
-	function useOperator(num){
-		console.log(num);
+	function useOperator(type){
+		if (state.currentOperator === null || state.chainEquals){
+			state.currentOperator = type;
+			state.currentValue = state.displayValue;
+			inputEvaluated();
+			activateOperator();
+		}
+		else if (state.operatorActive){
+			//if changing from multiply to add with a stored value
+			if (state.storedValue !== null && (type === 'add' || type === 'subtract')){
+				var result = operate(state.storedValue, state.storedOperator, state.currentValue);
+				state.storedValue = null;
+				state.storedOperator = null;
+				updateResultValue(result);
+				state.currentValue = result;
+				inputEvaluated();
+
+			}
+			deactivateOperator();
+			state.currentOperator = type;
+			activateOperator();
+			
+		}
+		else{
+			if (type === 'add' || type === 'subtract'){
+				if (state.storedValue !== null){
+					var result = operate(state.currentValue, state.currentOperator, state.displayValue);
+					result = operate(state.storedValue, state.storedOperator, result);
+					state.storedValue = null;
+					state.storedOperator = null;
+
+					//function this VV
+					updateResultValue(result);
+					state.currentOperator = type;
+					state.currentValue = result;
+					inputEvaluated();
+					activateOperator();
+
+				}
+				else{
+					var result = operate(state.currentValue, state.currentOperator, state.displayValue);
+
+					//function this VV
+					updateResultValue(result);
+					state.currentOperator = type;
+					state.currentValue = result;
+					inputEvaluated();
+					activateOperator();
+				}
+			}
+			else{
+				if (state.currentOperator === 'add' || state.currentOperator === 'subtract'){
+					state.storedValue = state.currentValue;
+					state.storedOperator = state.currentOperator;
+					state.currentOperator = type;
+					state.currentValue = state.displayValue;
+					inputEvaluated();
+					activateOperator();
+				}
+				else{
+					var result = operate(state.currentValue, state.currentOperator, state.displayValue);
+
+					//function this VV
+					updateResultValue(result);
+					state.currentOperator = type;
+					state.currentValue = result;
+					inputEvaluated();
+					activateOperator();
+				}
+			}
+		}
+		state.chainEquals = false;
 	}
 
 	function useEquals(){
-		console.log('equalzzz');
+		if (state.storedValue !== null){
+			var result = operate(state.currentValue, state.currentOperator, state.displayValue);
+			result = operate(state.storedValue, state.storedOperator, result);
+			state.storedValue = null;
+			state.storedOperator = null;
+
+			//function this VV
+			state.currentValue = state.displayValue;
+			updateResultValue(result);
+			inputEvaluated();
+			deactivateOperator();
+		}
+		else if (state.currentValue !== null) {
+
+			//function this VV
+			if (!state.chainEquals){
+				var result = operate(state.currentValue, state.currentOperator, state.displayValue);
+				state.currentValue = state.displayValue;
+			}
+			else{
+				var result = operate(state.displayValue, state.currentOperator, state.currentValue);
+			}
+			updateResultValue(result);
+			inputEvaluated();
+			deactivateOperator();
+			state.chainEquals = true;
+		}
 	}
 
 	function updateResultValue(val){
 		state.displayValue = val;
 		//process numper, remove trailing 0s after decimal, restrict to 9 sig figs, etc
+		//err @ 1e<-100 and 1e>160
+		if (
+			val !== val || val === 'Error' || val > 1e160 || val < -1e160 || 
+			val < 1e-100 && val > 0 || val > -1e-100 && val <0
+		   ){
+			val = 'Error';
+			state.displayValue = val;
+		}
+		else if (
+			     val >= 1e9 || val <= -1e9 ||
+		         val < 1e-8 && val > 0 || val > -1e-8 && val < 0
+		        ){
+			val = val.toExponential().split('');
+			var digit = val.splice(0, val.indexOf('e') );
+			var exponent = val.splice(1);
+			digit = Number(digit.join('')).toFixed(8 - exponent.length);
+			digit = digit.replace(/\.?0+$/,"");
+			exponent = parseInt(exponent.join('')).toString();
+			val = digit + 'e' + exponent;
+		}
+		else{
+			var decimal = val.toString().split('').indexOf('.');
+			if (decimal === -1){
+				val = val.toFixed(0);
+			}
+			else{
+				val = val.toFixed(9 - decimal).replace(/\.?0+$/,"");
+			}
+			val = addComas(val.split(''));
+		}
 		updateDisplayValue(val);
 	}
 
@@ -250,6 +406,22 @@
 
 	}
 
+	function operate(a, operator, b){
+		if (a === 'Error' || b === 'Error'){
+			return 'Error';
+		}
+		switch(operator){
+			case 'add':
+				return a + b;
+			case 'subtract':
+				return a - b;
+			case 'multiply':
+				return a * b;
+			case 'divide':
+				return a / b;
+		}
+	}
+
 	function inputEvaluated(){
 		state.input = [0];
 		state.inputLength = 1;
@@ -257,6 +429,16 @@
 		state.isDecimal = false;
 		state.isNegative = false; 
 		state.newInput = true;
+	}
+
+	function activateOperator(){
+		state.operatorActive = true;
+		operators[state.currentOperator].classList.add('selected');
+	}
+
+	function deactivateOperator(){
+		state.operatorActive = false;
+		operators[state.currentOperator].classList.remove('selected');
 	}
 
 	function setClear(type){
