@@ -3,13 +3,27 @@
 	var state = {
 
 		//user interface
-		isFocused: false,   //True when a button has been clicked/touched and not released 
-		focusType: null     //Mouse or touch? Which touch?
+		isFocused: false,       //True when a button has been clicked/touched and not released 
+		focusType: null,        //Mouse or touch? Which touch?
 
 		//calculator 
+		input: [0],             //array of digits input by user
+		inputLength: 1,         //Number of digits input by user, limit=9
+		inputValue: 0,          //Numerical value of user input
+		isDecimal: false,       //User input has a decimal
+		newInput: true,         //pushing number button starts new input 
+		negativeInput: false,   //Is input negative
+		inputDisplayed: true,   //False when display shows result, tells negative what to modify
+
+		currentValue: null, //Most recent 
+		currentOperator: null,
+
+		storedValue: null,
+		storedOperator: null,
 	}
 
 	var buttons = document.getElementsByTagName('button');
+	var display = document.getElementById('result');
 	//var calculator = document.getElementById('calculator');
 
 	//adds event listeners to node list (nodes arg), events arg is array
@@ -70,8 +84,119 @@
 
 
 
+
+	/*****************
+	   Calculator
+	******************/
 	function useButton(button){
-		console.log(button);
+		var btnValue = button.dataset.btnValue;
+		switch(button.dataset.btnType){
+			case 'number':
+				useNumber(btnValue);
+				break;
+			case 'operator': 
+				useOperator(btnValue);
+				break;
+			case 'decimal':
+				useDecimal();
+				break;
+			case 'clear':
+				useClear();
+				break;
+			case 'negative':
+				useNegative();
+				break;
+			case 'percent':
+				usePercent();
+				break;
+			default:
+				throw new Error('Bad value for data-btn-type.');
+		}
+	}
+
+	function useNumber(num){
+		if (state.newInput){
+			state.input = [num];
+			state.inputLength = 1;
+			if (num !== '0'){
+				state.newInput = false;
+			}
+			updateInputValue();
+		}
+		else if (state.inputLength < 9){
+			state.input.push(num);
+			state.inputLength += 1;
+			updateInputValue();
+		}
+	}
+
+	function useDecimal(){
+		if (state.newInput){
+			state.input = ['0', '.'];
+			state.inputLength = 1;
+			state.newInput = false;
+			state.isDecimal = true;
+			updateInputValue();
+		}
+		else if (state.inputLength < 9 && !state.isDecimal){
+			state.input.push('.');
+			state.isDecimal = true;
+			updateInputValue();
+		}
+	}
+
+	function useNegative(){
+		console.log('negative');
+	}
+
+	function usePercent(){
+		console.log('percent');
+	}
+
+	function useClear(){
+		console.log('clear');
+	}
+
+	function useOperator(num){
+		console.log(num);
+	}
+
+	function updateInputValue(){
+		var val = state.input.slice(0); //clone input
+		if (state.negativeInput){
+			val.unshift('-');
+		}
+		state.inputValue = Number( state.input.join(''));
+		val = addComas(val);
+		displayValue(val);
+	}
+
+	function addComas(val){
+		var newVal = val.slice(0); //clone array
+		var decimal = newVal.indexOf('.');
+		if ( decimal === -1 ){
+			max = newVal.length;
+		}
+		else{
+			max = decimal;
+		}
+
+		if ( newVal.indexOf('-') === -1 ){
+			var min = 0;
+		}
+		else{
+			var min = 1;
+		}
+
+		for (i = max - 3; i > min; i -= 3){
+			newVal.splice(i, 0, ',');
+		}
+		return newVal.join('');
+
+	}
+
+	function displayValue(val){
+		display.innerText = val;
 	}
 
 

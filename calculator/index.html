@@ -13,37 +13,37 @@
 	<div id="calculator">
 		<div class="row display">
 			<div>
-				<p id="result">87687</p>
+				<p id="result">0</p>
 			</div>
 		</div>
 		<div class="row">
-			<button class="modifier">AC</button>
-			<button class="modifier">+/-</button>
-			<button class="modifier">%</button>
-			<button class="operator">÷</button>
+			<button data-btn-type="clear" class="modifier">AC</button>
+			<button data-btn-type="negative" class="modifier">+/-</button>
+			<button data-btn-type="percent" class="modifier">%</button>
+			<button data-btn-type="operator" data-btn-value="divide" class="operator">÷</button>
 		</div>
 		<div class="row">
-			<button class="number">7</button>
-			<button class="number">8</button>
-			<button class="number">9</button>
-			<button class="operator">×</button>
+			<button data-btn-type="number" data-btn-value="7" class="number">7</button>
+			<button data-btn-type="number" data-btn-value="8" class="number">8</button>
+			<button data-btn-type="number" data-btn-value="9" class="number">9</button>
+			<button data-btn-type="operator" data-btn-value="multiply" class="operator">×</button>
 		</div>
 		<div class="row">
-			<button class="number">4</button>
-			<button class="number">5</button>
-			<button class="number">6</button>
-			<button class="operator">−</button>
+			<button data-btn-type="number" data-btn-value="4" class="number">4</button>
+			<button data-btn-type="number" data-btn-value="5" class="number">5</button>
+			<button data-btn-type="number" data-btn-value="6" class="number">6</button>
+			<button data-btn-type="operator" data-btn-value="subtract" class="operator">−</button>
 		</div>
 		<div class="row">
-			<button class="number">1</button>
-			<button class="number">2</button>
-			<button class="number">3</button>
-			<button class="operator">+</button>
+			<button data-btn-type="number" data-btn-value="1" class="number">1</button>
+			<button data-btn-type="number" data-btn-value="2" class="number">2</button>
+			<button data-btn-type="number" data-btn-value="3" class="number">3</button>
+			<button data-btn-type="operator" data-btn-value="add" class="operator">+</button>
 		</div>
 		<div class="row">
-			<button class="number double-wide"><span>0</span></button>
-			<button class="number">.</button>
-			<button class="operator">=</button>
+			<button data-btn-type="number" data-btn-value="0" class="number double-wide"><span>0</span></button>
+			<button data-btn-type="decimal" class="number">.</button>
+			<button data-btn-type="operator" data-btn-value="equals" class="operator">=</button>
 		</div>
 	</div>
 	<script src="calc.js"></script>

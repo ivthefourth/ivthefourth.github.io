@@ -72,6 +72,7 @@ body{
 }
 
 button{
+	cursor: pointer;
 	background-color: #d1d2d4;
 	user-select: none;
 	padding: 0;
