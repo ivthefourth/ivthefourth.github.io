@@ -14,8 +14,8 @@
 
 	//adds event listeners to node list (nodes arg), events arg is array
 	function addListenerToList(nodes, events, callback){
-		Array.prototype.forEach.call(nodes, (n) => {
-			events.forEach( (e) => { n.addEventListener(e, callback)});
+		Array.prototype.forEach.call(nodes, function(n){
+			events.forEach( function(e) { n.addEventListener(e, callback)});
 		});
 	}
 
@@ -25,6 +25,7 @@
 	   Mouse Events
 	******************/
 	function handleMouseDown(e){
+		e.preventDefault();
 		if( !state.isFocused ){
 			e.currentTarget.classList.add('focused');
 			state.isFocused = true;
