@@ -9,13 +9,16 @@
 		//calculator 
 		input: [0],             //array of digits input by user
 		inputLength: 1,         //Number of digits input by user, limit=9
-		inputValue: 0,          //Numerical value of user input
+		displayValue: 0,        //Numerical value of user input OR result
+		displayType: 'input',   //Does the display show user input or result?
 		isDecimal: false,       //User input has a decimal
+		isNegative: false,      //User input is negative 
 		newInput: true,         //pushing number button starts new input 
-		negativeInput: false,   //Is input negative
-		inputDisplayed: true,   //False when display shows result, tells negative what to modify
+		clearType: 'all',       //Clear display or everything?
 
-		currentValue: null, //Most recent 
+		operatorActive: false,  //When an operator is selected (using negative will put 0 as input)
+
+		currentValue: null, 
 		currentOperator: null,
 
 		storedValue: null,
@@ -24,6 +27,7 @@
 
 	var buttons = document.getElementsByTagName('button');
 	var display = document.getElementById('result');
+	var clear = getButtonFromData(buttons, 'btnType', 'clear');
 	//var calculator = document.getElementById('calculator');
 
 	//adds event listeners to node list (nodes arg), events arg is array
@@ -31,6 +35,16 @@
 		Array.prototype.forEach.call(nodes, function(n){
 			events.forEach( function(e) { n.addEventListener(e, callback)});
 		});
+	}
+
+	function getButtonFromData(nodes, dataAttr, value){
+		var match;
+		Array.prototype.forEach.call(nodes, function(n){
+			if (n.dataset[dataAttr] === value){
+				match = n;
+			}
+		})
+		return match;
 	}
 
 
@@ -120,6 +134,7 @@
 			state.inputLength = 1;
 			if (num !== '0'){
 				state.newInput = false;
+				setClear('display');
 			}
 			updateInputValue();
 		}
@@ -136,6 +151,7 @@
 			state.inputLength = 1;
 			state.newInput = false;
 			state.isDecimal = true;
+			setClear('display');
 			updateInputValue();
 		}
 		else if (state.inputLength < 9 && !state.isDecimal){
@@ -146,6 +162,10 @@
 	}
 
 	function useNegative(){
+		if (state.displayType === 'input'){
+			state.isNegative = !state.isNegative;
+			updateInputValue();
+		}
 		console.log('negative');
 	}
 
@@ -154,6 +174,17 @@
 	}
 
 	function useClear(){
+		if (state.clearType === 'display'){
+			state.input = [0], 
+			state.inputLength = 1,  
+			state.displayValue = 0, 
+			state.displayType = 'input',
+			state.isDecimal = false,  
+			state.isNegative = false,
+			state.newInput = true,
+			updateInputValue();
+			setClear('all');   
+		}
 		console.log('clear');
 	}
 
@@ -163,12 +194,12 @@
 
 	function updateInputValue(){
 		var val = state.input.slice(0); //clone input
-		if (state.negativeInput){
+		if (state.isNegative){
 			val.unshift('-');
 		}
-		state.inputValue = Number( state.input.join(''));
+		state.displayValue = Number( val.join(''));
 		val = addComas(val);
-		displayValue(val);
+		updateDisplayValue(val);
 	}
 
 	function addComas(val){
@@ -195,7 +226,23 @@
 
 	}
 
-	function displayValue(val){
+	function setClear(type){
+		if (type !== 'display' && type !== 'all'){
+			throw new Error('Invalid value for clear: ' + type);
+		}
+		state.clearType = type;
+		updateClearButton(type);
+	}
+
+	function updateClearButton(type){
+		if (type === 'all'){
+			clear.innerText = 'AC';
+		}
+		else{
+			clear.innerText = 'C';
+		}
+	}
+	function updateDisplayValue(val){
 		display.innerText = val;
 	}
 
