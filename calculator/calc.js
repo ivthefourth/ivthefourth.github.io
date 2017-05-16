@@ -318,6 +318,7 @@
 			updateResultValue(result);
 			inputEvaluated();
 			deactivateOperator();
+			state.chainEquals = true;
 		}
 		else if (state.currentValue !== null) {
 
