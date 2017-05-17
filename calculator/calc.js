@@ -21,6 +21,7 @@
 	
 		function playTap(){
 			if (buffer === null){
+				alert('dont play');
 				return;
 			}
 			alert('play');
@@ -33,7 +34,7 @@
 	else{
 		//do nothing
 		function playTap(){
-			;
+			alert('else');
 		}
 	}
 
