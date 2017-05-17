@@ -25,7 +25,7 @@
 			var source = audioCtx.createBufferSource();
 			source.buffer = buffer;
 			source.connect(audioCtx.destination);
-			source.start(audioCtx.currentTime);
+			source.start(audioCtx.currentTime + 0.01);
 		}
 	}
 	else{
