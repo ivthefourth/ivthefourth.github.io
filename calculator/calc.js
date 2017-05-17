@@ -4,6 +4,7 @@
 	   Audio
 	******************/
 	var webAudio = window.AudioContext || window.webkitAudioContext;
+	alert(webAudio);
 	if (webAudio){
 		var audioCtx = new webAudio();
 		var buffer = null;
