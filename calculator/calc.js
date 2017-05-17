@@ -7,6 +7,7 @@
 	if (webAudio){
 		var audioCtx = new webAudio();
 		var buffer = null;
+		var source;
 		var request = new XMLHttpRequest();
 		request.open('GET', 'keytap.wav', true);
 		request.responseType = 'arraybuffer';
@@ -22,7 +23,7 @@
 			if (buffer === null){
 				return;
 			}
-			var source = audioCtx.createBufferSource();
+			source = audioCtx.createBufferSource();
 			source.buffer = buffer;
 			source.connect(audioCtx.destination);
 			source.start(audioCtx.currentTime + 0.01);
