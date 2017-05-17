@@ -14,6 +14,7 @@
 			var audioData = request.response;
 			audioCtx.decodeAudioData(audioData, function(data){
 				buffer = data;
+				alert('audio loaded');
 			});
 		}
 		request.send();
@@ -22,6 +23,7 @@
 			if (buffer === null){
 				return;
 			}
+			alert('play');
 			var source = audioCtx.createBufferSource();
 			source.buffer = buffer;
 			source.connect(audioCtx.destination);
