@@ -4,7 +4,11 @@
 
 		//user interface
 		isFocused: false,       //True when a button has been clicked/touched and not released 
-		focusType: null,        //Mouse or touch? Which touch?
+		focusType: null,        //Mouse or touch? 
+		touchId: null,          //Which touch?
+		touchedButton: null,    //Which button is the touch currently on?
+		buttonCoords: null,     //coordinates of touchedButton
+		topLeftButton: null,    //coordinates of top left button
 
 		//calculator 
 		input: [0],             //array of digits input by user
@@ -28,6 +32,7 @@
 	}
 
 	//Dom elements
+	var calculator = document.getElementById('calculator');
 	var buttons = document.getElementsByTagName('button');
 	var display = document.getElementById('result');
 	var clear = getButtonFromData(buttons, 'btnType', 'clear');
@@ -36,7 +41,6 @@
 	operators.subtract = getButtonFromData(buttons, 'btnValue', 'subtract');
 	operators.multiply = getButtonFromData(buttons, 'btnValue', 'multiply');
 	operators.divide = getButtonFromData(buttons, 'btnValue', 'divide');
-	//var calculator = document.getElementById('calculator');
 
 	//adds event listeners to node list (nodes arg), events arg is array
 	function addListenerToList(nodes, events, callback){
@@ -106,9 +110,117 @@
 	/*****************
 	   Touch Events
 	******************/
-	console.warn('still need to do touch events');
+	function handleTouchStart(e){
+		e.preventDefault();
+		if( !state.isFocused ){
+			e.currentTarget.classList.add('focused');
+			state.isFocused = true;
+			state.focusType = 'touch';
+			state.touchId = e.changedTouches[0].identifier;
+			state.touchedButton = e.currentTarget;
+			state.buttonCoords = getPageCoords(e.currentTarget);
+			state.topLeftButton = getPageCoords(buttons[0], true);
+		}
+	}
+	function handleTouchMove(e){
+		if( state.isFocused && state.focusType === 'touch'){
+			var touch = e.changedTouches[0];
+			if (touch.identifier === state.touchId){
+				var coords = state.buttonCoords;
+				if (state.touchedButton === null){
+					state.touchedButton = getButtonFromCoords(touch.pageX, touch.pageY);
+					if( state.touchedButton !== null){
+						state.touchedButton.classList.add('focused');
+						state.buttonCoords = getPageCoords(state.touchedButton);
+					}
+					else{
+						state.buttonCoords = null;
+					}
+				}
+				else if( touch.pageY < coords.top || touch.pageY > coords.bottom ||
+					touch.pageX < coords.left || touch.pageX > coords.right 
+				  ){
+					state.touchedButton.classList.remove('focused');
+					state.touchedButton = getButtonFromCoords(touch.pageX, touch.pageY);
+					if( state.touchedButton !== null){
+						state.touchedButton.classList.add('focused');
+						state.buttonCoords = getPageCoords(state.touchedButton);
+					}
+					else{
+						state.buttonCoords = null;
+					}
+				}
+				//console.log(e.changedTouches[0].pageX);
+				//e.currentTarget.classList.add('focused');
+			}
+		}
+	}
+	function handleTouchEnd(e){
+		if( state.isFocused && state.focusType === 'touch'){
+			var touch = e.changedTouches[0];
+			if (touch.identifier === state.touchId){
+				if (state.touchedButton !== null){
+					state.touchedButton.classList.remove('focused');
+					useButton(state.touchedButton);
+				}
+				state.isFocused = false;
+				state.focusType = null;
+				state.touchId = null;
+				state.touchedButton = null;
+				state.buttonCoords = null;
+				state.topLeftButton = null;
+			}
+		}
+	}
+	function handleTouchCancel(e){
+		if( state.isFocused && state.focusType === 'touch'){
+			var touch = e.changedTouches[0];
+			if (touch.identifier === state.touchId){
+				if (state.touchedButton !== null){
+					state.touchedButton.classList.remove('focused');
+				}
+				state.isFocused = false;
+				state.focusType = null;
+				state.touchId = null;
+				state.touchedButton = null;
+				state.buttonCoords = null;
+				state.topLeftButton = null;
+			}
+		}
+	}
+	addListenerToList(buttons, ['touchstart'], handleTouchStart);
+	calculator.addEventListener('touchmove', handleTouchMove);
+	document.addEventListener('touchend', handleTouchEnd);
+	document.addEventListener('touchcancel', handleTouchCancel);
 
 
+	function getPageCoords(element, widthHeight){
+		var vpCoords = element.getBoundingClientRect();
+		var pageCoords = {};
+		pageCoords.top = vpCoords.top + pageYOffset;
+		pageCoords.bottom = vpCoords.bottom + pageYOffset;
+		pageCoords.left = vpCoords.left + pageXOffset;
+		pageCoords.right = vpCoords.right + pageXOffset;
+		if(widthHeight === true){
+			pageCoords.width = vpCoords.width;
+			pageCoords.height = vpCoords.height;
+		}
+		return pageCoords;
+	}
+
+	function getButtonFromCoords(x, y){
+		var coords = state.topLeftButton;
+		var row = Math.floor((y - coords.top) / coords.height);
+		var column = Math.floor((x - coords.left) / coords.width); 
+		if( row < 0 || row > 4 || column < 0 || column > 3){
+			return null;
+		}
+		var index = row * 4 + column;
+		if (index >= 17){
+			index -= 1;
+		}
+		return buttons[index];
+	}
 
 
 
@@ -348,7 +460,6 @@
 	//processes value to display properly on screen
 	//i.e. removes trailing zeros, adds commas, etc. when necessary
 	function updateResultValue(val){
-			console.log(val);
 		state.displayValue = val;
 		//err when value is NaN, 'Error', or very small/large (magnitude 10^[<-100 or >160])
 		if (
@@ -382,7 +493,6 @@
 		}
 		else{
 			var decimal = val.toFixed(11).split('').indexOf('.');
-			console.log(decimal);
 			if (decimal > 8){ 
 				val = val.toFixed(0);
 			}
@@ -391,7 +501,6 @@
 			}
 			val = addCommas(val.split(''));
 		}
-			console.log(val);
 		updateDisplayValue(val);
 	}
 
