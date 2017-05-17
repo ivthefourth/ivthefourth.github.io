@@ -1,5 +1,45 @@
 //(function(){
 
+	/*****************
+	   Audio
+	******************/
+	var webAudio = window.AudioContext || window.webkitAudioContext;
+	if (webAudio){
+		var audioCtx = new webAudio();
+		var buffer = null;
+		var request = new XMLHttpRequest();
+		request.open('GET', 'keytap.wav', true);
+		request.responseType = 'arraybuffer';
+		request.onload = function(){
+			var audioData = request.response;
+			audioCtx.decodeAudioData(audioData, function(data){
+				buffer = data;
+			});
+		}
+		request.send();
+	
+		function playTap(){
+			if (buffer === null){
+				return;
+			}
+			var source = audioCtx.createBufferSource();
+			source.buffer = buffer;
+			source.connect(audioCtx.destination);
+			source.start(audioCtx.currentTime);
+		}
+	}
+	else{
+		//do nothing
+		function playTap(){
+			;
+		}
+	}
+
+
+
+	/*****************
+	   Data
+	******************/
 	var state = {
 
 		//user interface
@@ -72,6 +112,7 @@
 	function handleMouseDown(e){
 		e.preventDefault();
 		if( !state.isFocused ){
+			playTap();
 			e.currentTarget.classList.add('focused');
 			state.isFocused = true;
 			state.focusType = 'mouse';
@@ -113,6 +154,7 @@
 	function handleTouchStart(e){
 		e.preventDefault();
 		if( !state.isFocused ){
+			playTap();
 			e.currentTarget.classList.add('focused');
 			state.isFocused = true;
 			state.focusType = 'touch';
