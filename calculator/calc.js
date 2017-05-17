@@ -15,7 +15,8 @@
 		isNegative: false,      //User input is negative 
 		newInput: true,         //pushing number button starts new input 
 		clearType: 'all',       //Clear display or everything?
-		chainEquals: false,     //Repeat previous operation
+		chainEquals: false,     //set true after pressing equals, 
+		                           //allows repeat operations by pressing equals again
 
 		operatorActive: false,  //When an operator is selected (using negative will put 0 as input)
 
@@ -26,6 +27,7 @@
 		storedOperator: null,
 	}
 
+	//Dom elements
 	var buttons = document.getElementsByTagName('button');
 	var display = document.getElementById('result');
 	var clear = getButtonFromData(buttons, 'btnType', 'clear');
@@ -43,6 +45,7 @@
 		});
 	}
 
+	//returns first node frome list that matches given value for given html data attribute
 	function getButtonFromData(nodes, dataAttr, value){
 		var match;
 		Array.prototype.forEach.call(nodes, function(n){
@@ -58,6 +61,10 @@
 	/*****************
 	   Mouse Events
 	******************/
+	//done to emulate finger pressing and moving on phone screen
+	//touching a button highlights it
+	//moving finger to other buttons highlight them instead
+	//lifting finger triggers button that finger is on 
 	function handleMouseDown(e){
 		e.preventDefault();
 		if( !state.isFocused ){
@@ -312,17 +319,15 @@
 			result = operate(state.storedValue, state.storedOperator, result);
 			state.storedValue = null;
 			state.storedOperator = null;
+			state.currentValue = state.displayValue;
 
 			//function this VV
-			state.currentValue = state.displayValue;
 			updateResultValue(result);
 			inputEvaluated();
 			deactivateOperator();
 			state.chainEquals = true;
 		}
 		else if (state.currentValue !== null) {
-
-			//function this VV
 			if (!state.chainEquals){
 				var result = operate(state.currentValue, state.currentOperator, state.displayValue);
 				state.currentValue = state.displayValue;
@@ -330,6 +335,8 @@
 			else{
 				var result = operate(state.displayValue, state.currentOperator, state.currentValue);
 			}
+
+			//function this VV
 			updateResultValue(result);
 			inputEvaluated();
 			deactivateOperator();
@@ -337,10 +344,13 @@
 		}
 	}
 
+	//sets display value to given value
+	//processes value to display properly on screen
+	//i.e. removes trailing zeros, adds commas, etc. when necessary
 	function updateResultValue(val){
+			console.log(val);
 		state.displayValue = val;
-		//process numper, remove trailing 0s after decimal, restrict to 9 sig figs, etc
-		//err @ 1e<-100 and 1e>160
+		//err when value is NaN, 'Error', or very small/large (magnitude 10^[<-100 or >160])
 		if (
 			val !== val || val === 'Error' || val > 1e160 || val < -1e160 || 
 			val < 1e-100 && val > 0 || val > -1e-100 && val <0
@@ -348,42 +358,58 @@
 			val = 'Error';
 			state.displayValue = val;
 		}
+		//use scientific notation with large (10^[>9]) and small (10^[<-8]) values
 		else if (
 			     val >= 1e9 || val <= -1e9 ||
-		         val < 1e-8 && val > 0 || val > -1e-8 && val < 0
+		         val < 9.99999999e-9 && val > 0 || val > -9.99999999e-9 && val < 0
 		        ){
 			val = val.toExponential().split('');
 			var digit = val.splice(0, val.indexOf('e') );
 			var exponent = val.splice(1);
-			digit = Number(digit.join('')).toFixed(8 - exponent.length);
-			digit = digit.replace(/\.?0+$/,"");
-			exponent = parseInt(exponent.join('')).toString();
-			val = digit + 'e' + exponent;
+			var tempDigit = Number(digit.join('')).toFixed(8 - exponent.length);
+			if( Number(tempDigit) >= 10 ){
+				digit = (Number(digit.join(''))/10).toFixed(8 - exponent.length);
+				digit = digit.replace(/\.?0+$/,"");
+				exponent = (parseInt(exponent.join('')) + 1).toString();
+				val = digit + 'e' + exponent;
+			}
+			else{
+				digit = Number(digit.join('')).toFixed(8 - exponent.length);
+				digit = digit.replace(/\.?0+$/,"");
+				exponent = parseInt(exponent.join('')).toString();
+				val = digit + 'e' + exponent;
+			}
 		}
 		else{
-			var decimal = val.toString().split('').indexOf('.');
-			if (decimal === -1){
+			var decimal = val.toFixed(11).split('').indexOf('.');
+			console.log(decimal);
+			if (decimal > 8){ 
 				val = val.toFixed(0);
 			}
 			else{
 				val = val.toFixed(9 - decimal).replace(/\.?0+$/,"");
 			}
-			val = addComas(val.split(''));
+			val = addCommas(val.split(''));
 		}
+			console.log(val);
 		updateDisplayValue(val);
 	}
 
+	//sets display value on state and processes value to display on screen
+	//i.e. adds commas where necessary 
 	function updateInputValue(){
 		var val = state.input.slice(0); //clone input
 		if (state.isNegative){
 			val.unshift('-');
 		}
 		state.displayValue = Number( val.join(''));
-		val = addComas(val);
+		val = addCommas(val);
 		updateDisplayValue(val);
 	}
 
-	function addComas(val){
+	//takes array representation of a number and inserts commas where appropriate
+	// returns number as string
+	function addCommas(val){
 		var newVal = val.slice(0); //clone array
 		var decimal = newVal.indexOf('.');
 		if ( decimal === -1 ){
@@ -423,6 +449,9 @@
 		}
 	}
 
+	//resets some state variables when the user's input has been used
+	//and the display value is now a result
+	//allows user to press number buttons for fresh input
 	function inputEvaluated(){
 		state.input = [0];
 		state.inputLength = 1;
@@ -432,16 +461,17 @@
 		state.newInput = true;
 	}
 
+	//set state and update UI when an operator becomes selected/unselected
 	function activateOperator(){
 		state.operatorActive = true;
 		operators[state.currentOperator].classList.add('selected');
 	}
-
 	function deactivateOperator(){
 		state.operatorActive = false;
 		operators[state.currentOperator].classList.remove('selected');
 	}
 
+	//set state and update UI when changing between clear display/all
 	function setClear(type){
 		if (type !== 'display' && type !== 'all'){
 			throw new Error('Invalid value for clear: ' + type);
@@ -449,7 +479,6 @@
 		state.clearType = type;
 		updateClearButton(type);
 	}
-
 	function updateClearButton(type){
 		if (type === 'all'){
 			clear.innerText = 'AC';
@@ -458,6 +487,8 @@
 			clear.innerText = 'C';
 		}
 	}
+
+	//sends val to UI result window element 
 	function updateDisplayValue(val){
 		display.innerText = val;
 	}
