@@ -4,7 +4,7 @@
 	   Audio
 	******************/
 	var webAudio = window.AudioContext || window.webkitAudioContext;
-	alert(webAudio);
+	var playTap;
 	if (webAudio){
 		var audioCtx = new webAudio();
 		var buffer = null;
@@ -15,17 +15,14 @@
 			var audioData = request.response;
 			audioCtx.decodeAudioData(audioData, function(data){
 				buffer = data;
-				alert('audio loaded');
 			});
 		}
 		request.send();
 	
-		function playTap(){
+		playTap = function(){
 			if (buffer === null){
-				alert('dont play');
 				return;
 			}
-			alert('play');
 			var source = audioCtx.createBufferSource();
 			source.buffer = buffer;
 			source.connect(audioCtx.destination);
@@ -34,8 +31,8 @@
 	}
 	else{
 		//do nothing
-		function playTap(){
-			alert('else');
+		playTap = function(){
+			;
 		}
 	}
 
