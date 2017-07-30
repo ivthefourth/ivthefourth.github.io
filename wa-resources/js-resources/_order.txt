@@ -1,9 +1,0 @@
-head.js
-waparams.js
-wanodes.js
-controllers.js
-parameters.js
-eartraining.js
-closehead.js
-helperfunctions.js
-visualfunctions.js
