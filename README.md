@@ -4,7 +4,7 @@ This repository contains my current portfolio page.
 
 ## Notable portfolio projects:
 * Portfolio
-  * https://ivthefourth.github.io/portfolio/
+  * https://ivthefourth.github.io/
 * EQ Ear Training App
   * [Code](https://github.com/ivthefourth/ear-training-app)
   * [Demo](https://ivthefourth.github.io/ear-training-app/)
